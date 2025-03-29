@@ -1,0 +1,11 @@
+# IDEs
+.vs/
+.vscode/
+.idea/
+
+# Generated project files
+bin/
+obj/
+Content/obj/
+Content/bin/
+Release/
