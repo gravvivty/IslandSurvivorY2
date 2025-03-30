@@ -16,7 +16,6 @@ namespace SWEN_Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private GameManager _gameManager;
 
         public MainGame()
         {
@@ -41,13 +40,7 @@ namespace SWEN_Game
         {
             // Create neccessary classes and set Global Values
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Globals.SpriteBatch = _spriteBatch;
-            Globals.Content = Content;
-            Globals.File = LDtkFile.FromFile("World", Content);
-            Globals.World = Globals.File.LoadWorld(Worlds.World.Iid);
-            Globals.Collisions = new List<Rectangle>();
-            Globals.Graphics = _graphics;
-            _gameManager = new GameManager();
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -58,9 +51,6 @@ namespace SWEN_Game
                 Exit();
 
             // TODO: Add your update logic here
-            // Update 
-            _gameManager.Update();
-            Globals.UpdateTime(gameTime);
 
             base.Update(gameTime);
         }
@@ -70,7 +60,6 @@ namespace SWEN_Game
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _gameManager.Draw();
 
             base.Draw(gameTime);
         }
