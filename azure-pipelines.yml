@@ -8,6 +8,7 @@ trigger:
 - main
 
 pool:
+  name: Default
   vmImage: windows-latest
 
 steps:
