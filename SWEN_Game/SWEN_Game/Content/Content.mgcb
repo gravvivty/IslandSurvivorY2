@@ -10,7 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference: .\Extensions\LDtk.ContentPipeline.dll
+/reference: ..\Extensions\LDtk.ContentPipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
