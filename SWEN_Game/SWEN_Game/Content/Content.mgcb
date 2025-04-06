@@ -10,19 +10,9 @@
 
 #-------------------------------- References --------------------------------#
 
-#---------------------------------- Content ---------------------------------#
+/reference:..\External\ldtkmonogame.contentpipeline\1.6.0\lib\net8.0\LDtk.ContentPipeline.dll
 
-#begin hm_1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:hm_1.png
+#---------------------------------- Content ---------------------------------#
 
 #begin Bridge_Wood-export.png
 /importer:TextureImporter
@@ -47,4 +37,21 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Cliff_Tile-export.png
+
+#begin hm_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:hm_1.png
+
+#begin world.ldtk
+/importer:
+/processor:
+/build:world.ldtk
 
