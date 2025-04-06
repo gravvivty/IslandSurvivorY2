@@ -10,8 +10,6 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference: ./Extensions\LDtk.ContentPipeline.dll
-
 #---------------------------------- Content ---------------------------------#
 
 #begin hm_1.png
@@ -49,9 +47,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Cliff_Tile-export.png
-
-#begin world.ldtk
-/importer:LDtkFileImporter
-/processor:LDtkFileProcessor
-/build:world.ldtk
 
