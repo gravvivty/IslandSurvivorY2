@@ -21,5 +21,51 @@ namespace SWEN_Game
             _spriteManager = spriteManager;
             _spriteCalculator = spriteCalculator;
         }
+
+        public Matrix CalcTranslation()
+        {
+            MouseState mouseState = Mouse.GetState();
+            Vector2 screenCenter = new Vector2(
+                Globals.Graphics.PreferredBackBufferWidth / 2f,
+                Globals.Graphics.PreferredBackBufferHeight / 2f);
+
+            // Raw mouse offset from the screen center -> cuz character is center of screen
+            Vector2 rawMouseOffset = new Vector2(mouseState.X, mouseState.Y) - screenCenter;
+
+            float maxMouseRange = Globals.WindowSize.X; // Mouse can affect camera within this range
+            float maxCameraOffset = 30f; // Camera shifts within this range
+
+            // Scales the Offset down - 0->maxMouseRange gets scaled to 0->maxCameraOffset
+            // Ensures Camera smoothness
+            Vector2 mouseOffset = rawMouseOffset * (maxCameraOffset / maxMouseRange);
+
+            // Ensure the final offset never exceeds maxCameraOffset
+            if (mouseOffset.Length() > maxCameraOffset)
+            {
+                mouseOffset.Normalize(); // Keep direction
+                mouseOffset = mouseOffset * maxCameraOffset; // Clamp to maxCameraOffset
+            }
+
+            return Matrix.CreateTranslation(
+                -_player.RealPos.X - mouseOffset.X,
+                -_player.RealPos.Y - mouseOffset.Y,
+                0) *
+                Matrix.CreateScale(Globals.Zoom, Globals.Zoom, 1f) *
+                Matrix.CreateTranslation(screenCenter.X, screenCenter.Y, 0);
+        }
+
+        // Draw a tile with its depth computed from its world position
+        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
+        {
+            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
+            spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
+        }
+
+        // Forced depth (with overload)
+        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, float anchorDepth, LayerInstance layer)
+        {
+            float depth = _spriteManager.GetDepth(anchorDepth, layer);
+            spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
+        }
     }
 }
