@@ -134,7 +134,7 @@ namespace SWEN_Game
         }
 
         // Forced depth (with overload)
-        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect)
+        private void DrawTile()
         {
             
         }
