@@ -9,14 +9,14 @@ namespace SWEN_Game
         private readonly Player _player;
         //private readonly Renderer _renderer;
         private readonly SpriteManager _spriteManager;
-        //private readonly SpriteCalculator _spriteCalculator;
+        private readonly SpriteCalculator _spriteCalculator;
         //private readonly Debug _debug;
 
         public GameManager()
         {
             _spriteManager = new SpriteManager();
             _player = new Player(_spriteManager);
-            //_spriteCalculator = new SpriteCalculator(_spriteManager, _player);
+            _spriteCalculator = new SpriteCalculator(_spriteManager, _player);
             //_renderer = new Renderer(_player, _spriteManager, _spriteCalculator);
             //_debug = new Debug(_player, _renderer);
 
