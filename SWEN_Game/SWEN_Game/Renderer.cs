@@ -63,7 +63,7 @@ namespace SWEN_Game
                     // For background layers, draw with a forced depth of 0 (ensuring they render behind all other tiles).
                     if (isBackground)
                     {
-                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer, 0);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
                         continue;
                     }
 
@@ -83,16 +83,16 @@ namespace SWEN_Game
                     if (!string.IsNullOrEmpty(foundEnumTag) &&
                         anchorDepths.TryGetValue(foundEnumTag, out float anchorDepth))
                     {
-                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer, anchorDepth);
+                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, anchorDepth, layer);
                     }
                     else
                     {
-                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer, 0);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
                     }
                 }
             }
 
-            //_player.Draw();
+            _player.Draw();
         }
 
         public Matrix CalcTranslation()
@@ -128,9 +128,9 @@ namespace SWEN_Game
         }
 
         // Draw a tile with its depth computed from its world position
-        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer, float possibleAnchor)
+        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
         {
-            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer, possibleAnchor);
+            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
             spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
     }

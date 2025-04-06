@@ -65,14 +65,9 @@ namespace SWEN_Game
         // Computes a layer depth value based on the object's Y position.
         // Lower Y (closer to the top) yields a lower depth value.
         // Spritelayers without anchor or out of Player Range
-        public float GetDepth(Vector2 position, float spriteHeight, LayerInstance layer, float depth)
+        public float GetDepth(Vector2 position, float spriteHeight, LayerInstance layer)
         {
-            float newDepth=0;
-            if (depth == 0)
-            {
-                newDepth = (position.Y + spriteHeight) / 1000f;
-            }
-
+            float depth = (position.Y + spriteHeight) / 1000f;
             float layerOffset = 0;
 
             // low layerOffset --> Foreground
@@ -91,16 +86,14 @@ namespace SWEN_Game
                     layerOffset = 2;
                     break;
                 case "Deco_Background":
-                    newDepth = 0.0001f;
-                    layerOffset = 0;
+                    depth = 0.0001f;
                     break;
                 case "Background":
-                    newDepth = 0f;
-                    layerOffset = 0;
+                    depth = 0f;
                     break;
             }
 
-            return newDepth - (layerOffset / 1000);
+            return depth - (layerOffset / 1000);
         }
 
         // Player or Anchor Depths
