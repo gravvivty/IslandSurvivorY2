@@ -133,10 +133,5 @@ namespace SWEN_Game
             spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
 
-        // Forced depth (with overload)
-        private void CalculateOffset(Texture2D texture, Rectangle sourceRect)
-        {
-            
-        }
     }
 }
