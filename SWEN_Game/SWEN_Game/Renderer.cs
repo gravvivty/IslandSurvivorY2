@@ -63,7 +63,7 @@ namespace SWEN_Game
                     // For background layers, draw with a forced depth of 0 (ensuring they render behind all other tiles).
                     if (isBackground)
                     {
-                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
                         continue;
                     }
 
@@ -87,7 +87,7 @@ namespace SWEN_Game
                     }
                     else
                     {
-                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
                     }
                 }
             }
@@ -130,7 +130,7 @@ namespace SWEN_Game
         private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
         {
             float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
-            Globals.SpriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
+            spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
 
     }
