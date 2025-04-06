@@ -7,7 +7,7 @@ namespace SWEN_Game
     public class GameManager
     {
         private readonly Player _player;
-        private readonly Renderer _renderer;
+        //private readonly Renderer _renderer;
         private readonly SpriteManager _spriteManager;
         private readonly SpriteCalculator _spriteCalculator;
         //private readonly Debug _debug;
