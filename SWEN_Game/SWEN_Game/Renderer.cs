@@ -22,6 +22,78 @@ namespace SWEN_Game
             _spriteCalculator = spriteCalculator;
         }
 
+        /// <summary>
+        /// Draws the entire game world including background tiles, sprite groups, the player, and collision boxes.
+        /// </summary>
+        /// <remarks>
+        /// This method precomputes anchor depths for sprite groups near the player, applies the camera transformation,
+        /// and renders background layers, grouped tiles with shared depth based on their anchor tile, as well as other game entities.
+        /// </remarks>
+        public void DrawWorld()
+        {
+            // Precompute anchor depths for sprite groups within a specific radius around the player.
+            // This groups tiles by their EnumTag and uses the nearest anchor tile's Y value for consistent depth.
+            var anchorDepths = _spriteCalculator.SpriteGroupAnchorCalculation(DepthRadius);
+
+            // Get the current level and mapping between EnumTags and tile IDs.
+            var level = Globals.World.Levels[0];
+            var tileMappings = _spriteManager.GetTileMappings();
+
+            // Process each layer in the level.
+            foreach (var layer in level.LayerInstances)
+            {
+                bool isBackground = layer._Identifier == "Background";
+
+                // Skip layers without an associated tileset texture.
+                if (layer._TilesetRelPath == null)
+                {
+                    continue;
+                }
+
+                // Retrieve the texture for this tileset.
+                Texture2D tilesetTexture = _spriteManager.GetTilesetTextureFromRenderer(level, layer._TilesetRelPath);
+
+                // Process each tile in the current layer.
+                foreach (var tile in layer.GridTiles)
+                {
+                    // Calculate the world position of the tile by applying layer offsets.
+                    Vector2 position = new(tile.Px.X + layer._PxTotalOffsetX, tile.Px.Y + layer._PxTotalOffsetY);
+                    Rectangle srcRect = new(tile.Src.X, tile.Src.Y, layer._GridSize, layer._GridSize);
+
+                    // For background layers, draw with a forced depth of 0 (ensuring they render behind all other tiles).
+                    if (isBackground)
+                    {
+                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
+                        continue;
+                    }
+
+                    // Determine if the tile belongs to a sprite group by checking its tile ID in the mappings.
+                    string foundEnumTag = null;
+                    foreach (var (enumTag, ids) in tileMappings)
+                    {
+                        if (ids.Contains(tile.T))
+                        {
+                            foundEnumTag = enumTag;
+                            break;
+                        }
+                    }
+
+                    // If the tile is part of a sprite group and an anchor depth has been computed for that group,
+                    // use the group's anchor depth for all its tiles. Otherwise, calculate depth per tile normally.
+                    if (!string.IsNullOrEmpty(foundEnumTag) &&
+                        anchorDepths.TryGetValue(foundEnumTag, out float anchorDepth))
+                    {
+                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, anchorDepth, layer);
+                    }
+                    else
+                    {
+                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
+                    }
+                }
+            }
+
+            //_player.Draw();
+        }
         public Matrix CalcTranslation()
         {
             MouseState mouseState = Mouse.GetState();
