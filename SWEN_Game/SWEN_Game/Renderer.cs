@@ -63,7 +63,7 @@ namespace SWEN_Game
                     // For background layers, draw with a forced depth of 0 (ensuring they render behind all other tiles).
                     if (isBackground)
                     {
-                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer, 0);
                         continue;
                     }
 
@@ -83,17 +83,18 @@ namespace SWEN_Game
                     if (!string.IsNullOrEmpty(foundEnumTag) &&
                         anchorDepths.TryGetValue(foundEnumTag, out float anchorDepth))
                     {
-                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, anchorDepth, layer);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer, anchorDepth);
                     }
                     else
                     {
-                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer);
+                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, layer, 0);
                     }
                 }
             }
 
             //_player.Draw();
         }
+
         public Matrix CalcTranslation()
         {
             MouseState mouseState = Mouse.GetState();
@@ -127,11 +128,10 @@ namespace SWEN_Game
         }
 
         // Draw a tile with its depth computed from its world position
-        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
+        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer, float possibleAnchor)
         {
-            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
+            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer, possibleAnchor);
             spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
-
     }
 }
