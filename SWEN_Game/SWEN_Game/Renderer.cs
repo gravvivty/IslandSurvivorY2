@@ -53,5 +53,12 @@ namespace SWEN_Game
                 Matrix.CreateScale(Globals.Zoom, Globals.Zoom, 1f) *
                 Matrix.CreateTranslation(screenCenter.X, screenCenter.Y, 0);
         }
+
+        // Draw a tile with its depth computed from its world position
+        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
+        {
+            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
+            spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
+        }
     }
 }
