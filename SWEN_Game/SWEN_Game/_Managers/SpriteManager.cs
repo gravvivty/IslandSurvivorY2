@@ -67,9 +67,10 @@ namespace SWEN_Game
         // Spritelayers without anchor or out of Player Range
         public float GetDepth(Vector2 position, float spriteHeight, LayerInstance layer, float depth)
         {
+            float newDepth=0;
             if (depth == 0)
             {
-                float newDepth = (position.Y + spriteHeight) / 1000f;
+                newDepth = (position.Y + spriteHeight) / 1000f;
             }
 
             float layerOffset = 0;
@@ -90,14 +91,16 @@ namespace SWEN_Game
                     layerOffset = 2;
                     break;
                 case "Deco_Background":
-                    depth = 0.0001f;
+                    newDepth = 0.0001f;
+                    layerOffset = 0;
                     break;
                 case "Background":
-                    depth = 0f;
+                    newDepth = 0f;
+                    layerOffset = 0;
                     break;
             }
 
-            return depth - (layerOffset / 1000);
+            return newDepth - (layerOffset / 1000);
         }
 
         // Player or Anchor Depths
