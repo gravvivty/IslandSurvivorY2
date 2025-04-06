@@ -51,7 +51,7 @@
 /build:hm_1.png
 
 #begin world.ldtk
-/importer:
-/processor:
+/importer:LDtkFileImporter
+/processor:LDtkFileProcessor
 /build:world.ldtk
 
