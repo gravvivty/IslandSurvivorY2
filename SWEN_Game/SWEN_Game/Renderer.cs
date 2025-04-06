@@ -10,7 +10,7 @@ namespace SWEN_Game
 {
     public class Renderer
     {
-        private readonly float DepthRadius = 120f;
+        private static readonly float DepthRadius = 120f;
         private Player _player;
         private SpriteManager _spriteManager;
         private SpriteCalculator _spriteCalculator;
@@ -131,6 +131,13 @@ namespace SWEN_Game
         private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
         {
             float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
+            spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
+        }
+
+        // This causes the Pipeline to fail idk why even - it doesnt even get called as of now
+        private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, float anchorDepth, LayerInstance layer)
+        {
+            float depth = _spriteManager.GetDepth(anchorDepth, layer);
             spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
     }
