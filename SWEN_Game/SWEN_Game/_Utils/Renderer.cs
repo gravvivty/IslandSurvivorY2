@@ -36,25 +36,7 @@ namespace SWEN_Game
             // This groups tiles by their EnumTag and uses the nearest anchor tile's Y value for consistent depth.
             var anchorDepths = _spriteCalculator.SpriteGroupAnchorCalculation(DepthRadius);
 
-            // Get the current level and mapping between EnumTags and tile IDs.
-            var level = Globals.World.Levels[0];
-            var tileMappings = _spriteManager.GetTileMappings();
 
-            // Process each layer in the level.
-            foreach (var layer in level.LayerInstances)
-            {
-                bool isBackground = layer._Identifier == "Background";
-
-                // Skip layers without an associated tileset texture.
-                if (layer._TilesetRelPath == null)
-                {
-                    continue;
-                }
-
-
-            }
-
-            _player.Draw();
         }
 
         public Matrix CalcTranslation()
