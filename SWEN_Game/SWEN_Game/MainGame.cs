@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assimp.Configs;
+﻿using System.Collections.Generic;
 using LDtk;
 using LDtkTypes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using static LDtkTypes.Worlds;
 
 namespace SWEN_Game
 {
@@ -21,10 +16,11 @@ namespace SWEN_Game
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
 
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.HardwareModeSwitch = false;
             _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
         }
@@ -40,6 +36,13 @@ namespace SWEN_Game
         {
             // Create neccessary classes and set Global Values
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.SpriteBatch = _spriteBatch;
+            Globals.Content = Content;
+            Globals.File = LDtkFile.FromFile("World", Content);
+            Globals.World = Globals.File.LoadWorld(Worlds.World.Iid);
+            Globals.Collisions = new List<Rectangle>();
+            Globals.Graphics = _graphics;
+            Globals.WindowSize = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             // TODO: use this.Content to load your game content here
         }
@@ -52,13 +55,15 @@ namespace SWEN_Game
             }
 
             // TODO: Add your update logic here
+            // Update
+            Globals.UpdateTime(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
