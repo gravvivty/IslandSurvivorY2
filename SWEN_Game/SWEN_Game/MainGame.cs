@@ -11,7 +11,6 @@ namespace SWEN_Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private GameManager _gameManager;
 
         public MainGame()
         {
@@ -44,7 +43,6 @@ namespace SWEN_Game
             Globals.Collisions = new List<Rectangle>();
             Globals.Graphics = _graphics;
             Globals.WindowSize = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            _gameManager = new GameManager();
 
             // TODO: use this.Content to load your game content here
         }
@@ -58,7 +56,6 @@ namespace SWEN_Game
 
             // TODO: Add your update logic here
             // Update
-            _gameManager.Update();
             Globals.UpdateTime(gameTime);
 
             base.Update(gameTime);
@@ -69,7 +66,6 @@ namespace SWEN_Game
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            _gameManager.Draw();
 
             base.Draw(gameTime);
         }
