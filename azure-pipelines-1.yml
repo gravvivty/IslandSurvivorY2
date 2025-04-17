@@ -3,7 +3,6 @@ trigger:
     include:
     - '*'
 name: $(date:yyyyMMdd)$(rev:.r)
-
 variables:
 - name: solution
   value: '**/*.sln'
@@ -11,7 +10,6 @@ variables:
   value: 'Any CPU'
 - name: buildConfiguration
   value: 'Release'
-
 stages:
 - stage: __default
   jobs:
@@ -20,9 +18,9 @@ stages:
       name: Agentpool-5
     steps:
     - task: NuGetToolInstaller@1
-      displayName: Use NuGet
+      displayName: Use NuGet 6.11
       inputs:
-        versionSpec: '6.13.2'
+        versionSpec: 6.11
     - task: NuGetCommand@2
       displayName: NuGet restore
       inputs:
@@ -79,3 +77,4 @@ stages:
       inputs:
         PathtoPublish: $(build.artifactstagingdirectory)
         TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+
