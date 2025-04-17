@@ -38,7 +38,7 @@ stages:
       displayName: Run Tests
       inputs:
         command: test
-        projects: '**/*Test/*.csproj'
+        projects: '**/*Tests/*.csproj'
         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- RunConfiguration.DisableAppDomain=true'
         workingDirectory: $(Build.SourcesDirectory)
     - task: DotNetCoreCLI@2
