@@ -3,15 +3,13 @@ trigger:
     include:
     - '*'
 name: $(date:yyyyMMdd)$(rev:.r)
-
 variables:
 - name: solution
-  value: '/*.sln'
+  value: '**/*.sln'
 - name: buildPlatform
   value: 'Any CPU'
 - name: buildConfiguration
   value: 'Release'
-
 stages:
 - stage: __default
   jobs:
@@ -20,9 +18,9 @@ stages:
       name: Agentpool-5
     steps:
     - task: NuGetToolInstaller@1
-      displayName: Use NuGet
+      displayName: Use NuGet 6.11
       inputs:
-        versionSpec: '6.13.2'
+        versionSpec: 6.11
     - task: NuGetCommand@2
       displayName: NuGet restore
       inputs:
@@ -40,7 +38,7 @@ stages:
       displayName: Run Tests
       inputs:
         command: test
-        projects: '/*Test/*.csproj'
+        projects: '**/*Test/*.csproj'
         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- RunConfiguration.DisableAppDomain=true'
         workingDirectory: $(Build.SourcesDirectory)
     - task: DotNetCoreCLI@2
@@ -52,7 +50,7 @@ stages:
     - task: CmdLine@2
       displayName: Create reports
       inputs:
-        script: reportgenerator -reports:$(Agent.TempDirectory)//coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
+        script: reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
     - task: PublishCodeCoverageResults@1
       displayName: Publish code coverage results
       inputs:
@@ -63,7 +61,7 @@ stages:
       continueOnError: True
       enabled: False
       inputs:
-        SearchPattern: '\bin\\*.pdb'
+        SearchPattern: '**\bin\**\*.pdb'
         PublishSymbols: false
         SymbolServerType: TeamServices
     - task: CopyFiles@2
@@ -71,7 +69,7 @@ stages:
       condition: succeededOrFailed()
       inputs:
         SourceFolder: $(system.defaultworkingdirectory)
-        Contents: '\bin\$(BuildConfiguration)\'
+        Contents: '**\bin\$(BuildConfiguration)\**'
         TargetFolder: $(build.artifactstagingdirectory)
     - task: PublishBuildArtifacts@1
       displayName: 'Publish artifact: drop'
@@ -79,3 +77,4 @@ stages:
       inputs:
         PathtoPublish: $(build.artifactstagingdirectory)
         TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+
