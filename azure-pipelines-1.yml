@@ -17,7 +17,7 @@ stages:
   jobs:
   - job: Job
     pool:
-      name: Agentpool-1
+      name: Agentpool-5
     steps:
     - task: NuGetToolInstaller@1
       displayName: Use NuGet
@@ -40,7 +40,7 @@ stages:
       displayName: Run Tests
       inputs:
         command: test
-        projects: '**/*dev_test/*.csproj'
+        projects: '**/*GameTests/*.csproj'
         arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- RunConfiguration.DisableAppDomain=true'
         workingDirectory: $(Build.SourcesDirectory)
     - task: DotNetCoreCLI@2
