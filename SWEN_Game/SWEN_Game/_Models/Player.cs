@@ -9,8 +9,8 @@ namespace SWEN_Game
 {
     public class Player
     {
-        private readonly SpriteManager _spriteManager;
-        private readonly AnimationManager _anims = new();
+        private SpriteManager _spriteManager;
+        private AnimationManager _anims = new();
 
         // For general enemies/entities we can copy most of these variables
         public Texture2D Texture { get; private set; }
@@ -22,17 +22,18 @@ namespace SWEN_Game
         public Vector2 RealPos { get; private set; }
         public float Speed { get; private set; }
 
-        public Player(SpriteManager spriteManager)
+        public Player()
+        {
+            Speed = 120f;
+            // Spawn Pos
+            Position = new Vector2(100, 100);
+            // Offset Pos - used for actually comparing positions
+            RealPos = new Vector2(106, 108);
+        }
+        public void AddSpriteManager(SpriteManager spriteManager)
         {
             Texture = Globals.Content.Load<Texture2D>("player");
             _spriteManager = spriteManager;
-            Speed = 120f;
-
-            // Spawn Pos
-            Position = new Vector2(100, 100);
-
-            // Offset Pos - used for actually comparing positions
-            RealPos = new Vector2(106, 108);
 
             _anims.AddAnimation(new Vector2(0, -1), new(Texture, 1, 3, 0.1f, _spriteManager, 1));
             _anims.AddAnimation(new Vector2(1, -1), new(Texture, 1, 3, 0.1f, _spriteManager, 2));
@@ -52,7 +53,18 @@ namespace SWEN_Game
 
         public void Update()
         {
-            _anims.Update(InputManager.GetDirection());
+            _anims.Update(GetDirection());
+        }
+
+        private Vector2 _direction;
+        public void SetDirection(Vector2 direction)
+        {
+            _direction = direction;
+        }
+
+        public Vector2 GetDirection()
+        {
+            return _direction;
         }
 
         public void Draw()

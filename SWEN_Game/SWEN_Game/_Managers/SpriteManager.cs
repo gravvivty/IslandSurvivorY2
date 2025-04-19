@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LDtk;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SWEN_Game
 {
@@ -11,6 +12,7 @@ namespace SWEN_Game
         private Dictionary<string, List<int>> tileMappings = new Dictionary<string, List<int>>();
 
         private Dictionary<string, Dictionary<int, List<Vector2>>> tileGroups = new();
+        private Texture2D cursorTexture;
 
         /*
         "House": {
@@ -26,7 +28,7 @@ namespace SWEN_Game
         // so now we can go through this collection and see which anchorTileID is closest to the tile that just came into our radius
         public SpriteManager()
         {
-            MapTileToTexture();
+            cursorTexture = Globals.Content.Load<Texture2D>("crosshair");
         }
 
         public Dictionary<string, Dictionary<int, List<Vector2>>> GetTileGroups()
@@ -125,7 +127,7 @@ namespace SWEN_Game
             return depth - (layerOffset / 1000);
         }
 
-        private void MapTileToTexture()
+        public void MapTileToTexture()
         {
             Vector2 invalid = new Vector2(-1, -1);
 
@@ -209,6 +211,33 @@ namespace SWEN_Game
 
             // No matching tile with ID
             return positions;
+        }
+
+        public void DrawCursor()
+        {
+            MouseState mouse = Mouse.GetState();
+
+            // Downscale Mouse Pos
+            Vector2 worldMousePos = new Vector2(mouse.X, mouse.Y) / Globals.Zoom;
+
+            // Matrix also upscales MousePos - that's why worldMousePos
+            Globals.SpriteBatch.Begin(
+                SpriteSortMode.FrontToBack,
+                transformMatrix: Matrix.CreateScale(Globals.Zoom, Globals.Zoom, 1f),
+                samplerState: SamplerState.PointClamp);
+
+            Globals.SpriteBatch.Draw(
+                cursorTexture,
+                worldMousePos,
+                null,
+                Color.White,
+                0f,
+                new Vector2(5, 5),
+                1f,
+                SpriteEffects.None,
+                1f);
+
+            Globals.SpriteBatch.End();
         }
     }
 }

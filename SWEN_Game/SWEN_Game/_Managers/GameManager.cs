@@ -16,7 +16,9 @@ namespace SWEN_Game
         public GameManager()
         {
             _spriteManager = new SpriteManager();
-            _player = new Player(_spriteManager);
+            _spriteManager.MapTileToTexture();
+            _player = new Player();
+            _player.AddSpriteManager(_spriteManager);
             _spriteCalculator = new SpriteCalculator(_spriteManager, _player);
             _renderer = new Renderer(_player, _spriteManager, _spriteCalculator);
 
@@ -47,7 +49,7 @@ namespace SWEN_Game
             Globals.SpriteBatch.End();
 
             _debug.DrawWorldDebug();
-            InputManager.DrawCursor();
+            _spriteManager.DrawCursor();
 
             System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
         }
