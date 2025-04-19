@@ -22,8 +22,8 @@ namespace SWEN_GameTests.ManagersTest
             InputManager.Update(player, new KeyboardState(Keys.W));
 
             // Assert
-            Assert.AreEqual(-20, player.Position.Y, "Player sollte sich nach oben bewegen.");
-            Assert.AreEqual(100, player.Position.X, "Player sollte sich nicht nach links oder rechts bewegen.");
+            Assert.AreEqual(-20, player.Position.Y);
+            Assert.AreEqual(100, player.Position.X);
         }
         [TestMethod]
         public void Update_SKeyPressed_PlayerMovesDown()
@@ -34,10 +34,32 @@ namespace SWEN_GameTests.ManagersTest
 
             InputManager.Update(player, new KeyboardState(Keys.S));
             // Assert
-            Assert.AreEqual(220, player.Position.Y, "Player sollte sich nach unten bewegen.");
-            Assert.AreEqual(100, player.Position.X, "Player sollte sich nicht nach links oder rechts bewegen.");
+            Assert.AreEqual(220, player.Position.Y);
+            Assert.AreEqual(100, player.Position.X);
+        }
+        [TestMethod]
+        public void Update_AKeyPressed_PlayerMovesLeft()
+        {
+            // Arrange
+            var player = new Player();
+            Globals.Time = 1f;
+            InputManager.Update(player, new KeyboardState(Keys.A));
+            // Assert
+            Assert.AreEqual(100, player.Position.Y);
+            Assert.AreEqual(-20, player.Position.X);
         }
 
+        [TestMethod]
+        public void Update_DKeyPressed_PlayerMovesRight()
+        {
+            // Arrange
+            var player = new Player();
+            Globals.Time = 1f;
+            InputManager.Update(player, new KeyboardState(Keys.D));
+            // Assert
+            Assert.AreEqual(100, player.Position.Y);
+            Assert.AreEqual(220, player.Position.X);
+        }
     }
 }
 
