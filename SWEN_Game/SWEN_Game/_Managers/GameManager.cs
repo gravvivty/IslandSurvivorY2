@@ -10,8 +10,7 @@ namespace SWEN_Game
         private readonly Renderer _renderer;
         private readonly SpriteManager _spriteManager;
         private readonly SpriteCalculator _spriteCalculator;
-
-        // private readonly Debug _debug;
+        private readonly Debug _debug;
 
         public GameManager()
         {
@@ -20,7 +19,7 @@ namespace SWEN_Game
             _spriteCalculator = new SpriteCalculator(_spriteManager, _player);
             _renderer = new Renderer(_player, _spriteManager, _spriteCalculator);
 
-            // _debug = new Debug(_player, _renderer);
+            _debug = new Debug(_player, _renderer);
 
             // Calculates ALL collisions in the level
             Globals.CalculateAllCollisions();
@@ -45,7 +44,7 @@ namespace SWEN_Game
             _renderer.DrawWorld();
             Globals.SpriteBatch.End();
 
-           // _debug.DrawWorldDebug();
+            _debug.DrawWorldDebug();
             InputManager.DrawCursor();
 
             System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
