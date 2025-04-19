@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SWEN_Game
 {
@@ -30,7 +31,8 @@ namespace SWEN_Game
             System.Diagnostics.Debug.WriteLine("GameManager Update running" + DateTime.Now);
 
             // Every Frame check input
-            InputManager.Update(_player);
+            KeyboardState keyboard = Keyboard.GetState();
+            InputManager.Update(_player, keyboard);
             _player.Update();
         }
 

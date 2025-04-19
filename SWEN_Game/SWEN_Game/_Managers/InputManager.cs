@@ -12,14 +12,12 @@ namespace SWEN_Game
         private static Texture2D cursorTexture = Globals.Content.Load<Texture2D>("crosshair");
 
         private static Vector2 moveDirection;
-        public static void Update(Player player)
+        public static void Update(Player player, KeyboardState keyboardState)
         {
             moveDirection = Vector2.Zero;
 
             // How long was the button held
             float delta = Globals.Time;
-            KeyboardState keyboardState;
-            keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.W)) { moveDirection.Y = -1; }
             if (keyboardState.IsKeyDown(Keys.S)) { moveDirection.Y = 1; }
             if (keyboardState.IsKeyDown(Keys.A)) { moveDirection.X = -1; }
