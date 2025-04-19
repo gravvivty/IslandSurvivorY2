@@ -28,13 +28,15 @@ namespace SWEN_Game
 
         public void Update()
         {
+            System.Diagnostics.Debug.WriteLine("GameManager Update running" + DateTime.Now);
+
             // Every Frame check input
             InputManager.Update(_player);
             _player.Update();
         }
 
         public void Draw()
-        {/*
+        {
             // Begin the sprite batch with depth sorting (FrontToBack) and apply the camera transformation.
             Globals.SpriteBatch.Begin(
                 SpriteSortMode.FrontToBack,
@@ -42,9 +44,11 @@ namespace SWEN_Game
                 samplerState: SamplerState.PointClamp);
             _renderer.DrawWorld();
             Globals.SpriteBatch.End();
-            _debug.DrawWorldDebug();
 
+           // _debug.DrawWorldDebug();
             InputManager.DrawCursor();
-       */ }
+
+            System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
+        }
     }
 }
