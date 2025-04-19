@@ -10,7 +10,8 @@ namespace SWEN_Game
         private readonly Renderer _renderer;
         private readonly SpriteManager _spriteManager;
         private readonly SpriteCalculator _spriteCalculator;
-        //private readonly Debug _debug;
+
+        // private readonly Debug _debug;
 
         public GameManager()
         {
@@ -18,7 +19,8 @@ namespace SWEN_Game
             _player = new Player(_spriteManager);
             _spriteCalculator = new SpriteCalculator(_spriteManager, _player);
             _renderer = new Renderer(_player, _spriteManager, _spriteCalculator);
-            //_debug = new Debug(_player, _renderer);
+
+            // _debug = new Debug(_player, _renderer);
 
             // Calculates ALL collisions in the level
             Globals.CalculateAllCollisions();
