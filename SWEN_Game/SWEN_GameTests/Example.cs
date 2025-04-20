@@ -1,4 +1,6 @@
-﻿namespace SWEN_GameTests
+﻿using Microsoft.Xna.Framework;
+
+namespace SWEN_GameTests
 {
     using SWEN_Game;
     using System.Diagnostics.CodeAnalysis;
