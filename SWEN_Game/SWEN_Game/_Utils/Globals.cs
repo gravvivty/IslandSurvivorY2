@@ -67,6 +67,7 @@ namespace SWEN_Game
             {
                 return false;
             }
+
             // Assumes entity collision as small rectangle at the very bottom of the Sprite
             Rectangle entityRect = new Rectangle(
                 (int)pos.X + 5,

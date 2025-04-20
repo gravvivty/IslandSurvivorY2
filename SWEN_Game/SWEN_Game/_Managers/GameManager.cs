@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game;
 
 namespace SWEN_Game
 {
@@ -49,7 +50,7 @@ namespace SWEN_Game
             Globals.SpriteBatch.End();
 
             _debug.DrawWorldDebug();
-            _spriteManager.DrawCursor();
+            Cursor.DrawCursor();
 
             System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
         }

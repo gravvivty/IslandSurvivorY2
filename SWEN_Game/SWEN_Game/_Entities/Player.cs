@@ -25,11 +25,14 @@ namespace SWEN_Game
         public Player()
         {
             Speed = 120f;
+
             // Spawn Pos
             Position = new Vector2(100, 100);
+
             // Offset Pos - used for actually comparing positions
             RealPos = new Vector2(106, 108);
         }
+
         public void AddSpriteManager(SpriteManager spriteManager)
         {
             Texture = Globals.Content.Load<Texture2D>("player");
