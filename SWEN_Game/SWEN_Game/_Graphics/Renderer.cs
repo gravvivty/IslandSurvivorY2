@@ -82,7 +82,7 @@ namespace SWEN_Game
                     if (!string.IsNullOrEmpty(foundEnumTag) &&
                         anchorDepths.TryGetValue(foundEnumTag, out float anchorDepth))
                     {
-                        DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, anchorDepth, layer);
+                        //DrawTile(Globals.SpriteBatch, tilesetTexture, srcRect, position, anchorDepth, layer);
                     }
                     else
                     {
