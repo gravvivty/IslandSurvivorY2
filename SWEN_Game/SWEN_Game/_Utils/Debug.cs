@@ -34,7 +34,7 @@ namespace SWEN_Game
               _player.Texture.Width / 16,
               _player.Texture.Height / 36);
             Globals.SpriteBatch.Draw(
-                Globals.Content.Load<Texture2D>("hm_1"),
+                Globals.Content.Load<Texture2D>("debug_rect"),
                 entityRect,
                 null,
                 Color.Pink,
@@ -47,7 +47,7 @@ namespace SWEN_Game
             foreach (var collision in Globals.Collisions)
             {
                 Globals.SpriteBatch.Draw(
-                    Globals.Content.Load<Texture2D>("hm_1"),
+                    Globals.Content.Load<Texture2D>("debug_rect"),
                     collision,
                     null,
                     Color.Red,
@@ -64,7 +64,7 @@ namespace SWEN_Game
                 _player.Texture.Width / 32,
                 _player.Texture.Height / 72);
             Globals.SpriteBatch.Draw(
-                Globals.Content.Load<Texture2D>("hm_1"),
+                Globals.Content.Load<Texture2D>("debug_rect"),
                 posRect,
                 null,
                 Color.Blue,
