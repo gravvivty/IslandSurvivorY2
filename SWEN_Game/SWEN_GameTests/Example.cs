@@ -1,29 +1,27 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics.CodeAnalysis;
+using Xunit;
+using SWEN_Game;
 
 namespace SWEN_GameTests
 {
-    using SWEN_Game;
-    using System.Diagnostics.CodeAnalysis;
-
     [ExcludeFromCodeCoverage]
-    [TestClass]
-    public class MyClassTest
+    public class MyClassTest : IDisposable
     {
-        [TestInitialize]
-        public void TestInitialize()
+        public MyClassTest()
         {
+            // Equivalent to [TestInitialize]
         }
 
-        [TestCleanup]
-        public void TestCleanup()
+        public void Dispose()
         {
+            // Equivalent to [TestCleanup]
         }
 
-        [TestMethod]
+        [Fact]
         public void Euklid_2PosInts_GreatCommonDivisor()
         {
             // Arrange
-            MyClass myClass = new MyClass();
+            var myClass = new MyClass();
             int x = 10;
             int y = 15;
             int expected = 5;
@@ -32,32 +30,32 @@ namespace SWEN_GameTests
             int actual = myClass.Euklid(x, y);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
-        [DataRow(10, 15, 5)]
-        [DataRow(10, 0, 10)]
-        [DataRow(0, 10, 10)]
-        [DataRow(-10, 15, 5)]
-        [DataRow(10, -15, 5)]
+        [Theory]
+        [InlineData(10, 15, 5)]
+        [InlineData(10, 0, 10)]
+        [InlineData(0, 10, 10)]
+        [InlineData(-10, 15, 5)]
+        [InlineData(10, -15, 5)]
         public void Euklid_2Ints_GreatCommonDivisor(int x, int y, int expected)
         {
             // Arrange
-            MyClass myClass = new MyClass();
+            var myClass = new MyClass();
 
             // Act
             int actual = myClass.Euklid(x, y);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void Euklid_YIs0_X()
         {
             // Arrange
-            MyClass myClass = new MyClass();
+            var myClass = new MyClass();
             int x = 10;
             int y = 0;
             int expected = 10;
@@ -66,13 +64,14 @@ namespace SWEN_GameTests
             int actual = myClass.Euklid(x, y);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
-        [TestMethod]
+
+        [Fact]
         public void Euklid_XIs0_Y()
         {
             // Arrange
-            MyClass myClass = new MyClass();
+            var myClass = new MyClass();
             int x = 0;
             int y = 10;
             int expected = 10;
@@ -81,7 +80,7 @@ namespace SWEN_GameTests
             int actual = myClass.Euklid(x, y);
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }

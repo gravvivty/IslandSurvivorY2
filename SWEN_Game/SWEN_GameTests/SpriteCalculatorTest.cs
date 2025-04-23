@@ -1,30 +1,30 @@
-﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using SWEN_Game;
 
 namespace SWEN_GameTests
 {
-    [TestClass]
     public class SpriteCalculatorTest
     {
-        [TestMethod]
-        [DataRow("House", 324)]
-        [DataRow("Tree_Big", 264)]
-        [DataRow("Tree_Small", 237)]
-        [DataRow("Lantern", 213)]
-        [DataRow("Stump", 81)]
-        [DataRow("Fence_Big", 10)]
-        [DataRow("Log", 241)]
-        [DataRow("Bridge", 3)]
-        [DataRow("Unknown", 0)]
+        [Theory]
+        [InlineData("House", 324)]
+        [InlineData("Tree_Big", 264)]
+        [InlineData("Tree_Small", 237)]
+        [InlineData("Lantern", 213)]
+        [InlineData("Stump", 81)]
+        [InlineData("Fence_Big", 10)]
+        [InlineData("Log", 241)]
+        [InlineData("Bridge", 3)]
+        [InlineData("Unknown", 0)]
         public void GetAnchorTitleID_ReturnsCorrectID(string enumName, int expectedID)
         {
             // Arrange
-            SpriteCalculator spriteCalculator = new SpriteCalculator(null, null);
+            var spriteCalculator = new SpriteCalculator(null, null);
+
             // Act
             int actualID = spriteCalculator.GetAnchorTileID(enumName);
+
             // Assert
-            Assert.AreEqual(expectedID, actualID);
+            Assert.Equal(expectedID, actualID);
         }
     }
 }
