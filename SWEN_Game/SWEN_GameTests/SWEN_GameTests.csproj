@@ -5,9 +5,8 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <UseAppHost>false</UseAppHost>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-    <SelfContained>false</SelfContained>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
