@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <UseAppHost>false</UseAppHost>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
     <SelfContained>false</SelfContained>
   </PropertyGroup>
 
