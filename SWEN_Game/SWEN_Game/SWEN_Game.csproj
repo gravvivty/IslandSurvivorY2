@@ -5,9 +5,9 @@
     <RollForward>Major</RollForward>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
-	  <UseAppHost>false</UseAppHost>
-	<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-	<PublishTrimmed>false</PublishTrimmed>
+	  <UseAppHost>true</UseAppHost>
+	  <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+	  <PublishTrimmed>false</PublishTrimmed>
     <SelfContained>true</SelfContained>
   </PropertyGroup>
   <PropertyGroup>
