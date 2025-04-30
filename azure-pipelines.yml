@@ -18,9 +18,9 @@ stages:
       name: Agentpool-5
     steps:
     - task: NuGetToolInstaller@1
-      displayName: Use NuGet 6.11
+      displayName: Use NuGet 6.13
       inputs:
-        versionSpec: 6.11
+        versionSpec: 6.13
     - task: NuGetCommand@2
       displayName: NuGet restore
       inputs:
