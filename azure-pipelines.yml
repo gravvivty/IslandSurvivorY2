@@ -1,7 +1,7 @@
-trigger:
-  branches:
-    include:
-    - '*'
+#trigger:
+#  branches:
+#    include:
+#    - '*'
 name: $(date:yyyyMMdd)$(rev:.r)
 variables:
 - name: solution
