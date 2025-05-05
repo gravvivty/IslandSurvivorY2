@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <!-- Wähle das Output-Format für Coverage-Reports -->
+          <Format>cobertura,lcov,opencover</Format>
+
+          <!-- Optional: Output-Verzeichnis -->
+          <OutputDirectory>TestResults\Coverage</OutputDirectory>
+
+          <!-- Optional: Bestimme, welche Assemblies berücksichtigt werden -->
+          <!--<Include>[SWEN_Game]*</Include>-->
+
+          <!-- Optional: Schließe bestimmte Assemblies/Namespaces aus -->
+          <!--<Exclude>[xunit.*]*</Exclude>-->
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

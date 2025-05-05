@@ -18,22 +18,19 @@ stages:
       name: Agentpool-5
     steps:
     - task: NuGetToolInstaller@1
-      displayName: Use NuGet 6.11
+      displayName: Use NuGet 6.13
       inputs:
-        versionSpec: 6.11
+        versionSpec: 6.13
     - task: NuGetCommand@2
       displayName: NuGet restore
       inputs:
         restoreSolution: '$(solution)'
-    - task: MSBuild@1
+    - task: DotNetCoreCLI@2
       displayName: Build solution
       inputs:
-        msbuildLocationMethod: location
-        msbuildLocation: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\amd64
-        platform: $(BuildPlatform)
-        configuration: $(BuildConfiguration)
-        clean: true
-        logProjectEvents: true
+        command: build
+        projects: '$(solution)'
+        arguments: '--configuration $(buildConfiguration) --self-contained'
     - task: DotNetCoreCLI@2
       displayName: Run Tests
       inputs:
