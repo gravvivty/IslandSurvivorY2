@@ -4,11 +4,14 @@ using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MLEM.Ui;
+using MLEM.Ui.Style;
 
 namespace SWEN_Game
 {
     public class MainGame : Game
     {
+        private UiSystem uiSystem;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private GameManager _gameManager;
