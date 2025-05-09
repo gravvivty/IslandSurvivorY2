@@ -2,12 +2,11 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <RollForward>Major</RollForward>
-    <PublishReadyToRun>false</PublishReadyToRun>
-    <TieredCompilation>false</TieredCompilation>
-	  <UseAppHost>true</UseAppHost>
-	  <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-	  <PublishTrimmed>false</PublishTrimmed>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseAppHost>true</UseAppHost>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PublishProfile)' != '' Or '$(PublishDir)' != ''">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
   </PropertyGroup>
   <PropertyGroup>
