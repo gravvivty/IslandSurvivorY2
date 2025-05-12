@@ -7,15 +7,31 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SWEN_Game
 {
-    public abstract class Weapon
+    public class Weapon
     {
-        private List<Bullet> _bullets = new List<Bullet>();
-        private float _fireCooldown;
-        private float _timeSinceLastShot;
-        private Texture2D _bulletTexture;
-        private Vector2 _position = new Vector2(100,100);
+        public float attackSpeed;
+        public float shotSpeed;
+        public float bulletSize;
+        public float bulletSpread;
+        public int   bulletsPerShot;
+        public float bulletDamage;
+        public float timeSinceLastShot;
 
-        protected float FireCooldown
+        public Texture2D bulletTexture;
+
+        public Weapon(float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, Texture2D bulletTexture)
+        {
+            this.attackSpeed = attackspeed;
+            this.shotSpeed = shotspeed;
+            this.bulletSize = bulletSize;
+            this.bulletSpread = bulletSpread;
+            this.bulletsPerShot = bulletsPerShot;
+            this.bulletDamage = bulletDamage;
+
+            this.bulletTexture = bulletTexture;
+        }
+
+        /* protected float FireCooldown
         {
             get => _fireCooldown;
             set => _fireCooldown = value;
@@ -41,5 +57,6 @@ namespace SWEN_Game
         public abstract void Shoot(Vector2 direction, Vector2 player_position);
 
         public List<Bullet> GetBullets() => _bullets;
+        */
     }
 }
