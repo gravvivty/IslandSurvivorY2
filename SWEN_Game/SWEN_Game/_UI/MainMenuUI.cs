@@ -19,10 +19,10 @@ public class MainMenuUI
         uiSystem.Add("MainMenu", rootPanel);
 
         // START Button: Switch game state to Playing
-        var startButton = new Button(Anchor.TopCenter, new Vector2(300, 60));
+        var startButton = new Button(Anchor.TopCenter, new Vector2(500, 100), "Start");
         startButton.OnPressed += _ =>
         {
-            System.Console.WriteLine("Start Clicked");
+            System.Diagnostics.Debug.WriteLine("Start Clicked");
             GameStateManager.ChangeGameState(GameState.Playing);
         };
         rootPanel.AddChild(startButton);

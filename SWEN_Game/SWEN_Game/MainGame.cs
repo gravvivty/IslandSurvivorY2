@@ -4,9 +4,12 @@ using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MLEM.Font;
 using MLEM.Input;
+using MLEM.Maths;
 using MLEM.Ui;
 using MLEM.Ui.Style;
+using MLEM.Textures;
 
 namespace SWEN_Game
 {
@@ -17,7 +20,8 @@ namespace SWEN_Game
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private GameManager _gameManager;
-        private InputHandler InputHandler { get; set; } = null!; // Initialized in LoadContent
+        private InputHandler InputHandler { get; set; } = null!;// Initialized in LoadContent
+        private Texture2D _backgroundTexture ;// Initialized in LoadContent
 
         public MainGame()
         {
@@ -41,6 +45,7 @@ namespace SWEN_Game
 
         protected override void LoadContent()
         {
+            
             // Create necessary classes and set Global Values
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = _spriteBatch;
@@ -51,11 +56,19 @@ namespace SWEN_Game
             Globals.Graphics = _graphics;
             Globals.WindowSize = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-            // _gameManager = new GameManager();
+            _backgroundTexture = Content.Load<Texture2D>("Background");
+           
+            var style = new UntexturedStyle(_spriteBatch)
+            {
+                Font = new GenericSpriteFont(Content.Load<SpriteFont>("GameFont")),
+                TextColor = Color.Black,
+                TextScale = 2.0F,
+                ButtonTexture = new NinePatch(Content.Load<Texture2D>("button_normal"), padding: 1) 
+            };
 
             // Initialize the UI system
             this.InputHandler = new InputHandler(this);
-            var style = new UntexturedStyle(_spriteBatch);
+           
             uiSystem = new UiSystem(this, style, this.InputHandler);
             Components.Add(uiSystem);
             mainMenuUI = new MainMenuUI(uiSystem);
@@ -89,11 +102,19 @@ namespace SWEN_Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
+            if (GameStateManager.CurrentGameState == GameState.MainMenu)
+            {
+                _spriteBatch.Begin();
+                _spriteBatch.Draw(
+                    _backgroundTexture,
+                    new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
+                    Color.White * 0.2f 
+                );
+                _spriteBatch.End();
+            }
             // TODO: Add your drawing code here
-            _gameManager?.Draw();
-
             uiSystem.Draw(gameTime, _spriteBatch);
+            _gameManager?.Draw();
 
             base.Draw(gameTime);
         }
