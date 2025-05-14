@@ -3,10 +3,7 @@
 public enum GameState
 {
     MainMenu,
-    Options,
-    Playing,
-    Paused,
-    GameOver
+    Playing
 }
 
 public static class GameStateManager
@@ -17,6 +14,5 @@ public static class GameStateManager
     {
         CurrentGameState = newGameState;
         Console.WriteLine($"Switching from {CurrentGameState} to: {newGameState}");
-        CurrentGameState = newGameState;
     }
 }

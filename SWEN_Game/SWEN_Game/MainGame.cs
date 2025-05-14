@@ -17,12 +17,13 @@ namespace SWEN_Game
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private GameManager _gameManager;
+        private InputHandler InputHandler { get; set; } = null!; // Initialized in LoadContent
 
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = false;
+            IsMouseVisible = true;
 
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
@@ -49,11 +50,14 @@ namespace SWEN_Game
             Globals.Collisions = new List<Rectangle>();
             Globals.Graphics = _graphics;
             Globals.WindowSize = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+
             // _gameManager = new GameManager();
 
             // Initialize the UI system
+            this.InputHandler = new InputHandler(this);
             var style = new UntexturedStyle(_spriteBatch);
-            uiSystem = new UiSystem(this, style, new InputHandler(this));
+            uiSystem = new UiSystem(this, style, this.InputHandler);
+            Components.Add(uiSystem);
             mainMenuUI = new MainMenuUI(uiSystem);
             mainMenuUI.Show();
 
@@ -62,25 +66,25 @@ namespace SWEN_Game
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                Exit();
-            }
+            this.InputHandler.Update();
 
-            // TODO: Add your update logic here
-            // Update
-            // _gameManager.Update();
+            System.Diagnostics.Debug.WriteLine($"Current Game State: {GameStateManager.CurrentGameState}");
+
             Globals.UpdateTime(gameTime);
             uiSystem.Update(gameTime);
 
             if (GameStateManager.CurrentGameState == GameState.Playing && _gameManager == null)
             {
+                System.Diagnostics.Debug.WriteLine("Creating GameManager...");
                 _gameManager = new GameManager();
                 uiSystem.Remove("MainMenu");
             }
+
             _gameManager?.Update();
+
             base.Update(gameTime);
         }
+
 
         protected override void Draw(GameTime gameTime)
         {

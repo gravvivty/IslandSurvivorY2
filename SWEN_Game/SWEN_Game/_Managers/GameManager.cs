@@ -31,7 +31,7 @@ namespace SWEN_Game
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine("GameManager Update running" + DateTime.Now);
+           // System.Diagnostics.Debug.WriteLine("GameManager Update running" + DateTime.Now);
 
             // Every Frame check input
             KeyboardState keyboard = Keyboard.GetState();
@@ -52,7 +52,7 @@ namespace SWEN_Game
             _debug.DrawWorldDebug();
             Cursor.DrawCursor();
 
-            System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
+           // System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
         }
     }
 }

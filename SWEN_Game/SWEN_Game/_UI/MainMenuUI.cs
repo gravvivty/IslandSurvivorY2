@@ -15,42 +15,19 @@ public class MainMenuUI
 
         // Create the root panel that contains all menu elements
         rootPanel = new Panel(Anchor.Center, new Vector2(300, 200), Vector2.Zero);
+        rootPanel.Texture = null;
         uiSystem.Add("MainMenu", rootPanel);
 
         // START Button: Switch game state to Playing
-        var startButton = new Button(Anchor.TopCenter, new Vector2(200, 40));
-        startButton.OnPressed += _ => {
+        var startButton = new Button(Anchor.TopCenter, new Vector2(300, 60));
+        startButton.OnPressed += _ =>
+        {
+            System.Console.WriteLine("Start Clicked");
             GameStateManager.ChangeGameState(GameState.Playing);
         };
         rootPanel.AddChild(startButton);
-
-        // OPTIONS Button: Placeholder for now (can be expanded later)
-        var optionsButton = new Button(Anchor.AutoCenter, new Vector2(200, 40));
-        optionsButton.OnPressed += _ => {
-            // TODO: Open options menu here
-            System.Console.WriteLine("Options clicked");
-        };
-        rootPanel.AddChild(optionsButton);
-
-        // EXIT Button: Exits the game
-        var exitButton = new Button(Anchor.BottomCenter, new Vector2(200, 40));
-        exitButton.OnPressed += _ => {
-            uiSystem.Game.Exit(); // Close the game
-        };
-        rootPanel.AddChild(exitButton);
     }
 
-    // Call this to show the main menu
-    public void Show()
-    {
-        if (rootPanel != null)
-            rootPanel.IsHidden = false;
-    }
-
-    // Call this to hide the main menu
-    public void Hide()
-    {
-        if (rootPanel != null)
-            rootPanel.IsHidden = true;
-    }
+    public void Show() => rootPanel.IsHidden = false;
+    public void Hide() => rootPanel.IsHidden = true;
 }
