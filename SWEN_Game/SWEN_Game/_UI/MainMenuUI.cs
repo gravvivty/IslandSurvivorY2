@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MLEM.Maths;
 using MLEM.Ui;
 using MLEM.Ui.Elements;
 
@@ -14,12 +15,12 @@ public class MainMenuUI
         this.ui = uiSystem;
 
         // Create the root panel that contains all menu elements
-        rootPanel = new Panel(Anchor.Center, new Vector2(300, 300), Vector2.Zero, false, true);
+        rootPanel = new Panel(Anchor.Center, new Vector2(1000,100), Vector2.Zero);
         rootPanel.Texture = null;
         uiSystem.Add("MainMenu", rootPanel);
 
         // START Button: Switch game state to Playing
-        var startButton = new Button(Anchor.AutoCenter, new Vector2(500, 100), "Start");
+        var startButton = new Button(Anchor.AutoInline, new Vector2(300, 100), "Start");
         startButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Start Clicked");
@@ -27,14 +28,14 @@ public class MainMenuUI
         };
         rootPanel.AddChild(startButton);
 
-        var optionsButton = new Button(Anchor.AutoCenter, new Vector2(500, 100), "Options");
+        var optionsButton = new Button(Anchor.AutoInline, new Vector2(300, 100), "Options");
         startButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Options Clicked");
         };
         rootPanel.AddChild(optionsButton);
 
-        var exitButton = new Button(Anchor.AutoCenter, new Vector2(500, 100), "Exit");
+        var exitButton = new Button(Anchor.AutoInline, new Vector2(300, 100), "Exit");
         exitButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Exit Clicked");
