@@ -13,7 +13,7 @@ public static class GameStateManager
 {
     public static GameState CurrentGameState { get; private set; } = GameState.MainMenu;
 
-    public static void SwitchGameState(GameState newGameState)
+    public static void ChangeGameState(GameState newGameState)
     {
         CurrentGameState = newGameState;
         Console.WriteLine($"Switching from {CurrentGameState} to: {newGameState}");

@@ -4,6 +4,7 @@ using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MLEM.Input;
 using MLEM.Ui;
 using MLEM.Ui.Style;
 
@@ -12,6 +13,7 @@ namespace SWEN_Game
     public class MainGame : Game
     {
         private UiSystem uiSystem;
+        private MainMenuUI mainMenuUI;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private GameManager _gameManager;
@@ -38,7 +40,7 @@ namespace SWEN_Game
 
         protected override void LoadContent()
         {
-            // Create neccessary classes and set Global Values
+            // Create necessary classes and set Global Values
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = _spriteBatch;
             Globals.Content = Content;
@@ -47,7 +49,13 @@ namespace SWEN_Game
             Globals.Collisions = new List<Rectangle>();
             Globals.Graphics = _graphics;
             Globals.WindowSize = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            _gameManager = new GameManager();
+            // _gameManager = new GameManager();
+
+            // Initialize the UI system
+            var style = new UntexturedStyle(_spriteBatch);
+            uiSystem = new UiSystem(this, style, new InputHandler(this));
+            mainMenuUI = new MainMenuUI(uiSystem);
+            mainMenuUI.Show();
 
             // TODO: use this.Content to load your game content here
         }
@@ -61,9 +69,16 @@ namespace SWEN_Game
 
             // TODO: Add your update logic here
             // Update
-            _gameManager.Update();
+            // _gameManager.Update();
             Globals.UpdateTime(gameTime);
+            uiSystem.Update(gameTime);
 
+            if (GameStateManager.CurrentGameState == GameState.Playing && _gameManager == null)
+            {
+                _gameManager = new GameManager();
+                uiSystem.Remove("MainMenu");
+            }
+            _gameManager?.Update();
             base.Update(gameTime);
         }
 
@@ -72,7 +87,9 @@ namespace SWEN_Game
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            _gameManager.Draw();
+            _gameManager?.Draw();
+
+            uiSystem.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
         }
