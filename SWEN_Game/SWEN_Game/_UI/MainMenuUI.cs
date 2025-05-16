@@ -6,10 +6,18 @@ using MLEM.Ui.Style;
 
 namespace SWEN_Game;
 
+public enum MenuState
+{
+    MainMenu,
+    Options,
+    Playing
+}
+
 public class MainMenuUI
 {
     private readonly UiSystem ui;
     private Panel rootPanel;
+    private MenuState currentMenuState;
 
     public MainMenuUI(UiSystem uiSystem)
     {
@@ -20,33 +28,77 @@ public class MainMenuUI
         rootPanel.Texture = null;
         uiSystem.Add("MainMenu", rootPanel);
 
+        ClearAndSwitchMenu(MenuState.MainMenu);
+    }
+
+    private void ClearAndSwitchMenu(MenuState menuState)
+    {
+        currentMenuState = menuState;
+        rootPanel.RemoveChildren();
+
+        switch (menuState)
+        {
+            case MenuState.MainMenu:
+                ShowMainMenu();
+                break;
+            case MenuState.Options:
+                ShowOptionsMenu();
+                break;
+        }
+    }
+
+    private void ShowMainMenu()
+    {
+        var buttonPanel = new Panel(Anchor.Center, new Vector2(1f, 1f), Vector2.Zero);
+        rootPanel.AddChild(buttonPanel);
         // START Button: Switch game state to Playing
-        var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Play");
-        playButton.PositionOffset = new Vector2(50,0);
-
-        playButton.OnPressed += _ =>
+        var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Play")
         {
-            // System.Diagnostics.Debug.WriteLine("Start Clicked");
-            GameStateManager.ChangeGameState(GameState.Playing);
+            PositionOffset = new Vector2(50, 0),
+            OnPressed = _ => {
+                Hide();
+                GameStateManager.ChangeGameState(GameState.Playing);
+            }
         };
-        rootPanel.AddChild(playButton);
 
-        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F,0.8F), "Options");
-        optionsButton.PositionOffset = new Vector2(50, 0);
-        optionsButton.OnPressed += _ =>
-        {
-            System.Diagnostics.Debug.WriteLine("Options Clicked");
-        };
-        rootPanel.AddChild(optionsButton);
+        buttonPanel.AddChild(playButton);
 
-        var exitButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Exit");
-        exitButton.PositionOffset = new Vector2(50, 0);
-        exitButton.OnPressed += _ =>
+
+        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Options")
         {
-            System.Diagnostics.Debug.WriteLine("Exit Clicked");
-            uiSystem.Game.Exit();
+            PositionOffset = new Vector2(50, 0),
+            OnPressed = _ =>
+            {
+                System.Diagnostics.Debug.WriteLine("Options Clicked");
+                ClearAndSwitchMenu(MenuState.Options);
+            }
         };
-        rootPanel.AddChild(exitButton);
+        buttonPanel.AddChild(optionsButton);
+
+        var exitButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Exit")
+        {
+            PositionOffset = new Vector2(50, 0),
+            OnPressed = _ =>
+            {
+                System.Diagnostics.Debug.WriteLine("Exit Clicked");
+                ui.Game.Exit();
+            }
+        };
+        buttonPanel.AddChild(exitButton);
+    }
+     
+
+    private void ShowOptionsMenu()
+    {
+        // Create a back button
+        var backButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Back");
+        backButton.PositionOffset = new Vector2(50, 0);
+        backButton.OnPressed += _ =>
+        {
+            System.Diagnostics.Debug.WriteLine("Back Clicked");
+            ClearAndSwitchMenu(MenuState.MainMenu);
+        };
+        rootPanel.AddChild(backButton);
     }
 
     public void Show() => rootPanel.IsHidden = false;
