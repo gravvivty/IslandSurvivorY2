@@ -21,19 +21,19 @@ public class MainMenuUI
         uiSystem.Add("MainMenu", rootPanel);
 
         // START Button: Switch game state to Playing
-        var startButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Start");
-        startButton.PositionOffset = new Vector2(50,0);
+        var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Play");
+        playButton.PositionOffset = new Vector2(50,0);
 
-        startButton.OnPressed += _ =>
+        playButton.OnPressed += _ =>
         {
             // System.Diagnostics.Debug.WriteLine("Start Clicked");
             GameStateManager.ChangeGameState(GameState.Playing);
         };
-        rootPanel.AddChild(startButton);
+        rootPanel.AddChild(playButton);
 
         var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F,0.8F), "Options");
         optionsButton.PositionOffset = new Vector2(50, 0);
-        startButton.OnPressed += _ =>
+        optionsButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Options Clicked");
         };

@@ -62,7 +62,7 @@ namespace SWEN_Game
             {
                 Font = new GenericSpriteFont(Content.Load<SpriteFont>("GameFont")),
                 TextColor = Color.Black,
-                TextScale = 2.0F,
+                TextScale = 2.5F,
                 ButtonTexture = new NinePatch(Content.Load<Texture2D>("button_normal"), padding: 1) 
             };
 
