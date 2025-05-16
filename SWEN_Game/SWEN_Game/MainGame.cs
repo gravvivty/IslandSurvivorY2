@@ -70,6 +70,8 @@ namespace SWEN_Game
             this.InputHandler = new InputHandler(this);
            
             uiSystem = new UiSystem(this, style, this.InputHandler);
+            uiSystem.AutoScaleWithScreen = true;
+
             Components.Add(uiSystem);
             mainMenuUI = new MainMenuUI(uiSystem);
             mainMenuUI.Show();
