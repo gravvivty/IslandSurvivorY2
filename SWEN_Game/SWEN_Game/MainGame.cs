@@ -70,6 +70,7 @@ namespace SWEN_Game
             this.InputHandler = new InputHandler(this);
            
             uiSystem = new UiSystem(this, style, this.InputHandler);
+            uiSystem.AutoScaleReferenceSize = new Point(1280, 720);
             uiSystem.AutoScaleWithScreen = true;
 
             Components.Add(uiSystem);

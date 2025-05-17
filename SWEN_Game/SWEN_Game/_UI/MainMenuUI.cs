@@ -16,13 +16,13 @@ public class MainMenuUI
         this.ui = uiSystem;
 
         // Create the root panel that contains all menu elements
-        rootPanel = new Panel(Anchor.Center, new Vector2(0.9F, 0.2F), Vector2.Zero);
-        rootPanel.Texture = null;
+        rootPanel = new Panel(Anchor.Center, new Vector2(0.8F, 0.2F), Vector2.Zero);
+        //rootPanel.Texture = null;
         uiSystem.Add("MainMenu", rootPanel);
 
         // START Button: Switch game state to Playing
-        var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Play");
-        playButton.PositionOffset = new Vector2(50,0);
+        var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Play");
+        playButton.PositionOffset = new Vector2(30,0);
 
         playButton.OnPressed += _ =>
         {
@@ -31,16 +31,16 @@ public class MainMenuUI
         };
         rootPanel.AddChild(playButton);
 
-        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F,0.8F), "Options");
-        optionsButton.PositionOffset = new Vector2(50, 0);
+        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F,0.6F), "Options");
+        optionsButton.PositionOffset = new Vector2(30, 0);
         optionsButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Options Clicked");
         };
         rootPanel.AddChild(optionsButton);
 
-        var exitButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.8F), "Exit");
-        exitButton.PositionOffset = new Vector2(50, 0);
+        var exitButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Exit");
+        exitButton.PositionOffset = new Vector2(30, 0);
         exitButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Exit Clicked");
