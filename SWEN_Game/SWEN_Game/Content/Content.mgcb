@@ -38,18 +38,6 @@
 /processorParam:TextureFormat=Color
 /build:debug_rect.png
 
-#begin Menu/Background_old.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Menu/Background_old.png
-
 #begin Menu/Background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -80,11 +68,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Menu/GameFont.spritefont
-
-#begin Menu/NormalFont.ttf
-/importer:
-/processor:
-/build:Menu/NormalFont.ttf
 
 #begin pistol_bullet.png
 /importer:TextureImporter
@@ -3853,35 +3836,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Ui/Emote/emote9.png
-
-#begin Sprites/Ui/Font/font24x30.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/Ui/Font/font24x30.png
-
-#begin Sprites/Ui/Font/font8x8.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/Ui/Font/font8x8.png
-
-#begin Sprites/Ui/Font/NormalFont.ttf
-/importer:
-/processor:
-/build:Sprites/Ui/Font/NormalFont.ttf
 
 #begin Sprites/Ui/Input/Gamepad/ButtonA/Disabled.png
 /importer:TextureImporter

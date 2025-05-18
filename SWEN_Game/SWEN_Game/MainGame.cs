@@ -56,13 +56,13 @@ namespace SWEN_Game
             Globals.Graphics = _graphics;
             Globals.WindowSize = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-            _backgroundTexture = Content.Load<Texture2D>("Background");
+            _backgroundTexture = Content.Load<Texture2D>("Menu/Background");
             var style = new UntexturedStyle(_spriteBatch)
             {
-                Font = new GenericSpriteFont(Content.Load<SpriteFont>("GameFont")),
+                Font = new GenericSpriteFont(Content.Load<SpriteFont>("Menu/GameFont")),
                 TextColor = Color.Black,
                 TextScale = 2.5F,
-                ButtonTexture = new NinePatch(Content.Load<Texture2D>("button_normal"), padding: 1),
+                ButtonTexture = new NinePatch(Content.Load<Texture2D>("Menu/button_normal"), padding: 1),
             };
 
             // Initialize the UI system
