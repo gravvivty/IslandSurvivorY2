@@ -33,6 +33,9 @@ namespace SWEN_Game
 
             // Calculates ALL collisions in the level
             Globals.CalculateAllCollisions();
+
+            // Set Global Classes
+            Globals.SpriteManager = _spriteManager;
         }
 
         public void Update()

@@ -30,10 +30,10 @@ namespace SWEN_Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferWidth = Globals.WindowSize.X;
-            _graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
             _graphics.HardwareModeSwitch = false;
-            _graphics.IsFullScreen = Globals.Fullscreen;
+            _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
         }
 

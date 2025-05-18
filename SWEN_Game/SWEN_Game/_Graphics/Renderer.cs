@@ -117,6 +117,7 @@ namespace SWEN_Game
                 mouseOffset.Normalize(); // Keep direction
                 mouseOffset = mouseOffset * maxCameraOffset; // Clamp to maxCameraOffset
             }
+
             Vector2 cameraTarget = _player.RealPos + mouseOffset;
             cameraTarget = new Vector2(
                 (float)Math.Floor(cameraTarget.X),

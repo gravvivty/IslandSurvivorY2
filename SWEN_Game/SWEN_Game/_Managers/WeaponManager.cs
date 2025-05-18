@@ -18,15 +18,15 @@ namespace SWEN_Game
         public void InitWeapons()
         {
             // Pistol
-            Texture2D pistolBulletTexture = Globals.Content.Load<Texture2D>("pistol_bullet");
+            Texture2D pistolBulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
             Weapon pistol = new Weapon(0.3f, 250f, 1f, 1, 1, 1, pistolBulletTexture);
             _weapons.Add("Pistol", pistol);
 
-            Texture2D smgBulletTexture = Globals.Content.Load<Texture2D>("pistol_bullet");
+            Texture2D smgBulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
             Weapon smg = new Weapon(0.1f, 400f, 0.5f, 1, 1, 1, pistolBulletTexture);
             _weapons.Add("SMG", smg);
 
-            Texture2D sniperBulletTexture = Globals.Content.Load<Texture2D>("pistol_bullet");
+            Texture2D sniperBulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
             Weapon sniper = new Weapon(0.8f, 600f, 0.4f, 1, 1, 1, pistolBulletTexture);
             _weapons.Add("Sniper", sniper);
         }
