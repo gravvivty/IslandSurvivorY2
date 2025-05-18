@@ -24,7 +24,8 @@ namespace SWEN_Game
             _animation = animation;
             _animation.Reset();
             _animation.Start();
-            _position = startposition;
+            Vector2 origin = new Vector2(_animation.frameSize / 2f, _animation.frameSize / 2f);
+            _position = startposition - origin * (_animation._scale - 1f);
             _shotSpeed = Vector2.Normalize(direction) * shotSpeed;
             _bulletSize = bulletSize;
         }

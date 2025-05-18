@@ -17,10 +17,12 @@ namespace SWEN_Game
         private int _currentFrame;
         private float _frameTimeLeft;
         private bool isActive = true;
+        public float _scale;
+        public int frameSize = 16;
 
         private Color _tintColor;
 
-        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, SpriteManager spriteManager, int column = 1, Color? tintColor = null)
+        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, SpriteManager spriteManager, int column = 1, Color? tintColor = null, float? scale = null)
         {
             _spriteManager = spriteManager;
 
@@ -45,6 +47,7 @@ namespace SWEN_Game
             }
 
             _tintColor = tintColor ?? Color.White;
+            _scale = scale ?? 1f;
         }
 
         public void Start()
@@ -91,7 +94,7 @@ namespace SWEN_Game
                 _tintColor,
                 0,
                 Vector2.Zero,
-                Vector2.One,
+                _scale,
                 SpriteEffects.None,
                 depth);
         }
