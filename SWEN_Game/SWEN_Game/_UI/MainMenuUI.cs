@@ -114,6 +114,27 @@ public class MainMenuUI
 
         rootPanel.AddChild(dropdown);
 
+        // Add other options UI elements here
+        rootPanel.AddChild(new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Fullscreen")
+        {
+            CanBePressed = false,
+            CanBeSelected = false,
+        });
+
+
+        var fullscreenCheck = new Checkbox(Anchor.AutoInline, new Vector2(0.5F, 0.6F), "")
+        {
+            Checked = Globals.Fullscreen,
+        };
+        fullscreenCheck.OnCheckStateChange += (element, isChecked) => {
+            System.Diagnostics.Debug.WriteLine("Fullscreen Clicked");
+            Globals.Fullscreen = isChecked;
+            Globals.Graphics.IsFullScreen = isChecked;
+            Globals.Graphics.ApplyChanges();
+        };
+
+        rootPanel.AddChild(fullscreenCheck);
+
         // BACK Button: Switch game state to MainMenu
         var backButton = new Button(Anchor.AutoLeft, new Vector2(0.3F, 0.6F), "Save");
         backButton.PositionOffset = new Vector2(0, 50);
@@ -123,8 +144,10 @@ public class MainMenuUI
             ClearAndSwitch(MenuState.MainMenu);
         };
         rootPanel.AddChild(backButton);
-        // Add other options UI elements here
     }
+
+
+
     public void Show() => rootPanel.IsHidden = false;
     public void Hide() => rootPanel.IsHidden = true;
 }

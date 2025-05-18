@@ -32,7 +32,7 @@ namespace SWEN_Game
             _graphics.PreferredBackBufferWidth = Globals.WindowSize.X;
             _graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
             _graphics.HardwareModeSwitch = false;
-            _graphics.IsFullScreen = false;
+            _graphics.IsFullScreen = Globals.Fullscreen;
             _graphics.ApplyChanges();
         }
 
