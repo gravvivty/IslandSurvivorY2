@@ -68,29 +68,41 @@ namespace SWEN_Game
         // Spritelayers without anchor or out of Player Range
         public float GetDepth(Vector2 position, float spriteHeight, LayerInstance layer)
         {
-            float depth = (position.Y + spriteHeight) / 1000f;
+            float depth = 0.2f + ((position.Y + spriteHeight) / 1000f);
             float layerOffset = 0;
 
             // low layerOffset --> Foreground
             switch (layer._Identifier)
             {
-                case "Deco_Big3":
+                case "Deco_BigBackground":
                     layerOffset = 8;
                     break;
-                case "Deco_Big2":
+                case "Deco_BigMiddleground":
                     layerOffset = 6;
                     break;
-                case "Deco_Big1":
+                case "Deco_BigForeground":
                     layerOffset = 4;
                     break;
                 case "Deco_Small":
                     layerOffset = 2;
                     break;
+                case "Deco_Small2":
+                    layerOffset = 2;
+                    break;
+                case "Deco_SmallDesert":
+                    layerOffset = 2;
+                    break;
                 case "Deco_Background":
+                    depth = 0.0001f;
+                    break;
+                case "Deco_Background2":
                     depth = 0.0001f;
                     break;
                 case "Background":
                     depth = 0f;
+                    break;
+                case "Background2":
+                    depth = 0.000001f;
                     break;
             }
 
@@ -112,14 +124,35 @@ namespace SWEN_Game
             float layerOffset = 0;
             switch (layer._Identifier)
             {
-                case "Deco_Big3":
+                case "Deco_BigBackground":
                     layerOffset = 8;
                     break;
-                case "Deco_Big2":
+                case "Deco_BigMiddleground":
                     layerOffset = 6;
                     break;
-                case "Deco_Big1":
-                    layerOffset = 4;
+                case "Deco_BigForeground":
+                    layerOffset = 1;
+                    break;
+                case "Deco_Small":
+                    layerOffset = 2;
+                    break;
+                case "Deco_Small2":
+                    layerOffset = 1;
+                    break;
+                case "Deco_SmallDesert":
+                    layerOffset = 1;
+                    break;
+                case "Deco_Background":
+                    depth = 0.0001f;
+                    break;
+                case "Deco_Background2":
+                    depth = 0.0001f;
+                    break;
+                case "Background":
+                    depth = 0f;
+                    break;
+                case "Background2":
+                    depth = 0f;
                     break;
             }
 

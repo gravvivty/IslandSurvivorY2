@@ -29,7 +29,6 @@ namespace SWEN_Game
             _weaponManager.InitWeapons();
             _playerWeapon = new PlayerWeapon(_weaponManager);
 
-
             _debug = new Debug(_player, _renderer);
 
             // Calculates ALL collisions in the level
@@ -64,7 +63,7 @@ namespace SWEN_Game
 
             Globals.SpriteBatch.End();
 
-            _debug.DrawWorldDebug();
+            //_debug.DrawWorldDebug();
             Cursor.DrawCursor();
 
             System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
