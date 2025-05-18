@@ -38,6 +38,54 @@
 /processorParam:TextureFormat=Color
 /build:debug_rect.png
 
+#begin Menu/Background_old.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu/Background_old.png
+
+#begin Menu/Background.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu/Background.png
+
+#begin Menu/button_normal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu/button_normal.png
+
+#begin Menu/GameFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Menu/GameFont.spritefont
+
+#begin Menu/NormalFont.ttf
+/importer:
+/processor:
+/build:Menu/NormalFont.ttf
+
 #begin pistol_bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3314,6 +3362,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Tilesets/TilesetNature.png
 
+#begin Sprites/Tilesets/TilesetRelief.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Tilesets/TilesetRelief.png
+
 #begin Sprites/Tilesets/TilesetVillageAbandoned.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3793,6 +3853,35 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Ui/Emote/emote9.png
+
+#begin Sprites/Ui/Font/font24x30.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Ui/Font/font24x30.png
+
+#begin Sprites/Ui/Font/font8x8.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Ui/Font/font8x8.png
+
+#begin Sprites/Ui/Font/NormalFont.ttf
+/importer:
+/processor:
+/build:Sprites/Ui/Font/NormalFont.ttf
 
 #begin Sprites/Ui/Input/Gamepad/ButtonA/Disabled.png
 /importer:TextureImporter
@@ -7538,7 +7627,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Ui/Theme/Wip/ThemeMap/nine_path_panel.png
 
-#begin Background.png
+#begin Sprites/Ui/Theme/Wip/ThemeMetal/nine_path_panel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -7548,8 +7637,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Background.png
+/build:Sprites/Ui/Theme/Wip/ThemeMetal/nine_path_panel.png
 
+#begin Sprites/Ui/Theme/Wip/ThemeMetal2/nine_path_panel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -7559,32 +7649,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:Sprites/Ui/Theme/Wip/ThemeMetal2/nine_path_panel.png
 
-/build:Bridge_Wood-export.png
-
-#begin button_normal.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:button_normal.png
-
-
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-
+#begin Sprites/Ui/Theme/Wip/ThemeMetal3/nine_path_panel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -7618,8 +7685,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:Sprites/Ui/Theme/Wip/ThemeWood2/nine_path_panel.png
 
-
+#begin Sprites/Ui/Theme/Wip/ThemeWood3/nine_path_panel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
