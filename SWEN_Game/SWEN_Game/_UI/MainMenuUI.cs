@@ -90,44 +90,23 @@ public class MainMenuUI
     private void ShowOptionsMenu()
     {
         var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
-        dropdown.AddElement(
-            "1280x720",
-            element =>
+        var resolutions = new[]
         {
-            Globals.WindowSize = new Point(1280, 720);
-            Globals.Graphics.PreferredBackBufferWidth = 1280;
-            Globals.Graphics.PreferredBackBufferHeight = 720;
-            Globals.Graphics.ApplyChanges();
-            dropdown.IsOpen = false;
-        },
-            0);
-
-        dropdown.AddElement(
-            "1600x900",
-            element =>
+            new {Label ="1280x720", Width = 1280, Height = 720},
+            new {Label ="1600x900", Width = 2560, Height = 1440},
+            new {Label ="1920x1080", Width = 1920, Height = 1080}
+            };
+        foreach (var res in resolutions)
         {
-            System.Diagnostics.Debug.WriteLine("1600x900 Clicked");
-            Globals.WindowSize = new Point(1600, 900);
-            Globals.Graphics.PreferredBackBufferWidth = 1600;
-            Globals.Graphics.PreferredBackBufferHeight = 900;
-            Globals.Graphics.ApplyChanges();
-            dropdown.IsOpen = false;
-        },
-            0);
-
-        dropdown.AddElement(
-            "1920x1080",
-            element =>
-        {
-            System.Diagnostics.Debug.WriteLine("1920x1080 Clicked");
-            Globals.WindowSize = new Point(1920, 1080);
-            Globals.Graphics.PreferredBackBufferWidth = 1920;
-            Globals.Graphics.PreferredBackBufferHeight = 1080;
-            Globals.Graphics.ApplyChanges();
-            dropdown.IsOpen = false;
-        },
-            0);
-
+            dropdown.AddElement(res.Label, element =>
+            {
+                Globals.WindowSize = new Point(res.Width, res.Height);
+                Globals.Graphics.PreferredBackBufferWidth = res.Width;
+                Globals.Graphics.PreferredBackBufferHeight = res.Height;
+                Globals.Graphics.ApplyChanges();
+                dropdown.IsOpen = false;
+            }, 0);
+        }
         rootPanel.AddChild(dropdown);
 
         // Add other options UI elements here
