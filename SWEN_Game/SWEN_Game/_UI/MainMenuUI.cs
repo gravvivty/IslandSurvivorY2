@@ -10,7 +10,7 @@ namespace SWEN_Game;
 public enum MenuState
 {
     MainMenu,
-    Options
+    Options,
 }
 
 public class MainMenuUI
@@ -46,52 +46,65 @@ public class MainMenuUI
         }
     }
 
+    public void ShowOptionsOnly()
+    {
+        Show();
+        ClearAndSwitch(MenuState.Options);
+    }
+
+    public void Show() => rootPanel.IsHidden = false;
+    public void Hide() => rootPanel.IsHidden = true;
+
     private void ShowMainMenu()
     {
         // START Button: Switch game state to Playing
         var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Play");
-        playButton.PositionOffset = new Vector2(30,0);
+        playButton.PositionOffset = new Vector2(30, 0);
 
         playButton.OnPressed += _ =>
         {
             GameStateManager.ChangeGameState(GameState.Playing);
             Hide();
         };
+
         rootPanel.AddChild(playButton);
 
-        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F,0.6F), "Options");
+        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Options");
+
         optionsButton.PositionOffset = new Vector2(30, 0);
         optionsButton.OnPressed += _ => ClearAndSwitch(MenuState.Options);
-        {
-            System.Diagnostics.Debug.WriteLine("Options Clicked");
-        };
+
         rootPanel.AddChild(optionsButton);
 
         var exitButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Exit");
         exitButton.PositionOffset = new Vector2(30, 0);
-        exitButton.OnPressed += _ => 
+        exitButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Exit Clicked");
             ui.Game.Exit();
         };
+
         rootPanel.AddChild(exitButton);
     }
 
     private void ShowOptionsMenu()
     {
-
         var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
-
-        dropdown.AddElement("1280x720", element =>
+        dropdown.AddElement(
+            "1280x720",
+            element =>
         {
             Globals.WindowSize = new Point(1280, 720);
             Globals.Graphics.PreferredBackBufferWidth = 1280;
             Globals.Graphics.PreferredBackBufferHeight = 720;
             Globals.Graphics.ApplyChanges();
             dropdown.IsOpen = false;
-        }, 0);
+        },
+            0);
 
-        dropdown.AddElement("1600x900", element =>
+        dropdown.AddElement(
+            "1600x900",
+            element =>
         {
             System.Diagnostics.Debug.WriteLine("1600x900 Clicked");
             Globals.WindowSize = new Point(1600, 900);
@@ -99,9 +112,12 @@ public class MainMenuUI
             Globals.Graphics.PreferredBackBufferHeight = 900;
             Globals.Graphics.ApplyChanges();
             dropdown.IsOpen = false;
-        }, 0);
+        },
+            0);
 
-        dropdown.AddElement("1920x1080", element =>
+        dropdown.AddElement(
+            "1920x1080",
+            element =>
         {
             System.Diagnostics.Debug.WriteLine("1920x1080 Clicked");
             Globals.WindowSize = new Point(1920, 1080);
@@ -109,7 +125,8 @@ public class MainMenuUI
             Globals.Graphics.PreferredBackBufferHeight = 1080;
             Globals.Graphics.ApplyChanges();
             dropdown.IsOpen = false;
-        }, 0);
+        },
+            0);
 
         rootPanel.AddChild(dropdown);
 
@@ -121,13 +138,13 @@ public class MainMenuUI
             PositionOffset = new Vector2(0, 30),
         });
 
-
-        var fullscreenCheck = new Checkbox(Anchor.AutoInline, new Vector2(0.5F, 0.6F), "")
+        var fullscreenCheck = new Checkbox(Anchor.AutoInline, new Vector2(0.5F, 0.6F), string.Empty)
         {
             Checked = Globals.Fullscreen,
         };
-        fullscreenCheck.OnCheckStateChange += (element, isChecked) => {
-            System.Diagnostics.Debug.WriteLine("Fullscreen Clicked");
+
+        fullscreenCheck.OnCheckStateChange += (element, isChecked) =>
+        {
             Globals.Fullscreen = isChecked;
             Globals.Graphics.IsFullScreen = isChecked;
             Globals.Graphics.ApplyChanges();
@@ -145,14 +162,4 @@ public class MainMenuUI
         };
         rootPanel.AddChild(backButton);
     }
-
-    public void ShowOptionsOnly()
-    {
-       Show();
-        ClearAndSwitch(MenuState.Options);
-    }
-
-
-    public void Show() => rootPanel.IsHidden = false;
-    public void Hide() => rootPanel.IsHidden = true;
 }
