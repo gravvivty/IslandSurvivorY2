@@ -54,7 +54,6 @@ public class MainMenuUI
 
         playButton.OnPressed += _ =>
         {
-            // System.Diagnostics.Debug.WriteLine("Start Clicked");
             GameStateManager.ChangeGameState(GameState.Playing);
             Hide();
         };
@@ -85,7 +84,6 @@ public class MainMenuUI
 
         dropdown.AddElement("1280x720", element =>
         {
-            System.Diagnostics.Debug.WriteLine("1280x720 Clicked");
             Globals.WindowSize = new Point(1280, 720);
             Globals.Graphics.PreferredBackBufferWidth = 1280;
             Globals.Graphics.PreferredBackBufferHeight = 720;
@@ -120,6 +118,7 @@ public class MainMenuUI
         {
             CanBePressed = false,
             CanBeSelected = false,
+            PositionOffset = new Vector2(0, 30),
         });
 
 

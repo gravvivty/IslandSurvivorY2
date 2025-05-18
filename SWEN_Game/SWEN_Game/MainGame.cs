@@ -92,8 +92,7 @@ namespace SWEN_Game
             {
                 System.Diagnostics.Debug.WriteLine("Creating GameManager...");
                 _gameManager = new GameManager();
-               // MainMenuUI.Hide();
-               // uiSystem.Remove("MainMenu");
+
             }
 
             var keyboardState = Keyboard.GetState();
