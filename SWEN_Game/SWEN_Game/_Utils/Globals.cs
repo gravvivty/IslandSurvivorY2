@@ -64,19 +64,15 @@ namespace SWEN_Game
             }
         }
 
-        public static bool IsColliding(Vector2 pos, Texture2D texture)
+        public static bool IsColliding(Rectangle entityRect)
         {
-            if (texture == null)
+            if (entityRect == null)
             {
                 return false;
             }
 
             // Assumes entity collision as small rectangle at the very bottom of the Sprite
-            Rectangle entityRect = new Rectangle(
-                (int)pos.X + 5,
-                (int)pos.Y + 10,
-                texture.Width / 16,
-                texture.Height / 36);
+
             foreach (var rect in Collisions)
             {
                 if (entityRect.Intersects(rect))

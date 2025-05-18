@@ -38,7 +38,7 @@ namespace SWEN_Game
 
         public PlayerWeapon(WeaponManager weaponManager)
         {
-            this._currentWeapon = weaponManager.GetWeapon("SMG");
+            this._currentWeapon = weaponManager.GetWeapon("Pistol");
             bulletSheet = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
             bulletColor = Color.Blue;
         }
