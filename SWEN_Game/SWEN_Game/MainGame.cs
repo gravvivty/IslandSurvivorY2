@@ -17,6 +17,7 @@ namespace SWEN_Game
     {
         private UiSystem uiSystem;
         private MainMenuUI mainMenuUI;
+        private bool wasEscPressed = false;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private GameManager _gameManager;
@@ -82,10 +83,8 @@ namespace SWEN_Game
 
         protected override void Update(GameTime gameTime)
         {
+            IsMouseVisible = GameStateManager.CurrentGameState != GameState.Playing;
             this.InputHandler.Update();
-
-            System.Diagnostics.Debug.WriteLine($"Current Game State: {GameStateManager.CurrentGameState}");
-
             Globals.UpdateTime(gameTime);
             uiSystem.Update(gameTime);
 
@@ -93,11 +92,27 @@ namespace SWEN_Game
             {
                 System.Diagnostics.Debug.WriteLine("Creating GameManager...");
                 _gameManager = new GameManager();
-                uiSystem.Remove("MainMenu");
+               // MainMenuUI.Hide();
+               // uiSystem.Remove("MainMenu");
             }
 
-            _gameManager?.Update();
-
+            var keyboardState = Keyboard.GetState();
+            if (GameStateManager.CurrentGameState == GameState.Playing)
+            {
+                if (keyboardState.IsKeyDown(Keys.Escape) && !wasEscPressed)
+                {
+                    wasEscPressed = true;
+                    GameStateManager.ChangeGameState(GameState.Paused);
+                    mainMenuUI.ShowOptionsOnly();
+                }
+            }
+            if (keyboardState.IsKeyUp(Keys.Escape))
+            {
+                wasEscPressed = false;
+            }
+            if (GameStateManager.CurrentGameState == GameState.Playing) {
+                _gameManager?.Update();
+            }
             base.Update(gameTime);
         }
 
@@ -115,9 +130,11 @@ namespace SWEN_Game
                 );
                 _spriteBatch.End();
             }
-            // TODO: Add your drawing code here
+            if (GameStateManager.CurrentGameState == GameState.Playing || GameStateManager.CurrentGameState == GameState.Paused)
+            {
+                _gameManager?.Draw();
+            }
             uiSystem.Draw(gameTime, _spriteBatch);
-            _gameManager?.Draw();
 
             base.Draw(gameTime);
         }

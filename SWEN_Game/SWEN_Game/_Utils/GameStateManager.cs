@@ -3,7 +3,9 @@
 public enum GameState
 {
     MainMenu,
-    Playing
+    Playing,
+    Options,
+    Paused,
 }
 
 public static class GameStateManager

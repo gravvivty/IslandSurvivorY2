@@ -25,7 +25,7 @@ public class MainMenuUI
 
         // Create the root panel that contains all menu elements
         rootPanel = new Panel(Anchor.Center, new Vector2(0.8F, 0.2F), Vector2.Zero);
-        //rootPanel.Texture = null;
+        rootPanel.Texture = null;
         uiSystem.Add("MainMenu", rootPanel);
 
         ClearAndSwitch(MenuState.MainMenu);
@@ -56,6 +56,7 @@ public class MainMenuUI
         {
             // System.Diagnostics.Debug.WriteLine("Start Clicked");
             GameStateManager.ChangeGameState(GameState.Playing);
+            Hide();
         };
         rootPanel.AddChild(playButton);
 
@@ -146,6 +147,11 @@ public class MainMenuUI
         rootPanel.AddChild(backButton);
     }
 
+    public void ShowOptionsOnly()
+    {
+       Show();
+        ClearAndSwitch(MenuState.Options);
+    }
 
 
     public void Show() => rootPanel.IsHidden = false;
