@@ -79,9 +79,44 @@ public class MainMenuUI
 
     private void ShowOptionsMenu()
     {
+
+        var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
+
+        dropdown.AddElement("1280x720", element =>
+        {
+            System.Diagnostics.Debug.WriteLine("1280x720 Clicked");
+            Globals.WindowSize = new Point(1280, 720);
+            Globals.Graphics.PreferredBackBufferWidth = 1280;
+            Globals.Graphics.PreferredBackBufferHeight = 720;
+            Globals.Graphics.ApplyChanges();
+            dropdown.IsOpen = false;
+        }, 0);
+
+        dropdown.AddElement("1600x900", element =>
+        {
+            System.Diagnostics.Debug.WriteLine("1600x900 Clicked");
+            Globals.WindowSize = new Point(1600, 900);
+            Globals.Graphics.PreferredBackBufferWidth = 1600;
+            Globals.Graphics.PreferredBackBufferHeight = 900;
+            Globals.Graphics.ApplyChanges();
+            dropdown.IsOpen = false;
+        }, 0);
+
+        dropdown.AddElement("1920x1080", element =>
+        {
+            System.Diagnostics.Debug.WriteLine("1920x1080 Clicked");
+            Globals.WindowSize = new Point(1920, 1080);
+            Globals.Graphics.PreferredBackBufferWidth = 1920;
+            Globals.Graphics.PreferredBackBufferHeight = 1080;
+            Globals.Graphics.ApplyChanges();
+            dropdown.IsOpen = false;
+        }, 0);
+
+        rootPanel.AddChild(dropdown);
+
         // BACK Button: Switch game state to MainMenu
-        var backButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Back");
-        backButton.PositionOffset = new Vector2(30, 0);
+        var backButton = new Button(Anchor.AutoLeft, new Vector2(0.3F, 0.6F), "Save");
+        backButton.PositionOffset = new Vector2(0, 50);
         backButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Back Clicked");
@@ -90,7 +125,6 @@ public class MainMenuUI
         rootPanel.AddChild(backButton);
         // Add other options UI elements here
     }
-
     public void Show() => rootPanel.IsHidden = false;
     public void Hide() => rootPanel.IsHidden = true;
 }
