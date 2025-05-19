@@ -15,9 +15,9 @@ namespace SWEN_GameTests
         public void Player_Initialization_DefaultValues() 
         {
             var player = new Player();
-            Assert.Equal(120f, player.Speed);
-            Assert.Equal(new Vector2(100, 100), player.Position);
-            Assert.Equal(new Vector2(106, 108), player.RealPos);
+            Assert.Equal(130f, player.Speed);
+            Assert.Equal(new Vector2(450, 450), player.Position);
+            Assert.Equal(new Vector2(456, 458), player.RealPos);
         }
         //Ob die Methode SetPosition die Positionen korrekt aktualisiert
         [Fact]
