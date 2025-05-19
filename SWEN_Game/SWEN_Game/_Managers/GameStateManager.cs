@@ -27,9 +27,11 @@ namespace SWEN_Game
 
         public void ChangeGameState(GameState newGameState)
         {
+            CurrentGameState = newGameState;
             if (newGameState == GameState.Playing && _gameManager == null)
             {
                 _gameManager = new GameManager();
+
             }
         }
 
@@ -43,6 +45,7 @@ namespace SWEN_Game
             if (CurrentGameState == GameState.Playing)
             {
                 _uiManager?.Update(gameTime);
+                _gameManager?.Update();
             }
         }
         public void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
