@@ -9,7 +9,7 @@ namespace SWEN_Game
 {
     public class Renderer
     {
-        private static readonly float DepthRadius = 120f;
+        private static readonly float DepthRadius = 500f;
         private Player _player;
         private SpriteManager _spriteManager;
         private SpriteCalculator _spriteCalculator;
@@ -51,6 +51,8 @@ namespace SWEN_Game
 
                 // Retrieve the texture for this tileset.
                 Texture2D tilesetTexture = _spriteManager.GetTilesetTextureFromRenderer(level, layer._TilesetRelPath);
+                float renderRadius = 1000f; // 2000px total area (1000px in all directions)
+                Vector2 playerPos = _player.RealPos;
 
                 // Process each tile in the current layer.
                 foreach (var tile in layer.GridTiles)
@@ -58,6 +60,11 @@ namespace SWEN_Game
                     // Calculate the world position of the tile by applying layer offsets.
                     Vector2 position = new(tile.Px.X + layer._PxTotalOffsetX, tile.Px.Y + layer._PxTotalOffsetY);
                     Rectangle srcRect = new(tile.Src.X, tile.Src.Y, layer._GridSize, layer._GridSize);
+
+                    if (Vector2.DistanceSquared(position, playerPos) > renderRadius * renderRadius)
+                    {
+                        continue;
+                    }
 
                     // For background layers, draw with a forced depth of 0 (ensuring they render behind all other tiles).
                     if (isBackground)
@@ -118,22 +125,29 @@ namespace SWEN_Game
                 mouseOffset = mouseOffset * maxCameraOffset; // Clamp to maxCameraOffset
             }
 
+            Vector2 cameraTarget = _player.RealPos + mouseOffset;
+            cameraTarget = new Vector2(
+                (float)Math.Floor(cameraTarget.X),
+                (float)Math.Floor(cameraTarget.Y));
+
             return Matrix.CreateTranslation(
-                -_player.RealPos.X - mouseOffset.X,
-                -_player.RealPos.Y - mouseOffset.Y,
+                -cameraTarget.X,
+                -cameraTarget.Y,
                 0) *
                 Matrix.CreateScale(Globals.Zoom, Globals.Zoom, 1f) *
-                Matrix.CreateTranslation(screenCenter.X, screenCenter.Y, 0);
+                Matrix.CreateTranslation(
+                    Globals.Graphics.PreferredBackBufferWidth / 2f,
+                    Globals.Graphics.PreferredBackBufferHeight / 2f,
+                    0);
         }
 
         // Draw a tile with its depth computed from its world position
         private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
         {
-            float depth = _spriteManager.GetDepth(position, sourceRect.Height, layer);
+            float depth = _spriteManager.GetDepth(position, sourceRect.Width, layer);
             spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
 
-        // This causes the Pipeline to fail idk why even - it doesnt even get called as of now
         private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, float anchorDepth, LayerInstance layer)
         {
             float depth = _spriteManager.GetDepth(anchorDepth, layer);

@@ -28,11 +28,7 @@ namespace SWEN_Game
             // _spriteManager.DrawPlayer(Globals.SpriteBatch, _player.texture, _player.position);
 
             // Draw the player's collision box for debugging, using a pink overlay.
-            Rectangle entityRect = new Rectangle(
-              (int)_player.Position.X + 5,
-              (int)_player.Position.Y + 10,
-              _player.Texture.Width / 16,
-              _player.Texture.Height / 36);
+            Rectangle entityRect = new Rectangle((int)_player.Position.X+5, (int)_player.Position.Y+10, 8, 8);
             Globals.SpriteBatch.Draw(
                 Globals.Content.Load<Texture2D>("debug_rect"),
                 entityRect,
@@ -61,8 +57,8 @@ namespace SWEN_Game
             Rectangle posRect = new Rectangle(
                 (int)_player.RealPos.X,
                 (int)_player.RealPos.Y,
-                _player.Texture.Width / 32,
-                _player.Texture.Height / 72);
+                _player.Texture.Width / 20,
+                _player.Texture.Height / 10);
             Globals.SpriteBatch.Draw(
                 Globals.Content.Load<Texture2D>("debug_rect"),
                 posRect,

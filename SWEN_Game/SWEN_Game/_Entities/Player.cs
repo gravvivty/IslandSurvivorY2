@@ -24,13 +24,13 @@ namespace SWEN_Game
 
         public Player()
         {
-            Speed = 120f;
+            Speed = 130f;
 
             // Spawn Pos
-            Position = new Vector2(100, 100);
+            Position = new Vector2(450, 450);
 
             // Offset Pos - used for actually comparing positions
-            RealPos = new Vector2(106, 108);
+            RealPos = new Vector2(456, 458);
         }
 
         public void AddSpriteManager(SpriteManager spriteManager)
