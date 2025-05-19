@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MLEM.Font;
@@ -8,7 +7,6 @@ using MLEM.Maths;
 using MLEM.Textures;
 using MLEM.Ui;
 using MLEM.Ui.Style;
-
 
 namespace SWEN_Game
 {
@@ -27,7 +25,6 @@ namespace SWEN_Game
             _gameStateManager = gameStateManager;
             _backgroundTexture = content.Load<Texture2D>("Menu/Background");
             _inputHandler = new InputHandler(game);
-
 
             var style = new UntexturedStyle(spriteBatch)
             {
