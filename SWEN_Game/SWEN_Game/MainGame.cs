@@ -21,7 +21,7 @@ namespace SWEN_Game
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
 
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
@@ -46,6 +46,7 @@ namespace SWEN_Game
 
         protected override void Update(GameTime gameTime)
         {
+            IsMouseVisible = _gameStateManager.CurrentGameState != GameState.Playing;
             _gameStateManager.Update(gameTime);
             base.Update(gameTime);
         }
