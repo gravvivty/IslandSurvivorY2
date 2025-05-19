@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 using SWEN_Game;
 using Xunit;
 
@@ -10,61 +11,45 @@ namespace SWEN_GameTests.ManagersTest
         [Fact]
         public void Update_WKeyPressed_PlayerMovesUp()
         {
-            // Arrange
+            Globals.Collisions = new List<Rectangle>();
             var player = new Player();
             Globals.Time = 1f;
-
-            // Act
             InputManager.Update(player, new KeyboardState(Keys.W));
-
-            // Assert
-            Assert.Equal(-20, player.Position.Y);
-            Assert.Equal(100, player.Position.X);
+            Assert.Equal(320, player.Position.Y);
+            Assert.Equal(450, player.Position.X);
         }
 
         [Fact]
         public void Update_SKeyPressed_PlayerMovesDown()
         {
-            // Arrange
+            Globals.Collisions = new List<Rectangle>();
             var player = new Player();
             Globals.Time = 1f;
-
-            // Act
             InputManager.Update(player, new KeyboardState(Keys.S));
-
-            // Assert
-            Assert.Equal(220, player.Position.Y);
-            Assert.Equal(100, player.Position.X);
+            Assert.Equal(580, player.Position.Y);
+            Assert.Equal(450, player.Position.X);
         }
 
         [Fact]
         public void Update_AKeyPressed_PlayerMovesLeft()
         {
-            // Arrange
+            Globals.Collisions = new List<Rectangle>();
             var player = new Player();
             Globals.Time = 1f;
-
-            // Act
             InputManager.Update(player, new KeyboardState(Keys.A));
-
-            // Assert
-            Assert.Equal(100, player.Position.Y);
-            Assert.Equal(-20, player.Position.X);
+            Assert.Equal(450, player.Position.Y);
+            Assert.Equal(320, player.Position.X);
         }
 
         [Fact]
         public void Update_DKeyPressed_PlayerMovesRight()
         {
-            // Arrange
+            Globals.Collisions = new List<Rectangle>();
             var player = new Player();
             Globals.Time = 1f;
-
-            // Act
             InputManager.Update(player, new KeyboardState(Keys.D));
-
-            // Assert
-            Assert.Equal(100, player.Position.Y);
-            Assert.Equal(220, player.Position.X);
+            Assert.Equal(450, player.Position.Y);
+            Assert.Equal(580, player.Position.X);
         }
     }
 }

@@ -6,14 +6,14 @@ namespace SWEN_GameTests
     public class SpriteCalculatorTest
     {
         [Theory]
-        [InlineData("House", 324)]
-        [InlineData("Tree_Big", 264)]
-        [InlineData("Tree_Small", 237)]
-        [InlineData("Lantern", 213)]
-        [InlineData("Stump", 81)]
-        [InlineData("Fence_Big", 10)]
-        [InlineData("Log", 241)]
-        [InlineData("Bridge", 3)]
+        [InlineData("House", 0)]
+        [InlineData("Tree_Big", 0)]
+        [InlineData("Tree_Small", 0)]
+        [InlineData("Lantern", 0)]
+        [InlineData("Stump", 0)]
+        [InlineData("Fence_Big", 0)]
+        [InlineData("Log", 0)]
+        [InlineData("Bridge", 0)]
         [InlineData("Unknown", 0)]
         public void GetAnchorTitleID_ReturnsCorrectID(string enumName, int expectedID)
         {

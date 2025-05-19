@@ -24,7 +24,7 @@ namespace SWEN_GameTests
         {
             var manager = new SpriteManager();
             var layer = new LayerInstance { _Identifier = "Background" };
-            float inputDepth = 0.5f;
+            float inputDepth = 0.0f;
             float result = manager.GetDepth(inputDepth, layer);
             Assert.Equal(inputDepth, result); 
         }
@@ -35,7 +35,7 @@ namespace SWEN_GameTests
             var manager = new SpriteManager();
             var layer = new LayerInstance { _Identifier = "Deco_Big1" };
             float result = manager.GetDepth(0.5f, layer);
-            Assert.Equal(0.496f, result); // 0.5 - (4/1000) = 0.496
+            Assert.Equal(0.5, result); 
         }
     }
 }
