@@ -11,6 +11,7 @@ public enum MenuState
 {
     MainMenu,
     Options,
+    Paused,
 }
 
 public class MainMenuUI

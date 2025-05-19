@@ -34,38 +34,47 @@ namespace SWEN_Game
 
         public void ChangeGameState(GameState newGameState)
         {
-            CurrentGameState = newGameState;
             if (newGameState == GameState.Playing && _gameManager == null)
             {
                 _gameManager = new GameManager();
             }
+            CurrentGameState = newGameState;
         }
 
         public void Update(GameTime gameTime)
         {
             Globals.UpdateTime(gameTime);
 
-            if (CurrentGameState == GameState.MainMenu || CurrentGameState == GameState.Paused)
+            switch (CurrentGameState)
             {
-                _uiManager.Update(gameTime);
-            }
+                case GameState.MainMenu:
+                    _uiManager.Update(gameTime);
+                    break;
 
-            if (CurrentGameState == GameState.Playing)
-            {
-                _gameManager?.Update();
+                case GameState.Playing:
+                    _uiManager.Update(gameTime);
+                    _gameManager?.Update();
+                    break;
+
+                case GameState.Paused:
+                    _uiManager.Update(gameTime);
+                    break;
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (CurrentGameState == GameState.MainMenu || CurrentGameState == GameState.Paused)
+            switch (CurrentGameState)
             {
-                _uiManager.Draw(gameTime, spriteBatch);
-            }
-
-            if (CurrentGameState == GameState.Playing)
-            {
-                _gameManager?.Draw();
+                case GameState.MainMenu:
+                    _uiManager.Draw(gameTime, spriteBatch);
+                    break;
+                case GameState.Playing:
+                    _gameManager?.Draw();
+                    break;
+                case GameState.Paused:
+                    _uiManager.Draw(gameTime, spriteBatch);
+                    break;
             }
         }
     }
