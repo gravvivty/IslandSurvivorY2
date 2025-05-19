@@ -43,6 +43,8 @@ namespace SWEN_Game
 
         public void Update(GameTime gameTime)
         {
+            Globals.UpdateTime(gameTime);
+
             if (CurrentGameState == GameState.MainMenu || CurrentGameState == GameState.Paused)
             {
                 _uiManager.Update(gameTime);
@@ -50,9 +52,7 @@ namespace SWEN_Game
 
             if (CurrentGameState == GameState.Playing)
             {
-                _uiManager?.Update(gameTime);
                 _gameManager?.Update();
-                Globals.UpdateTime(gameTime);
             }
         }
 
