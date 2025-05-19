@@ -15,7 +15,7 @@ namespace SWEN_GameTests
             var position = new Vector2(100, 200);
             float spriteHeight = 32f;
             float result = manager.GetDepth(position, spriteHeight);
-            Assert.Equal(0.232f, result); // (200 + 32) / 1000 = 0.232
+            Assert.Equal(0.116f, result); // (200 + 32) / maxf = 0.116 (maxf=2000)
         }
 
         // Test für Background Layer
