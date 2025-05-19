@@ -95,7 +95,7 @@ public class MainMenuUI
             new {Label ="1280x720", Width = 1280, Height = 720},
             new {Label ="1600x900", Width = 1600, Height = 900},
             new {Label ="1920x1080", Width = 1920, Height = 1080}
-            };
+        };
         foreach (var res in resolutions)
         {
             dropdown.AddElement(res.Label, element =>

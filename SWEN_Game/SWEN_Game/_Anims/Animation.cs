@@ -7,6 +7,9 @@ namespace SWEN_Game
 {
     public class Animation
     {
+        public float _scale;
+        public int frameSize = 16;
+
         private readonly Texture2D _texture;
 
         // Used to determine WHERE in the Spritesheet to get the Frame from
@@ -17,8 +20,6 @@ namespace SWEN_Game
         private int _currentFrame;
         private float _frameTimeLeft;
         private bool isActive = true;
-        public float _scale;
-        public int frameSize = 16;
 
         private Color _tintColor;
 

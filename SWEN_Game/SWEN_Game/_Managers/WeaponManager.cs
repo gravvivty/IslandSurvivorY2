@@ -28,7 +28,7 @@ namespace SWEN_Game
             Weapon sniper = new Weapon(0.8f, 600f, 0.4f, 1, 1, 1, vanillaBulletTexture);
             _weapons.Add("Sniper", sniper);
 
-            PlayerGameData.baseWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.BaseWeapon = this.GetWeapon("Pistol");
             PlayerGameData.UpdatePlayerGameData();
         }
 
