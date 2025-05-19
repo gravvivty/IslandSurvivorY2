@@ -46,6 +46,7 @@ namespace SWEN_Game
             {
                 _uiManager?.Update(gameTime);
                 _gameManager?.Update();
+                Globals.UpdateTime(gameTime);
             }
         }
         public void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
