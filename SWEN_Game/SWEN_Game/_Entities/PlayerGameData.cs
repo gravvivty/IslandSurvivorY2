@@ -19,7 +19,7 @@ namespace SWEN_Game
         private int bulletsPerShot;
         private float bulletDamage;
         */
-        public static Weapon CurrentWeapon = new Weapon(1, 1, 1, 1, 1, 1, BulletTexture); // dummy
+        public static Weapon CurrentWeapon;
         public static Weapon BaseWeapon;
         public static Texture2D BulletTexture;
         public static Color BulletTint;
