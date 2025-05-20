@@ -5,10 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseAppHost>true</UseAppHost>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(PublishProfile)' != '' Or '$(PublishDir)' != ''">
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <SelfContained>true</SelfContained>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
