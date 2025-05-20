@@ -14,7 +14,6 @@ namespace SWEN_Game
 
         // Used to determine WHERE in the Spritesheet to get the Frame from
         private readonly List<Rectangle> _srcRect = new();
-        private readonly SpriteManager _spriteManager;
         private readonly int _totalFrames;
         private readonly float _frameTime;
         private int _currentFrame;
@@ -23,10 +22,8 @@ namespace SWEN_Game
 
         private Color _tintColor;
 
-        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, SpriteManager spriteManager, int column = 1, Color? tintColor = null, float? scale = null)
+        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int column = 1, Color? tintColor = null, float? scale = null)
         {
-            _spriteManager = spriteManager;
-
             // Spritesheet
             _texture = texture;
 
@@ -87,7 +84,7 @@ namespace SWEN_Game
 
         public void Draw(Vector2 position)
         {
-            float depth = _spriteManager.GetDepth(position, 16);
+            float depth = Globals.SpriteManager.GetDepth(position, 16);
             Globals.SpriteBatch.Draw(
                 _texture,
                 position,

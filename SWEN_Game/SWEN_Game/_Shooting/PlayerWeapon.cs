@@ -70,7 +70,6 @@ namespace SWEN_Game
                     1,
                     4,
                     0.1f,
-                    Globals.SpriteManager,
                     1,
                     PlayerGameData.BulletTint,
                     PlayerGameData.CurrentWeapon.bulletSize);
@@ -79,6 +78,15 @@ namespace SWEN_Game
                 _bullets.Add(new Bullet(bulletAnim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize));
                 System.Diagnostics.Debug.WriteLine("PlayerWeapon is now shooting" + DateTime.Now);
                 TimeSinceLastShot = 0f;
+            }
+        }
+
+        public void DrawBullets()
+        {
+
+            foreach (var bullet in GetBullets())
+            {
+                bullet.Draw(Globals.SpriteBatch);
             }
         }
     }
