@@ -35,6 +35,21 @@ namespace SWEN_Game
             this.iconSprite = icon;
         }
 
+        public Weapon Clone()
+        {
+            Weapon clone = new Weapon(
+                this.attackSpeed,
+                this.shotSpeed,
+                this.bulletSize,
+                this.bulletSpread,
+                this.bulletsPerShot,
+                this.bulletDamage,
+                this.bulletTexture,
+                this.iconSprite,
+                this.ingameSprite);
+            return clone;
+        }
+
         /* protected float FireCooldown
         {
             get => _fireCooldown;

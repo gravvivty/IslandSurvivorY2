@@ -29,7 +29,7 @@ namespace SWEN_Game
         public static Dictionary<int, Powerup> Powerups = new Dictionary<int, Powerup>();
 
         // Weapon Attribute Multipliers
-        public static float AttackSpeedMult = 1;
+        public static float AttackSpeedMult = 1; // Higher Value -> Slower shooting
         public static float ShotSpeedMult = 1;
         public static float BulletSizeMult = 1;
         public static float BulletSpreadMult = 1;
@@ -50,8 +50,10 @@ namespace SWEN_Game
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.
         /// </summary>
-        public static void UpdatePlayerGameData()
+        public static void UpdateWeaponGameData()
         {
+            UpdatePlayerGameData();
+
             // Update the current weapon with the new multipliers and flat values
             CurrentWeapon.attackSpeed = (BaseWeapon.attackSpeed * AttackSpeedMult) + AttackSpeedFlat;
             CurrentWeapon.shotSpeed = (BaseWeapon.shotSpeed * ShotSpeedMult) + ShotSpeedFlat;
@@ -59,6 +61,31 @@ namespace SWEN_Game
             CurrentWeapon.bulletSpread = (BaseWeapon.bulletSpread * BulletSpreadMult) + BulletSpreadFlat;
             CurrentWeapon.bulletsPerShot = (int)((BaseWeapon.bulletsPerShot * BulletsPerShotMult) + BulletsPerShotFlat);
             CurrentWeapon.bulletDamage = (BaseWeapon.bulletDamage * BulletDamageMult) + BulletDamageFlat;
+        }
+
+        private static void UpdatePlayerGameData()
+        {
+            // Reset to base before applying powerups
+            AttackSpeedMult = 1;
+            ShotSpeedMult = 1;
+            BulletSizeMult = 1;
+            BulletSpreadMult = 1;
+            BulletsPerShotMult = 1;
+            BulletDamageMult = 1;
+
+            AttackSpeedFlat = 0;
+            ShotSpeedFlat = 0;
+            BulletSizeFlat = 0;
+            BulletSpreadFlat = 0;
+            BulletsPerShotFlat = 0;
+            BulletDamageFlat = 0;
+
+            ReverseShotLevel = 0;
+
+            foreach (var powerup in Powerups.Values)
+            {
+                powerup.UpdatePlayerGameDataValues();
+            }
         }
     }
 }

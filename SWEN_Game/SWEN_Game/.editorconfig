@@ -33,6 +33,7 @@ dotnet_diagnostic.SA1407.severity = none
 dotnet_diagnostic.SA1025.severity = none
 dotnet_diagnostic.SA1516.severity = none
 dotnet_diagnostic.SA1602.severity = none
+dotnet_diagnostic.SA1210.severity = none
 
 [*.{cs,vb}]
 #### Naming styles ####

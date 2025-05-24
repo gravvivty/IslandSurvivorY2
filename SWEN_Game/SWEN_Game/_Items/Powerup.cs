@@ -9,12 +9,12 @@ namespace SWEN_Game
     public class Powerup
     {
         // Weapon Attribute Multipliers
-        protected float attackSpeedMult = 1;
-        protected float shotSpeedMult = 1;
-        protected float bulletSizeMult = 1;
-        protected float bulletSpreadMult = 1;
-        protected int bulletsPerShotMult = 1;
-        protected float bulletDamageMult = 1;
+        protected float attackSpeedMult = 0;
+        protected float shotSpeedMult = 0;
+        protected float bulletSizeMult = 0;
+        protected float bulletSpreadMult = 0;
+        protected int bulletsPerShotMult = 0;
+        protected float bulletDamageMult = 0;
 
         // Weapon Attribute Flat Values
         protected float attackSpeedFlat = 0;
@@ -27,21 +27,21 @@ namespace SWEN_Game
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
 
-        protected void UpdatePlayerGameDataValues()
+        public void UpdatePlayerGameDataValues()
         {
-            attackSpeedMult += PlayerGameData.AttackSpeedMult;
-            shotSpeedMult += PlayerGameData.ShotSpeedMult;
-            bulletSizeMult += PlayerGameData.BulletSizeMult;
-            bulletSpreadMult += PlayerGameData.BulletSpreadMult;
-            bulletsPerShotMult += PlayerGameData.BulletsPerShotMult;
-            bulletDamageMult += PlayerGameData.BulletDamageMult;
+            PlayerGameData.AttackSpeedMult += attackSpeedMult;
+            PlayerGameData.ShotSpeedMult += shotSpeedMult;
+            PlayerGameData.BulletSizeMult += bulletSizeMult;
+            PlayerGameData.BulletSpreadMult += bulletSpreadMult;
+            PlayerGameData.BulletsPerShotMult += bulletsPerShotMult;
+            PlayerGameData.BulletDamageMult += bulletDamageMult;
 
-            attackSpeedFlat += PlayerGameData.AttackSpeedFlat;
-            shotSpeedFlat += PlayerGameData.ShotSpeedFlat;
-            bulletSizeFlat += PlayerGameData.BulletSizeFlat;
-            bulletSpreadFlat += PlayerGameData.BulletSpreadFlat;
-            bulletsPerShotFlat += PlayerGameData.BulletsPerShotFlat;
-            bulletDamageFlat += PlayerGameData.BulletDamageFlat;
+            PlayerGameData.AttackSpeedFlat += attackSpeedFlat;
+            PlayerGameData.ShotSpeedFlat += shotSpeedFlat;
+            PlayerGameData.BulletSizeFlat += bulletSizeFlat;
+            PlayerGameData.BulletSpreadFlat += bulletSpreadFlat;
+            PlayerGameData.BulletsPerShotFlat += bulletsPerShotFlat;
+            PlayerGameData.BulletDamageFlat += bulletDamageFlat;
         }
     }
 }

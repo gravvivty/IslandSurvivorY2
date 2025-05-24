@@ -37,6 +37,7 @@ namespace SWEN_Game
             if (_currentKeyboardState.IsKeyDown(Keys.R) && !_previousKeyboardState.IsKeyDown(Keys.R))
             {
                 _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
+                PlayerGameData.UpdateWeaponGameData();
             }
         }
 

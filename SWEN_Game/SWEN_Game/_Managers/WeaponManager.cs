@@ -35,16 +35,17 @@ namespace SWEN_Game
             Weapon precision_rifle = new Weapon(0.8f, 500f, 0.7f, 1, 1, 16f, vanillaBulletTexture, precisionRifleIconTexture, precisionRifleIconTexture);
             _weapons.Add("Precision_Rifle", precision_rifle);
 
+            // Get it twice cuz if not they have the same reference
             PlayerGameData.BaseWeapon = this.GetWeapon("Pistol");
-            PlayerGameData.CurrentWeapon = PlayerGameData.BaseWeapon;
-            PlayerGameData.UpdatePlayerGameData();
+            PlayerGameData.CurrentWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.UpdateWeaponGameData();
         }
 
         public Weapon GetWeapon(string weaponName)
         {
             if (_weapons.TryGetValue(weaponName, out Weapon weapon))
             {
-                return weapon;
+                return weapon.Clone();
             }
 
             // This should never return Null
@@ -52,33 +53,5 @@ namespace SWEN_Game
             // We dont need exception handling ~ Nico
             return null;
         }
-
-            /* public void Update()
-            {
-                currentWeapon.Update();
-            }
-
-            public void Draw(SpriteBatch spriteBatch)
-            {
-                foreach (var bullet in currentWeapon.GetBullets())
-                {
-                    bullet.Draw(spriteBatch);
-                }
-            }
-
-            public void Shoot(Vector2 direction, Vector2 player_position)
-            {
-                currentWeapon.Shoot(direction, player_position);
-            }
-
-            public void SetWeapon(Weapon newWeapon)
-            {
-                currentWeapon = newWeapon;
-            }
-
-            public Weapon GetWeapon()
-            {
-                return currentWeapon;
-            } */
-        }
+    }
 }

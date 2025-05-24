@@ -1,14 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using MLEM.Font;
+﻿using MLEM.Font;
 using MLEM.Input;
 using MLEM.Maths;
 using MLEM.Textures;
 using MLEM.Ui;
 using MLEM.Ui.Style;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SWEN_Game
 {
@@ -66,6 +65,7 @@ namespace SWEN_Game
                     _mainMenuUI.Hide();
                 }
             }
+
             if (keyboardState.IsKeyUp(Keys.Escape))
             {
                 wasEscPressed = false;
