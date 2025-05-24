@@ -48,6 +48,14 @@ namespace SWEN_Game
                     return new ReverseShotPowerup(level);
                 case 3:
                     return new PiercerPowerup(level);
+                case 4:
+                    return new AdrenalinePowerup(level);
+                case 5:
+                    return new RocketspeedPowerup(level);
+                case 6:
+                    return new RancidEnergyDrinkPowerup(level);
+                case 7:
+                    return new DemonBulletsPowerup(level);
 
                 // Add more item cases here
                 default:
@@ -62,11 +70,12 @@ namespace SWEN_Game
 
         private void RegisterModifier(int itemID, int level)
         {
+            List<IWeaponModifier> modifiers = weapon.GetModifiers();
+            bool found = false;
+
             switch (itemID)
             {
                 case 2: // ReverseShot
-                    List<IWeaponModifier> modifiers = weapon.GetModifiers();
-                    bool found = false;
 
                     foreach (var mod in modifiers)
                     {
@@ -80,9 +89,29 @@ namespace SWEN_Game
 
                     if (!found)
                     {
-                        ReverseShotModifier newMod = new ReverseShotModifier();
-                        newMod.SetReverseShotModifier(level);
-                        weapon.AddModifier(newMod);
+                        ReverseShotModifier newReverseShotMod = new ReverseShotModifier();
+                        newReverseShotMod.SetReverseShotModifier(level);
+                        weapon.AddModifier(newReverseShotMod);
+                    }
+
+                    break;
+                case 7: // DemonBullets
+
+                    foreach (var mod in modifiers)
+                    {
+                        if (mod is DemonBulletsModifier demonMod)
+                        {
+                            demonMod.SetDemonBulletsModifier(level);
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        DemonBulletsModifier newDemonBulletsMod = new DemonBulletsModifier();
+                        newDemonBulletsMod.SetDemonBulletsModifier(level);
+                        weapon.AddModifier(newDemonBulletsMod);
                     }
 
                     break;

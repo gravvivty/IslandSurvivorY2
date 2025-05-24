@@ -18,8 +18,11 @@ namespace SWEN_Game
         private int _piercingCount = 0;
         private Animation _animation;
         private Rectangle bullet;
+        private PlayerWeapon _weapon;
+        private bool _isDemonBullet;
+        private float _damage;
 
-        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount)
+        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, PlayerWeapon weapon, float dmg, bool? isChild = null)
         {
             _animation = animation;
             _animation.Reset();
@@ -29,6 +32,9 @@ namespace SWEN_Game
             _shotSpeed = Vector2.Normalize(direction) * shotSpeed;
             _bulletSize = bulletSize;
             _piercingCount = piercingCount;
+            _weapon = weapon;
+            _isDemonBullet = isChild ?? false;
+            _damage = dmg;
         }
 
         public void Update()
@@ -47,9 +53,22 @@ namespace SWEN_Game
 
             if (Globals.IsCollidingHitbox(bullet))
             {
+                foreach (var mod in _weapon.GetModifiers())
+                {
+                    if (_isDemonBullet == true)
+                    {
+                        continue;
+                    }
+
+                    if (mod is DemonBulletsModifier demonMod)
+                    {
+                        demonMod.OnBulletCollision(_position, _weapon, true);
+                    }
+                }
+
                 if (_piercingCount > 0)
                 {
-                    _piercingCount--; // move this logic with pierce later to the enemies, they will know the bulletList
+                    _piercingCount--;
                 }
                 else
                 {

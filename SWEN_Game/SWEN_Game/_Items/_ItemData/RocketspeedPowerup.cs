@@ -1,40 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SWEN_Game
 {
-    public class ReverseShotPowerup : Powerup
+    public class RocketspeedPowerup : Powerup
     {
-        // ID 2
+        // ID 5
 
-        public ReverseShotPowerup(int level)
+        public RocketspeedPowerup(int level)
         {
             this.Level = level;
-            this.ApplyPowerupLevel();
-            this.itemID = 2; // Unique ID
             SetLevelValues();
+            this.itemID = 5;
         }
 
-        private void ApplyPowerupLevel()
-        {
-            PlayerGameData.ReverseShotLevel = this.Level;
-        }
-
-        private void SetLevelValues()
+        public void SetLevelValues()
         {
             switch (this.Level)
             {
                 case 1:
-                    this.attackSpeedFlat += 0.1f;
+                    this.shotSpeedFlat += 50;
                     break;
                 case 2:
-                    this.attackSpeedFlat += 0.15f;
+                    this.shotSpeedFlat += 100;
                     break;
                 case 3:
-                    this.attackSpeedFlat += 0.2f;
+                    this.shotSpeedFlat += 200;
                     break;
                 default:
                     break;

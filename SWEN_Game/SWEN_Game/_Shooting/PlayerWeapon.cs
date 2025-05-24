@@ -51,9 +51,9 @@ namespace SWEN_Game
             float gametime = Globals.Time;
             TimeSinceLastShot += (float)gametime;
 
-            foreach (var bullet in _bullets)
+            for (int i = 0; i < _bullets.Count; i++)
             {
-                bullet.Update();
+                _bullets[i].Update();
             }
 
             _bullets.RemoveAll(bullet => !bullet.IsVisible);
@@ -94,7 +94,7 @@ namespace SWEN_Game
             }
         }
 
-        public void ShootInDirection(Vector2 direction, Vector2 player_position)
+        public void ShootInDirection(Vector2 direction, Vector2 player_position, bool? isDemonBullet = null)
         {
             Animation anim = new Animation(
                 PlayerGameData.BulletTexture,
@@ -104,8 +104,8 @@ namespace SWEN_Game
                 1,
                 PlayerGameData.BulletTint,
                 PlayerGameData.CurrentWeapon.bulletSize);
-
-            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize, PlayerGameData.BulletPierce));
+            bool isChild = isDemonBullet ?? false;
+            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize, PlayerGameData.BulletPierce, this, PlayerGameData.CurrentWeapon.bulletDamage, isChild));
         }
     }
 }
