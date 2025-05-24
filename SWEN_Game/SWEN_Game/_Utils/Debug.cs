@@ -11,10 +11,33 @@ namespace SWEN_Game
     {
         private readonly Player _player;
         private readonly Renderer _renderer;
-        public Debug(Player player, Renderer renderer)
+        private readonly PowerupManager _powerupManager;
+        private KeyboardState _currentKeyboardState;
+        private KeyboardState _previousKeyboardState;
+
+        public Debug(Player player, Renderer renderer, PowerupManager powerupmanager)
         {
             _player = player;
             _renderer = renderer;
+            _powerupManager = powerupmanager;
+        }
+
+        public void DebugUpdate()
+        {
+            _previousKeyboardState = _currentKeyboardState;
+            _currentKeyboardState = Keyboard.GetState();
+
+            // DEBUG PLAYER INVINCIBILITY
+            if (_currentKeyboardState.IsKeyDown(Keys.Space) && !_previousKeyboardState.IsKeyDown(Keys.Space) && !_player.GetIsInvincible())
+            {
+                _player.TriggerInvincibility();
+            }
+
+            // DEBUG REVERSE SHOT
+            if (_currentKeyboardState.IsKeyDown(Keys.R) && !_previousKeyboardState.IsKeyDown(Keys.R))
+            {
+                _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
+            }
         }
 
         public void DrawWorldDebug()

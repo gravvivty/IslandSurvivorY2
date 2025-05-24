@@ -29,6 +29,8 @@ namespace SWEN_Game
         */
 
         private List<Bullet> _bullets = new List<Bullet>();
+        private List<IWeaponModifier> _modifiers = new List<IWeaponModifier>();
+        public List<Bullet> GetBullets() => _bullets;
 
         private float _timeSinceLastShot;
 
@@ -44,8 +46,6 @@ namespace SWEN_Game
             set => _timeSinceLastShot = value;
         }
 
-        public List<Bullet> GetBullets() => _bullets;
-
         public void Update()
         {
             float gametime = Globals.Time;
@@ -56,7 +56,25 @@ namespace SWEN_Game
                 bullet.Update();
             }
 
-            _bullets.RemoveAll(b => !b.IsVisible);
+            _bullets.RemoveAll(bullet => !bullet.IsVisible);
+        }
+
+        public void AddModifier(IWeaponModifier modifier)
+        {
+            _modifiers.Add(modifier);
+        }
+
+        public List<IWeaponModifier> GetModifiers()
+        {
+            return _modifiers;
+        }
+
+        public void DrawBullets()
+        {
+            foreach (var bullet in GetBullets())
+            {
+                bullet.Draw(Globals.SpriteBatch);
+            }
         }
 
         public void Shoot(Vector2 direction, Vector2 player_position)
@@ -64,30 +82,30 @@ namespace SWEN_Game
             System.Diagnostics.Debug.WriteLine("PlayerWeapon is now Trying to shoot" + DateTime.Now);
             if (TimeSinceLastShot >= PlayerGameData.CurrentWeapon.attackSpeed)
             {
-                // Clone bullet anim to make each bullet independent
-                Animation bulletAnim = new Animation(
-                    PlayerGameData.BulletTexture,
-                    1,
-                    4,
-                    0.1f,
-                    1,
-                    PlayerGameData.BulletTint,
-                    PlayerGameData.CurrentWeapon.bulletSize);
+                ShootInDirection(direction, player_position);
 
-                // TODO: Direction calculated with bulletSpread factor
-                _bullets.Add(new Bullet(bulletAnim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize));
+                foreach (var mod in _modifiers)
+                {
+                    mod.OnShoot(direction, player_position, this);
+                }
+
                 System.Diagnostics.Debug.WriteLine("PlayerWeapon is now shooting" + DateTime.Now);
                 TimeSinceLastShot = 0f;
             }
         }
 
-        public void DrawBullets()
+        public void ShootInDirection(Vector2 direction, Vector2 player_position)
         {
+            Animation anim = new Animation(
+                PlayerGameData.BulletTexture,
+                1,
+                4,
+                0.1f,
+                1,
+                PlayerGameData.BulletTint,
+                PlayerGameData.CurrentWeapon.bulletSize);
 
-            foreach (var bullet in GetBullets())
-            {
-                bullet.Draw(Globals.SpriteBatch);
-            }
+            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize));
         }
     }
 }

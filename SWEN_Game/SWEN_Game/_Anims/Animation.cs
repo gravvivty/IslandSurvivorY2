@@ -82,14 +82,15 @@ namespace SWEN_Game
             }
         }
 
-        public void Draw(Vector2 position)
+        public void Draw(Vector2 position, Color? tintColor = null)
         {
+            Color color = tintColor ?? _tintColor;
             float depth = Globals.SpriteManager.GetDepth(position, 16);
             Globals.SpriteBatch.Draw(
                 _texture,
                 position,
                 _srcRect[_currentFrame],
-                _tintColor,
+                color,
                 0,
                 Vector2.Zero,
                 _scale,

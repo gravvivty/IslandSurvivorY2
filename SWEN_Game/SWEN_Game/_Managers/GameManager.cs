@@ -14,6 +14,7 @@ namespace SWEN_Game
         private readonly SpriteCalculator _spriteCalculator;
         private readonly WeaponManager _weaponManager;
         private readonly PlayerWeapon _playerWeapon;
+        private readonly PowerupManager _powerupManager;
         private readonly Debug _debug;
 
         public GameManager()
@@ -29,7 +30,9 @@ namespace SWEN_Game
             _weaponManager.InitWeapons();
             _playerWeapon = new PlayerWeapon(_weaponManager);
 
-            _debug = new Debug(_player, _renderer);
+            _powerupManager = new PowerupManager(_playerWeapon);
+
+            _debug = new Debug(_player, _renderer, _powerupManager);
 
             // Calculates all collisions in the level
             Globals.CalculateAllCollisions();
@@ -52,6 +55,9 @@ namespace SWEN_Game
             MouseManager.UpdateMouse(_player, _playerWeapon, mouse);
             _player.Update();
             _playerWeapon.Update();
+
+            // Debug
+            _debug.DebugUpdate();
         }
 
         public void Draw()

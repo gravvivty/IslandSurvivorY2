@@ -24,6 +24,10 @@ namespace SWEN_Game
         public static Texture2D BulletTexture;
         public static Color BulletTint;
 
+        public static float Speed = 130f;
+        public static int Health = 6;
+        public static Dictionary<int, Powerup> Powerups = new Dictionary<int, Powerup>();
+
         // Weapon Attribute Multipliers
         public static float AttackSpeedMult = 1;
         public static float ShotSpeedMult = 1;
@@ -39,6 +43,9 @@ namespace SWEN_Game
         public static float BulletSpreadFlat = 0;
         public static int BulletsPerShotFlat = 0;
         public static float BulletDamageFlat = 0;
+
+        // Special Powerups
+        public static int ReverseShotLevel = 0;
 
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.

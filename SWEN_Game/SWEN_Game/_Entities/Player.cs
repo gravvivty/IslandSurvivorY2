@@ -26,21 +26,29 @@ namespace SWEN_Game
         public Rectangle Hitbox { get; private set; }
 
         public float Speed { get; private set; }
+        public Vector2 Direction { get; private set; }
 
-        private Vector2 _direction;
+        // Invincibility Handling Stuff
+        private bool _isInvincible = false;
+        private float _invincibilityTime = 1.0f; // seconds
+        private float _invincibilityTimer = 0f;
+
+        private float _flickerRate = 0.075f; // seconds
+        private float _flickerTimer = 0f;
+        private bool _isVisible = true;
 
         public Player()
         {
-            Speed = 130f;
+            Speed = PlayerGameData.Speed;
 
-            // Spawn Pos
+            // SpritePos and Spawn Position
             Position = new Vector2(750, 750);
 
-            // Offset Pos - used for actually comparing positions
+            // RealPos - used for actually comparing positions
             RealPos = new Vector2(Position.X + 4, Position.Y + 8);
-            HitboxPos = new Vector2(Position.X + 4, Position.Y + 8);
 
-            // Hitbox of the Player
+            // HitboxPos of the Player
+            HitboxPos = new Vector2(Position.X + 4, Position.Y + 8);
         }
 
         public void AddSpriteManager(SpriteManager spriteManager)
@@ -68,22 +76,53 @@ namespace SWEN_Game
 
         public void Update()
         {
-            _anims.Update(GetDirection());
+            _anims.Update(this.Direction);
+
+            // Handle invincibility timer
+            if (_isInvincible)
+            {
+                _invincibilityTimer -= Globals.Time;
+                _flickerTimer -= Globals.Time;
+
+                if (_flickerTimer <= 0)
+                {
+                    _isVisible = !_isVisible; // Toggle flicker
+                    _flickerTimer = _flickerRate; // Reset flicker timer
+                }
+
+                if (_invincibilityTimer <= 0)
+                {
+                    _isInvincible = false;
+                    _isVisible = true;
+                }
+            }
         }
 
         public void SetDirection(Vector2 direction)
         {
-            _direction = direction;
-        }
-
-        public Vector2 GetDirection()
-        {
-            return _direction;
+            this.Direction = direction;
         }
 
         public void Draw()
         {
-            _anims.Draw(Position);
+            if (_isVisible)
+            {
+                _anims.Draw(Position);
+            }
+        }
+
+        // Use this to trigger invincibilty Flicker/Frames
+        public void TriggerInvincibility()
+        {
+            _isInvincible = true;
+            _invincibilityTimer = _invincibilityTime;
+            _flickerTimer = _flickerRate;
+            _isVisible = true;
+        }
+
+        public bool GetIsInvincible()
+        {
+            return _isInvincible;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace SWEN_Game
             {
                 _gameManager = new GameManager();
             }
+
             CurrentGameState = newGameState;
         }
 
