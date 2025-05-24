@@ -28,16 +28,16 @@ namespace SWEN_Game
             // _spriteManager.DrawPlayer(Globals.SpriteBatch, _player.texture, _player.position);
 
             // Draw the player's collision box for debugging, using a pink overlay.
-            Rectangle entityRect = new Rectangle((int)_player.Position.X + 5, (int)_player.Position.Y + 10, 8, 8);
+            Rectangle playerCollision = new Rectangle((int)_player.Position.X + 5, (int)_player.Position.Y + 10, 8, 8);
             Globals.SpriteBatch.Draw(
                 Globals.Content.Load<Texture2D>("debug_rect"),
-                entityRect,
+                playerCollision,
                 null,
                 Color.Pink,
                 0f,
                 Vector2.Zero,
                 SpriteEffects.None,
-                1f);
+                0.992f);
 
             // Draw any collision areas in red.
             foreach (var collision in Globals.Collisions)
@@ -54,21 +54,32 @@ namespace SWEN_Game
             }
 
             // Draw Player Position/Rectangle
-            Rectangle posRect = new Rectangle(
+            Rectangle realPositionRect = new Rectangle(
                 (int)_player.RealPos.X,
                 (int)_player.RealPos.Y,
-                _player.Texture.Width / 20,
-                _player.Texture.Height / 10);
+                _player.PlayerTexture.Width / 20,
+                _player.PlayerTexture.Height / 10);
             Globals.SpriteBatch.Draw(
                 Globals.Content.Load<Texture2D>("debug_rect"),
-                posRect,
+                realPositionRect,
                 null,
                 Color.Blue,
                 0f,
                 Vector2.Zero,
                 SpriteEffects.None,
-                1f);
+                0.993f);
 
+            // Draw the player's hitbox for debugging, using a purple overlay.
+            Rectangle playerHitbox = _player.Hitbox;
+            Globals.SpriteBatch.Draw(
+                Globals.Content.Load<Texture2D>("debug_rect"),
+                playerHitbox,
+                null,
+                Color.Purple,
+                0f,
+                Vector2.Zero,
+                SpriteEffects.None,
+                0.991f);
             Globals.SpriteBatch.End();
         }
     }

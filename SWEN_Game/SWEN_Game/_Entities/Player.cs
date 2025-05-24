@@ -13,45 +13,57 @@ namespace SWEN_Game
         private AnimationManager _anims = new();
 
         // For general enemies/entities we can copy most of these variables
-        public Texture2D Texture { get; private set; }
+        public Texture2D PlayerTexture { get; private set; }
 
         // Used for drawing the Sprite
         public Vector2 Position { get; private set; }
 
         // Used to check if something is near the player
         public Vector2 RealPos { get; private set; }
+
+        // Used to check if something entered the player's hitbox
+        public Vector2 HitboxPos { get; private set; }
+        public Rectangle Hitbox { get; private set; }
+
         public float Speed { get; private set; }
+
+        private Vector2 _direction;
 
         public Player()
         {
             Speed = 130f;
 
             // Spawn Pos
-            Position = new Vector2(450, 450);
+            Position = new Vector2(750, 750);
 
             // Offset Pos - used for actually comparing positions
-            RealPos = new Vector2(456, 458);
+            RealPos = new Vector2(Position.X + 4, Position.Y + 8);
+            HitboxPos = new Vector2(Position.X + 4, Position.Y + 8);
+
+            // Hitbox of the Player
         }
 
         public void AddSpriteManager(SpriteManager spriteManager)
         {
-            Texture = Globals.Content.Load<Texture2D>("player");
+            PlayerTexture = Globals.Content.Load<Texture2D>("player");
             _spriteManager = spriteManager;
 
-            _anims.AddAnimation(new Vector2(0, -1), new(Texture, 1, 3, 0.1f, 1));
-            _anims.AddAnimation(new Vector2(1, -1), new(Texture, 1, 3, 0.1f, 2));
-            _anims.AddAnimation(new Vector2(1, 0), new(Texture, 1, 3, 0.1f, 3));
-            _anims.AddAnimation(new Vector2(1, 1), new(Texture, 1, 3, 0.1f, 4));
-            _anims.AddAnimation(new Vector2(0, 1), new(Texture, 1, 3, 0.1f, 5));
-            _anims.AddAnimation(new Vector2(-1, 1), new(Texture, 1, 3, 0.1f, 6));
-            _anims.AddAnimation(new Vector2(-1, 0), new(Texture, 1, 3, 0.1f, 7));
-            _anims.AddAnimation(new Vector2(-1, -1), new(Texture, 1, 3, 0.1f, 8));
+            _anims.AddAnimation(new Vector2(0, -1), new(PlayerTexture, 1, 3, 0.1f, 1)); // Up
+            _anims.AddAnimation(new Vector2(1, -1), new(PlayerTexture, 1, 3, 0.1f, 2)); // UpRight
+            _anims.AddAnimation(new Vector2(1, 0), new(PlayerTexture, 1, 3, 0.1f, 3)); // Right
+            _anims.AddAnimation(new Vector2(1, 1), new(PlayerTexture, 1, 3, 0.1f, 4)); // DownRight
+            _anims.AddAnimation(new Vector2(0, 1), new(PlayerTexture, 1, 3, 0.1f, 5)); // Down
+            _anims.AddAnimation(new Vector2(-1, 1), new(PlayerTexture, 1, 3, 0.1f, 6)); // DownLeft
+            _anims.AddAnimation(new Vector2(-1, 0), new(PlayerTexture, 1, 3, 0.1f, 7)); // Left
+            _anims.AddAnimation(new Vector2(-1, -1), new(PlayerTexture, 1, 3, 0.1f, 8)); // UpLeft
         }
 
-        public void SetPosition(Vector2 newPos, Vector2 newRealPos)
+        public void SetPosition(Vector2 newPos)
         {
             Position = newPos;
-            RealPos = newRealPos;
+            RealPos = new Vector2(newPos.X + 4, newPos.Y + 8);
+            HitboxPos = new Vector2(newPos.X + 4, newPos.Y + 4);
+            Hitbox = new Rectangle((int)HitboxPos.X, (int)HitboxPos.Y, 8, 12);
         }
 
         public void Update()
@@ -59,7 +71,6 @@ namespace SWEN_Game
             _anims.Update(GetDirection());
         }
 
-        private Vector2 _direction;
         public void SetDirection(Vector2 direction)
         {
             _direction = direction;

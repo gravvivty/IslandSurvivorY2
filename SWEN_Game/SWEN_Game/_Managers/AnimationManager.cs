@@ -7,7 +7,7 @@ namespace SWEN_Game
 {
     public class AnimationManager
     {
-        // Key being used will be a direction Vector2
+        // Key for this Map can be anything - i think
         private readonly Dictionary<object, Animation> _animations = new Dictionary<object, Animation>();
         private object _currentKey;
         public AnimationManager()
@@ -33,7 +33,7 @@ namespace SWEN_Game
                 _animations[key].Update();
                 _currentKey = key;
             }
-            else if (_currentKey != null && _animations.ContainsKey(_currentKey))
+            else if (_currentKey != null && _animations.ContainsKey(_currentKey)) // Should never occur anyway but exception handling
             {
                 _animations[_currentKey].Stop();
                 _animations[_currentKey].Reset();

@@ -15,6 +15,7 @@ namespace SWEN_Game
 
             // How long was the button held
             float delta = Globals.Time;
+
             if (keyboardState.IsKeyDown(Keys.W)) { moveDirection.Y = -1; }
             if (keyboardState.IsKeyDown(Keys.S)) { moveDirection.Y = 1; }
             if (keyboardState.IsKeyDown(Keys.A)) { moveDirection.X = -1; }
@@ -24,34 +25,42 @@ namespace SWEN_Game
             if (moveDirection != Vector2.Zero) { moveDirection.Normalize(); }
 
             // X - Move Player if not colliding otherwise do not update Pos
-            Vector2 tentativePosition = player.Position;
-            Vector2 tentativePositionReal = player.RealPos;
-            tentativePosition.X += moveDirection.X * player.Speed * delta;
-            tentativePositionReal.X += moveDirection.X * player.Speed * delta;
-
-            Rectangle xCollision = new Rectangle((int)tentativePosition.X + 5, (int)tentativePosition.Y + 10, 8, 8);
-
-            if (!Globals.IsColliding(xCollision))
-            {
-                player.SetPosition(tentativePosition, tentativePositionReal);
-            }
+            CheckXMovement(player, moveDirection, delta);
 
             // Same thing but for Y
-            tentativePosition = player.Position;
-            tentativePositionReal = player.RealPos;
-            tentativePosition.Y += moveDirection.Y * player.Speed * delta;
-            tentativePositionReal.Y += moveDirection.Y * player.Speed * delta;
+            CheckYMovement(player, moveDirection, delta);
 
-            Rectangle yCollision = new Rectangle((int)tentativePosition.X + 5, (int)tentativePosition.Y + 10, 8, 8);
+            // Normalize for Animation Use - how I got rid of having sqrt(2) for diagonals
+            moveDirection = new Vector2(Math.Sign(moveDirection.X), Math.Sign(moveDirection.Y));
+            player.SetDirection(moveDirection);
+        }
+
+        private static Vector2 CheckYMovement(Player player, Vector2 moveDirection, float delta)
+        {
+            Vector2 tentativePosition = player.Position;
+            tentativePosition.Y += moveDirection.Y * player.Speed * delta;
+
+            Rectangle yCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 8, 8, 8);
 
             if (!Globals.IsColliding(yCollision))
             {
-                player.SetPosition(tentativePosition, tentativePositionReal);
+                player.SetPosition(tentativePosition);
             }
 
-            // Normalize for Animation Use
-            moveDirection = new Vector2(Math.Sign(moveDirection.X), Math.Sign(moveDirection.Y));
-            player.SetDirection(moveDirection);
+            return tentativePosition;
+        }
+
+        private static void CheckXMovement(Player player, Vector2 moveDirection, float delta)
+        {
+            Vector2 tentativePosition = player.Position;
+            tentativePosition.X += moveDirection.X * player.Speed * delta;
+
+            Rectangle xCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 8, 8, 8);
+
+            if (!Globals.IsColliding(xCollision))
+            {
+                player.SetPosition(tentativePosition);
+            }
         }
     }
 }
