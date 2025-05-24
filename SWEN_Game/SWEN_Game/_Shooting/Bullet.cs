@@ -33,7 +33,7 @@ namespace SWEN_Game
         public void Update()
         {
             _position += _shotSpeed * (float)Globals.Time;
-            bullet = new Rectangle((int)_position.X, (int)_position.Y, (int)_bulletSize, (int)_bulletSize);
+            bullet = new Rectangle((int)_position.X, (int)_position.Y, (int)(_bulletSize + 4f), (int)(_bulletSize + 4f));
             _timer += (float)Globals.Time;
             _animation.Update();
             System.Diagnostics.Debug.WriteLine("Trying to update Bullet location" + DateTime.Now);
@@ -44,7 +44,7 @@ namespace SWEN_Game
                 _timer = 0f;
             }
 
-            if (Globals.IsColliding(bullet))
+            if (Globals.IsCollidingHitbox(bullet))
             {
                 _isVisible = false;
                 _timer = 0f;

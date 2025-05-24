@@ -31,8 +31,11 @@ namespace SWEN_Game
 
             _debug = new Debug(_player, _renderer);
 
-            // Calculates ALL collisions in the level
+            // Calculates all collisions in the level
             Globals.CalculateAllCollisions();
+
+            // Calculate all world hitboxes
+            Globals.CalculateAllHitboxes();
 
             // Set Global Classes
             Globals.SpriteManager = _spriteManager;
