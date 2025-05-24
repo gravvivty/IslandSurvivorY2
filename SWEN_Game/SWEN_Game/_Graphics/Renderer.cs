@@ -110,7 +110,7 @@ namespace SWEN_Game
             Vector2 rawMouseOffset = new Vector2(mouseState.X, mouseState.Y) - screenCenter;
 
             float maxMouseRange = Globals.WindowSize.X; // Mouse can affect camera within this range
-            float maxCameraOffset = 30f; // Camera shifts within this range
+            float maxCameraOffset = 40f; // Camera shifts within this range
 
             // Scales the Offset down - 0->maxMouseRange gets scaled to 0->maxCameraOffset
             // Ensures Camera smoothness

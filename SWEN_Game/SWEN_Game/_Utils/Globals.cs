@@ -20,7 +20,7 @@ namespace SWEN_Game
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
         public static SpriteManager SpriteManager { get; set; }
-        public static Point WindowSize { get; set; } = new Point(1280, 720); // Default size
+        public static Point WindowSize { get; set; } = new Point(1920, 1080); // Default size
         public static LDtkFile File { get; set; }
         public static LDtkWorld World { get; set; }
         public static List<Rectangle> Hitboxes { get; set; } = new List<Rectangle>();
