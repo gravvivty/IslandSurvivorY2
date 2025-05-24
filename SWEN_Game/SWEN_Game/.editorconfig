@@ -34,6 +34,7 @@ dotnet_diagnostic.SA1025.severity = none
 dotnet_diagnostic.SA1516.severity = none
 dotnet_diagnostic.SA1602.severity = none
 dotnet_diagnostic.SA1210.severity = none
+dotnet_diagnostic.SA1515.severity = suggestion
 
 [*.{cs,vb}]
 #### Naming styles ####

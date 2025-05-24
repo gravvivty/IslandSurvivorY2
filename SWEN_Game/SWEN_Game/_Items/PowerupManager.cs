@@ -46,6 +46,8 @@ namespace SWEN_Game
                     return new GunpowderPowerup(level);
                 case 2:
                     return new ReverseShotPowerup(level);
+                case 3:
+                    return new PiercerPowerup(level);
 
                 // Add more item cases here
                 default:

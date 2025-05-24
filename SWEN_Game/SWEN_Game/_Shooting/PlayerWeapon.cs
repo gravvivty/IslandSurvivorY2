@@ -105,7 +105,7 @@ namespace SWEN_Game
                 PlayerGameData.BulletTint,
                 PlayerGameData.CurrentWeapon.bulletSize);
 
-            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize));
+            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize, PlayerGameData.BulletPierce));
         }
     }
 }

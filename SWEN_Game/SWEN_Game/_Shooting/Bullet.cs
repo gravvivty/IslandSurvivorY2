@@ -15,11 +15,11 @@ namespace SWEN_Game
         private bool _isVisible = true;
         private float _timer = 0f;
         private float _visibilityTime = 1f;
-
+        private int _piercingCount = 0;
         private Animation _animation;
         private Rectangle bullet;
 
-        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize)
+        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount)
         {
             _animation = animation;
             _animation.Reset();
@@ -28,6 +28,7 @@ namespace SWEN_Game
             _position = startposition - origin * (_animation._scale - 1f);
             _shotSpeed = Vector2.Normalize(direction) * shotSpeed;
             _bulletSize = bulletSize;
+            _piercingCount = piercingCount;
         }
 
         public void Update()
@@ -46,8 +47,15 @@ namespace SWEN_Game
 
             if (Globals.IsCollidingHitbox(bullet))
             {
-                _isVisible = false;
-                _timer = 0f;
+                if (_piercingCount > 0)
+                {
+                    _piercingCount--; // move this logic with pierce later to the enemies, they will know the bulletList
+                }
+                else
+                {
+                    _isVisible = false;
+                    _timer = 0f;
+                }
             }
         }
 

@@ -24,6 +24,8 @@ namespace SWEN_Game
         protected int bulletsPerShotFlat = 0;
         protected float bulletDamageFlat = 0;
 
+        protected int bulletPierce = 0;
+
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
 
@@ -42,6 +44,8 @@ namespace SWEN_Game
             PlayerGameData.BulletSpreadFlat += bulletSpreadFlat;
             PlayerGameData.BulletsPerShotFlat += bulletsPerShotFlat;
             PlayerGameData.BulletDamageFlat += bulletDamageFlat;
+
+            PlayerGameData.BulletPierce += bulletPierce;
         }
     }
 }

@@ -46,6 +46,7 @@ namespace SWEN_Game
 
         // Special Powerups
         public static int ReverseShotLevel = 0;
+        public static int BulletPierce = 0;
 
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.
@@ -81,6 +82,7 @@ namespace SWEN_Game
             BulletDamageFlat = 0;
 
             ReverseShotLevel = 0;
+            BulletPierce = 0;
 
             foreach (var powerup in Powerups.Values)
             {
