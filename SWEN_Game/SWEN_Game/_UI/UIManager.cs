@@ -30,9 +30,10 @@ namespace SWEN_Game
             var style = new UntexturedStyle(spriteBatch)
             {
                 Font = new GenericSpriteFont(content.Load<SpriteFont>("Menu/GameFont")),
-                TextColor = Color.Black,
-                TextScale = 2.5F,
-                ButtonTexture = new NinePatch(content.Load<Texture2D>("Menu/button_normal"), padding: 1), // Fixed Padding argument
+                TextColor = Color.Gray,
+                TextScale = 1.5F,
+                PanelTexture = new NinePatch(content.Load<Texture2D>("Menu/nine_path_panel"), padding: 6),
+                ButtonTexture = new NinePatch(content.Load<Texture2D>("Menu/button_hover"), padding: 6),// Fixed Padding argument
             };
 
             _uiSystem = new UiSystem(game, style, _inputHandler)

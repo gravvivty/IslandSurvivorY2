@@ -29,8 +29,8 @@ public class MainMenuUI
         this.game = game;
 
         // Create the root panel that contains all menu elements
-        rootPanel = new Panel(Anchor.Center, new Vector2(0.8F, 0.2F), Vector2.Zero);
-        rootPanel.Texture = null;
+        rootPanel = new Panel(Anchor.Center, new Vector2(0.4F, 0.3F), Vector2.Zero);
+        rootPanel.DrawColor = Color.White * 0.7f;
         uiSystem.Add("MainMenu", rootPanel);
 
         ClearAndSwitch(MenuState.MainMenu);
@@ -62,8 +62,12 @@ public class MainMenuUI
 
     private void ShowMainMenu()
     {
-        var playButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Play");
-        playButton.PositionOffset = new Vector2(30, 0);
+        var titleMenu = new Paragraph(Anchor.TopCenter, 1, "MAIN MENU", true);
+        rootPanel.AddChild(titleMenu);
+        rootPanel.AddChild(new VerticalSpace(10));
+
+        var playButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Play");
+        playButton.PositionOffset = new Vector2(3, 0);
 
         playButton.OnPressed += _ =>
         {
@@ -72,15 +76,18 @@ public class MainMenuUI
         };
 
         rootPanel.AddChild(playButton);
+        rootPanel.AddChild(new VerticalSpace(10));
 
-        var optionsButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Options");
-        optionsButton.PositionOffset = new Vector2(30, 0);
+        var optionsButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Options");
+        optionsButton.PositionOffset = new Vector2(3, 0);
         optionsButton.OnPressed += _ => ClearAndSwitch(MenuState.Options);
 
         rootPanel.AddChild(optionsButton);
 
-        var exitButton = new Button(Anchor.AutoInline, new Vector2(0.3F, 0.6F), "Exit");
-        exitButton.PositionOffset = new Vector2(30, 0);
+        rootPanel.AddChild(new VerticalSpace(10));
+
+        var exitButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Exit");
+        exitButton.PositionOffset = new Vector2(3, 0);
         exitButton.OnPressed += _ =>
         {
             System.Diagnostics.Debug.WriteLine("Exit Clicked");
