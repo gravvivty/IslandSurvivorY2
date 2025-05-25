@@ -10,26 +10,45 @@ using SharpFont.Cache;
 
 namespace SWEN_Game
 {
-    public class Shark : InterfaceEnemy
+    public class Shark : IEnemy
     {
         public Vector2 Position { get; private set; }
         public Rectangle Hitbox { get; set; }
         public bool IsAlive { get; private set; } = true;
-        public float CurrentHealth { get; set; } = 80f;
+        public float CurrentHealth { get; set; } = 25f;
         public Texture2D Texture { get; set; } = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Tiburones");
         public float EnemyDamage { get; set; } = 10f;
-        public float EnemySpeed { get; set; } = 100f;
+        public float EnemySpeed { get; set; } = 80f;
+        public int FrameSize { get; set; } = 24;
+        public AnimationManager AnimationManager { get; set; }
 
         public Shark(Vector2 startPosition)
         {
             Position = startPosition;
+
+            Animation walkLeft = new Animation(Texture, 1, 3, 0.2f, FrameSize, 1);
+            Animation walkRight = new Animation(Texture, 1, 3, 0.2f, FrameSize, 2);
+
+            this.AnimationManager = new AnimationManager();
+            this.AnimationManager.AddAnimation("WalkLeft", walkLeft);
+            this.AnimationManager.AddAnimation("WalkRight", walkRight);
         }
 
         public void Update(List<Bullet> bulletList, Vector2 playerPostion)
         {
             Vector2 direction = playerPostion - Position;
+
+            if (direction.X >= 0)
+            {
+                this.AnimationManager.Update("WalkRight");
+            }
+            else
+            {
+                this.AnimationManager.Update("WalkLeft");
+            }
+
             Position += Vector2.Normalize(direction) * EnemySpeed * (float)Globals.Time;
-            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, (int)(Position.X + 24), (int)(Position.Y + 24));
+            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, FrameSize, FrameSize);
             if (GotHitByBullet(bulletList) && CurrentHealth <= 0)
             {
                 IsAlive = false;
@@ -41,17 +60,7 @@ namespace SWEN_Game
 
         public void Draw()
         {
-            float depth = Globals.SpriteManager.GetDepth(Position, 24);
-            Globals.SpriteBatch.Draw(
-                Texture,
-                Position,
-                new Rectangle(0, 0, 24, 24),
-                Color.White,
-                0,
-                Vector2.Zero,
-                0.75f,
-                SpriteEffects.None,
-                depth);
+            this.AnimationManager.Draw(Position);
             System.Diagnostics.Debug.WriteLine("Drew an enemy" + DateTime.Now);
         }
 

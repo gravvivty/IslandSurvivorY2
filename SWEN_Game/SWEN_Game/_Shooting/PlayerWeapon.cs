@@ -101,6 +101,7 @@ namespace SWEN_Game
                 1,
                 4,
                 0.1f,
+                16,
                 1,
                 PlayerGameData.BulletTint,
                 PlayerGameData.CurrentWeapon.bulletSize);

@@ -14,8 +14,7 @@ namespace SWEN_Game
     public static class Globals
     {
         public static float Time { get; set; }
-
-        // Access everything you want e.g.
+        public static float TotalGameTime { get; private set; }
         public static ContentManager Content { get; set; }
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
@@ -32,6 +31,7 @@ namespace SWEN_Game
         public static void UpdateTime(GameTime gameTime)
         {
             Time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            TotalGameTime += Time;
         }
 
         public static void CalculateAllCollisions()

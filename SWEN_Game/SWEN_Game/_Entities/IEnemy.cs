@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace SWEN_Game
 {
-    public interface InterfaceEnemy
+    public interface IEnemy
     {
         Vector2 Position { get; }
         Rectangle Hitbox { get; set; }
@@ -17,6 +17,8 @@ namespace SWEN_Game
         Texture2D Texture { get; set; }
         float EnemyDamage { get; set; }
         float EnemySpeed { get; set; }
+        int FrameSize {  get; set; }
+        AnimationManager AnimationManager { get; set; }
 
         void Update(List<Bullet> bulletList, Vector2 playerPostion);
         bool GotHitByBullet(List<Bullet> bulletList);

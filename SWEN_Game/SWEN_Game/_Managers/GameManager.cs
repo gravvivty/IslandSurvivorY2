@@ -31,7 +31,7 @@ namespace SWEN_Game
             _weaponManager.InitWeapons();
             _playerWeapon = new PlayerWeapon(_weaponManager);
 
-            _enemyManager = new EnemyManager();
+            _enemyManager = new EnemyManager(_player);
 
             _powerupManager = new PowerupManager(_playerWeapon);
 
