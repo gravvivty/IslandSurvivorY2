@@ -15,12 +15,14 @@ namespace SWEN_Game
         public Vector2 Position { get; private set; }
         public Rectangle Hitbox { get; set; }
         public bool IsAlive { get; private set; } = true;
-        public float CurrentHealth { get; set; } = 5f;
+        public float CurrentHealth { get; set; } = 15f;
         public Texture2D Texture { get; set; } = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Dwende-Red");
         public float EnemyDamage { get; set; } = 4f;
         public float EnemySpeed { get; set; } = 100f;
         public int FrameSize { get; set; } = 24;
         public AnimationManager AnimationManager { get; set; }
+        public int DamageFlashTimer { get; set; }
+        public int DamageFlashFrames { get; set; } = 5;
 
         public Shroom(Vector2 startPosition)
         {
@@ -55,18 +57,33 @@ namespace SWEN_Game
                 System.Diagnostics.Debug.WriteLine("Enemy got killed: " + DateTime.Now);
             }
 
+            // Decrement Flash Timer
+            if (DamageFlashTimer > 0)
+            {
+                DamageFlashTimer--;
+            }
+
             System.Diagnostics.Debug.WriteLine("Updated an enemy" + DateTime.Now);
         }
 
         public void Draw()
         {
-            this.AnimationManager.Draw(Position);
+            Color drawColor = Color.White;
+
+            // Red Flash
+            if (DamageFlashTimer > 0)
+            {
+                drawColor = Color.Red;
+            }
+
+            this.AnimationManager.Draw(Position, drawColor);
             System.Diagnostics.Debug.WriteLine("Drew an enemy" + DateTime.Now);
         }
 
         public void TakeDamage(float amount)
         {
             CurrentHealth -= amount;
+            DamageFlashTimer = DamageFlashFrames;
             if (CurrentHealth <= 0)
             {
                 IsAlive = false;

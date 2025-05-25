@@ -124,5 +124,21 @@ namespace SWEN_Game
         {
             return _isInvincible;
         }
+
+        public void TakeDamage(int amount)
+        {
+            if (!_isInvincible)
+            {
+                PlayerGameData.CurrentHealth -= amount;
+                TriggerInvincibility();
+
+                if (PlayerGameData.CurrentHealth <= 0)
+                {
+                    // Handle player death here
+                    PlayerGameData.CurrentHealth = 0;
+                    System.Diagnostics.Debug.WriteLine("Player died");
+                }
+            }
+        }
     }
 }

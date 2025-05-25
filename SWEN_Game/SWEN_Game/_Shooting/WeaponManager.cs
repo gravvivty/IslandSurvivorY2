@@ -22,12 +22,12 @@ namespace SWEN_Game
 
             Texture2D pistolIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/pistol");
             Texture2D pistolIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/pistol");
-            Weapon pistol = new Weapon(0.25f, 300f, 1f, 1, 1, 8f, vanillaBulletTexture, pistolIconTexture, pistolIngameTexture);
+            Weapon pistol = new Weapon(0.25f, 300f, 1f, 1, 1, 10f, vanillaBulletTexture, pistolIconTexture, pistolIngameTexture);
             _weapons.Add("Pistol", pistol);
 
             Texture2D assaultRifleIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/assault_rifle");
             Texture2D assaultIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/assault_rifle");
-            Weapon assault_rifle = new Weapon(0.15f, 300f, 0.7f, 1, 1, 4f, vanillaBulletTexture, assaultRifleIconTexture, assaultIngameTexture);
+            Weapon assault_rifle = new Weapon(0.15f, 300f, 0.7f, 1, 1, 5f, vanillaBulletTexture, assaultRifleIconTexture, assaultIngameTexture);
             _weapons.Add("Assault_Rifle", assault_rifle);
 
             Texture2D precisionRifleIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/precision_rifle");

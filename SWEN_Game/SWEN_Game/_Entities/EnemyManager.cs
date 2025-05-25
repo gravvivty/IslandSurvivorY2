@@ -11,7 +11,7 @@ namespace SWEN_Game
 {
     public class EnemyManager
     {
-        private float _enemySpawnInterval = 1f;
+        private float _enemySpawnInterval = 0.75f;
         private int _maxEnemies = 100;
         private float _unlockCheckCooldown = 5f;
         private float _timeSinceLastUnlockCheck = 0f;
@@ -22,7 +22,15 @@ namespace SWEN_Game
         private List<string> spawnableEnemyTypes = new List<string>
         {
             "Mummy",
+            "Shroom",
         };
+
+        private Dictionary<string, float> currentSpawnWeights = new Dictionary<string, float>()
+        {
+           { "Mummy", 0.8f },
+           { "Shroom", 0.2f },
+        };
+
         private Random _random = new Random();
 
         public EnemyManager(Player player)
@@ -32,7 +40,7 @@ namespace SWEN_Game
 
         public void SpawnEnemy(Vector2 spawnPosition)
         {
-            string randomizedEnemyType = spawnableEnemyTypes[_random.Next(spawnableEnemyTypes.Count)];
+            string randomizedEnemyType = GetRandomEnemyType();
             RandomizeSpawnedEnemy(randomizedEnemyType, spawnPosition);
             System.Diagnostics.Debug.WriteLine("Spawned an enemy" + DateTime.Now);
         }
@@ -41,18 +49,10 @@ namespace SWEN_Game
         {
             float gametime = Globals.Time;
             TimeSinceLastSpawn += (float)gametime;
+            _timeSinceLastUnlockCheck += gametime;
 
-            if (_timeSinceLastUnlockCheck >= _unlockCheckCooldown)
-            {
-                UpdateEnemyUnlocks();
-                _timeSinceLastUnlockCheck = 0f;
-            }
-
-            if (TimeSinceLastSpawn >= _enemySpawnInterval && _allEnemies.Count < _maxEnemies)
-            {
-                SpawnEnemy(RandomizeEnemySpawnPosition(_player.RealPos));
-                TimeSinceLastSpawn = 0f;
-            }
+            CheckEnemyUnlock();
+            CheckCanSpawnEnemy();
 
             System.Diagnostics.Debug.WriteLine("Trying to spawn an enemy" + DateTime.Now);
 
@@ -61,8 +61,41 @@ namespace SWEN_Game
                 enemy.Update(bulletList, playerPosition);
             }
 
+            CheckEnemyPlayerCollision();
+
             // Remove the dead
             _allEnemies.RemoveAll(e => !e.IsAlive);
+        }
+
+        private void CheckEnemyPlayerCollision()
+        {
+            foreach (var enemy in _allEnemies)
+            {
+                // Check collision with player only if player is not invincible
+                if (!_player.GetIsInvincible() && enemy.Hitbox.Intersects(_player.Hitbox))
+                {
+                    _player.TakeDamage(1);  // reduce health by 1
+                    System.Diagnostics.Debug.WriteLine("Player hit by enemy: " + DateTime.Now);
+                }
+            }
+        }
+
+        private void CheckCanSpawnEnemy()
+        {
+            if (TimeSinceLastSpawn >= _enemySpawnInterval && _allEnemies.Count < _maxEnemies)
+            {
+                SpawnEnemy(RandomizeEnemySpawnPosition(_player.RealPos));
+                TimeSinceLastSpawn = 0f;
+            }
+        }
+
+        private void CheckEnemyUnlock()
+        {
+            if (_timeSinceLastUnlockCheck >= _unlockCheckCooldown)
+            {
+                UpdateEnemyUnlocks();
+                _timeSinceLastUnlockCheck = 0f;
+            }
         }
 
         public void Draw()
@@ -137,25 +170,55 @@ namespace SWEN_Game
         {
             float gameTime = Globals.TotalGameTime;
 
-            if (gameTime >= 0 && !spawnableEnemyTypes.Contains("Mummy"))
+            if (gameTime < 15f)
             {
-                spawnableEnemyTypes.Add("Mummy");
+                currentSpawnWeights = new Dictionary<string, float>()
+                {
+                   { "Mummy", 0.8f },
+                   { "Shroom", 0.2f },
+                };
+                spawnableEnemyTypes = new List<string> { "Mummy", "Shroom" };
+            }
+            else if (gameTime >= 15f && gameTime < 180f)
+            {
+                currentSpawnWeights = new Dictionary<string, float>()
+                {
+                   { "Mummy", 0.5f },
+                   { "Shark", 0.3f },
+                   { "Shroom", 0.2f },
+                };
+                spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom" };
+            }
+            else if (gameTime >= 180f)
+            {
+                currentSpawnWeights = new Dictionary<string, float>()
+                {
+                    { "Mummy", 0.4f },
+                    { "Shark", 0.3f },
+                    { "Shroom", 0.2f },
+                    { "Baumbart", 0.1f },
+                };
+                spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom", "Baumbart" };
+            }
+        }
+
+        private string GetRandomEnemyType()
+        {
+            float totalWeight = currentSpawnWeights.Values.Sum();
+            float randomValue = (float)_random.NextDouble() * totalWeight;
+
+            float cumulative = 0f;
+            foreach (var weight in currentSpawnWeights)
+            {
+                cumulative += weight.Value;
+                if (randomValue <= cumulative)
+                {
+                    return weight.Key;
+                }
             }
 
-            if (gameTime >= 60 && !spawnableEnemyTypes.Contains("Shroom"))
-            {
-                spawnableEnemyTypes.Add("Shroom");
-            }
-
-            if (gameTime >= 120 && !spawnableEnemyTypes.Contains("Shark"))
-            {
-                spawnableEnemyTypes.Add("Shark");
-            }
-
-            if (gameTime >= 180 && !spawnableEnemyTypes.Contains("Baumbart"))
-            {
-                spawnableEnemyTypes.Add("Baumbart");
-            }
+            // fallback
+            return currentSpawnWeights.Keys.First();
         }
     }
 }

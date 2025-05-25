@@ -40,9 +40,9 @@ namespace SWEN_Game
             }
         }
 
-        public void Draw(Vector2 position)
+        public void Draw(Vector2 position, Color? tintColor = null)
         {
-            _animations[_currentKey].Draw(position);
+            _animations[_currentKey].Draw(position, tintColor);
         }
     }
 }

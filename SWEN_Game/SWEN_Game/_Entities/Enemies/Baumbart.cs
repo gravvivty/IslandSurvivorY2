@@ -21,6 +21,9 @@ namespace SWEN_Game
         public float EnemySpeed { get; set; } = 30f;
         public int FrameSize { get; set; } = 24;
         public AnimationManager AnimationManager { get; set; }
+        public int DamageFlashTimer { get; set; }
+        public int DamageFlashFrames { get; set; } = 5;
+
 
         public Baumbart(Vector2 startPosition)
         {
@@ -55,22 +58,39 @@ namespace SWEN_Game
                 System.Diagnostics.Debug.WriteLine("Enemy got killed: " + DateTime.Now);
             }
 
+            // Decrement Flash Timer
+            if (DamageFlashTimer > 0)
+            {
+                DamageFlashTimer--;
+            }
+
             System.Diagnostics.Debug.WriteLine("Updated an enemy" + DateTime.Now);
         }
 
         public void Draw()
         {
-            this.AnimationManager.Draw(Position);
+            Color drawColor = Color.White;
+
+            // Red Flash
+            if (DamageFlashTimer > 0)
+            {
+                drawColor = Color.Red;
+            }
+
+            this.AnimationManager.Draw(Position, drawColor);
             System.Diagnostics.Debug.WriteLine("Drew an enemy" + DateTime.Now);
         }
 
         public void TakeDamage(float amount)
         {
             CurrentHealth -= amount;
+            DamageFlashTimer = DamageFlashFrames;
             if (CurrentHealth <= 0)
             {
                 IsAlive = false;
             }
+
+            DamageFlashTimer = DamageFlashFrames;
         }
 
         public bool GotHitByBullet(List<Bullet> bulletList)

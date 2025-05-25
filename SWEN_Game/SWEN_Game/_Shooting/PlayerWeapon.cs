@@ -36,8 +36,8 @@ namespace SWEN_Game
 
         public PlayerWeapon(WeaponManager weaponManager)
         {
-            PlayerGameData.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/FlameBullet");
-            PlayerGameData.BulletTint = Color.White;
+            PlayerGameData.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
+            PlayerGameData.BulletTint = Color.Blue;
         }
 
         protected float TimeSinceLastShot
@@ -96,6 +96,14 @@ namespace SWEN_Game
 
         public void ShootInDirection(Vector2 direction, Vector2 player_position, bool? isDemonBullet = null)
         {
+            Color tint = PlayerGameData.BulletTint;
+            bool isChild = isDemonBullet ?? false;
+
+            if (isChild)
+            {
+                tint = Color.Black;
+            }
+
             Animation anim = new Animation(
                 PlayerGameData.BulletTexture,
                 1,
@@ -103,9 +111,8 @@ namespace SWEN_Game
                 0.1f,
                 16,
                 1,
-                PlayerGameData.BulletTint,
+                tint,
                 PlayerGameData.CurrentWeapon.bulletSize);
-            bool isChild = isDemonBullet ?? false;
             _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize, PlayerGameData.BulletPierce, this, PlayerGameData.CurrentWeapon.bulletDamage, isChild));
         }
     }

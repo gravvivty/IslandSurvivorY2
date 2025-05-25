@@ -19,6 +19,8 @@ namespace SWEN_Game
         float EnemySpeed { get; set; }
         int FrameSize {  get; set; }
         AnimationManager AnimationManager { get; set; }
+        int DamageFlashFrames { get; set; }
+        int DamageFlashTimer { get; set; }
 
         void Update(List<Bullet> bulletList, Vector2 playerPostion);
         bool GotHitByBullet(List<Bullet> bulletList);
