@@ -24,7 +24,7 @@ namespace SWEN_GameTests
         public void SetPosition_UpdatesPositionAndRealPos()
         {
             var player = new Player();
-            player.SetPosition(new Vector2(200, 200), new Vector2(206, 208));
+            player.SetPosition(new Vector2(200, 200));
             Assert.Equal(new Vector2(200, 200), player.Position);
             Assert.Equal(new Vector2(206, 208), player.RealPos);
         }
@@ -35,7 +35,7 @@ namespace SWEN_GameTests
             var player = new Player();
             var direction = new Vector2(1, 0); 
             player.SetDirection(direction);
-            Assert.Equal(direction, player.GetDirection());
+            Assert.Equal(direction, player.Direction);
         }
     }
 }

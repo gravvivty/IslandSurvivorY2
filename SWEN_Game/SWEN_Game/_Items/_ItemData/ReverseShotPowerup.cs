@@ -28,13 +28,13 @@ namespace SWEN_Game
             switch (this.Level)
             {
                 case 1:
-                    this.attackSpeedFlat += 0.1f;
+                    this.attackSpeedFlat += 0.03f;
                     break;
                 case 2:
-                    this.attackSpeedFlat += 0.15f;
+                    this.attackSpeedFlat += 0.06f;
                     break;
                 case 3:
-                    this.attackSpeedFlat += 0.2f;
+                    this.attackSpeedFlat += 0.08f;
                     break;
                 default:
                     break;
