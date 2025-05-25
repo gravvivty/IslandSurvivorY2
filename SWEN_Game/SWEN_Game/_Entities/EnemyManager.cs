@@ -38,6 +38,14 @@ namespace SWEN_Game
             _player = player;
         }
 
+        public void Draw()
+        {
+            foreach (var enemy in _allEnemies)
+            {
+                enemy.Draw();
+            }
+        }
+
         public void SpawnEnemy(Vector2 spawnPosition)
         {
             string randomizedEnemyType = GetRandomEnemyType();
@@ -95,14 +103,6 @@ namespace SWEN_Game
             {
                 UpdateEnemyUnlocks();
                 _timeSinceLastUnlockCheck = 0f;
-            }
-        }
-
-        public void Draw()
-        {
-            foreach (var enemy in _allEnemies)
-            {
-                enemy.Draw();
             }
         }
 
@@ -189,7 +189,7 @@ namespace SWEN_Game
                 };
                 spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom" };
             }
-            else if (gameTime >= 180f)
+            else if (gameTime >= 30f)
             {
                 currentSpawnWeights = new Dictionary<string, float>()
                 {

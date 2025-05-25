@@ -405,6 +405,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Bullets/VanillaBullet.png
 
+#begin Sprites/Bullets/VanillaBulletPurple.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Bullets/VanillaBulletPurple.png
+
 #begin Sprites/Entities/Bosses/death.png
 /importer:TextureImporter
 /processor:TextureProcessor

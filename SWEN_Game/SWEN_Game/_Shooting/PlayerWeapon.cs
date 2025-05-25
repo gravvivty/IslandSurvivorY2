@@ -37,7 +37,7 @@ namespace SWEN_Game
         public PlayerWeapon(WeaponManager weaponManager)
         {
             PlayerGameData.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
-            PlayerGameData.BulletTint = Color.Blue;
+            PlayerGameData.BulletTint = new Color(25, 106, 150);
         }
 
         protected float TimeSinceLastShot
@@ -53,6 +53,7 @@ namespace SWEN_Game
 
             for (int i = 0; i < _bullets.Count; i++)
             {
+                _bullets[i].HasProcessedThisFrame = false;
                 _bullets[i].Update();
             }
 

@@ -37,7 +37,7 @@ namespace SWEN_Game
             if (_currentKeyboardState.IsKeyDown(Keys.R) && !_previousKeyboardState.IsKeyDown(Keys.R))
             {
                 // _powerupManager.AddItem(1); // itemID 1 = GunpowderPowerup
-                _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
+                // _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
                 _powerupManager.AddItem(3); // itemID 3 = PiercerPowerup
                 // _powerupManager.AddItem(4); // itemID 4 = AdrenalinePowerup
                 // _powerupManager.AddItem(5); // itemID 5 = RocketspeedPowerup

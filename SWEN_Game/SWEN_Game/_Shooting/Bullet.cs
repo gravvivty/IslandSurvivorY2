@@ -9,19 +9,20 @@ namespace SWEN_Game
 {
     public class Bullet
     {
-        public float _damage;
-
-        public bool _isVisible = true;
-        public Rectangle bullet;
-        private Vector2 _position;
+        private HashSet<IEnemy> _hitEnemies = new();
+        public bool HasProcessedThisFrame { get; set; } = false;
+        public Rectangle BulletHitbox { get; set; }
+        public float Damage { get; set; }
+        public PlayerWeapon Weapon { get; set; }
+        public bool IsVisible { get; set; } = true;
+        public float Timer { get; set; }
+        public bool IsDemonBullet { get; set; }
+        public int PiercingCount { get; set; } = 0;
+        public Vector2 Position { get; private set; }
         private Vector2 _shotSpeed;
         private float _bulletSize;
-        private float _timer = 0f;
         private float _visibilityTime = 1f;
-        private int _piercingCount = 0;
         private Animation _animation;
-        private PlayerWeapon _weapon;
-        private bool _isDemonBullet;
 
         public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, PlayerWeapon weapon, float dmg, bool? isChild = null)
         {
@@ -29,60 +30,40 @@ namespace SWEN_Game
             _animation.Reset();
             _animation.Start();
             Vector2 origin = new Vector2(_animation.frameSize / 2f, _animation.frameSize / 2f);
-            _position = startposition - origin * (_animation._scale - 1f);
+            Position = startposition - origin * (_animation._scale - 1f);
             _shotSpeed = Vector2.Normalize(direction) * shotSpeed;
             _bulletSize = bulletSize;
-            _piercingCount = piercingCount;
-            _weapon = weapon;
-            _isDemonBullet = isChild ?? false;
-            if (_isDemonBullet)
+            PiercingCount = piercingCount;
+            Weapon = weapon;
+            IsDemonBullet = isChild ?? false;
+            if (IsDemonBullet)
             {
-                _damage = dmg / 2;
+                Damage = dmg / 2;
             }
             else
             {
-                _damage = dmg;
+                Damage = dmg;
             }
         }
 
         public void Update()
         {
-            _position += _shotSpeed * (float)Globals.Time;
-            bullet = new Rectangle((int)_position.X, (int)_position.Y, (int)(_bulletSize + 4f), (int)(_bulletSize + 4f));
-            _timer += (float)Globals.Time;
+            Position += _shotSpeed * (float)Globals.Time;
+            BulletHitbox = new Rectangle((int)Position.X, (int)Position.Y, (int)(_bulletSize + 4f), (int)(_bulletSize + 4f));
+            Timer += (float)Globals.Time;
             _animation.Update();
             System.Diagnostics.Debug.WriteLine("Trying to update Bullet location" + DateTime.Now);
 
-            if (_timer >= _visibilityTime)
+            if (Timer >= _visibilityTime)
             {
-                _isVisible = false;
-                _timer = 0f;
+                IsVisible = false;
+                Timer = 0f;
             }
 
-            if (Globals.IsCollidingHitbox(bullet))
+            if (Globals.IsCollidingHitbox(BulletHitbox))
             {
-                foreach (var mod in _weapon.GetModifiers())
-                {
-                    if (_isDemonBullet == true)
-                    {
-                        continue;
-                    }
-
-                    if (mod is DemonBulletsModifier demonMod)
-                    {
-                        demonMod.OnBulletCollision(_position, _weapon, true);
-                    }
-                }
-
-                if (_piercingCount > 0)
-                {
-                    _piercingCount--;
-                }
-                else
-                {
-                    _isVisible = false;
-                    _timer = 0f;
-                }
+                IsVisible = false;
+                Timer = 0f;
             }
         }
 
@@ -90,12 +71,18 @@ namespace SWEN_Game
         {
             if (IsVisible)
             {
-                _animation.Draw(_position);
+                _animation.Draw(Position);
                 System.Diagnostics.Debug.WriteLine("Trying to draw the Bullet" + DateTime.Now);
             }
         }
+        public bool HasHit(IEnemy enemy)
+        {
+            return _hitEnemies.Contains(enemy);
+        }
 
-        public bool IsVisible => _isVisible;
-        public Vector2 Position => _position;
+        public void RegisterHit(IEnemy enemy)
+        {
+            _hitEnemies.Add(enemy);
+        }
     }
 }

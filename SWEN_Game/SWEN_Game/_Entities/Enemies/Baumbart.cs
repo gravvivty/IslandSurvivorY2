@@ -15,7 +15,7 @@ namespace SWEN_Game
         public Vector2 Position { get; private set; }
         public Rectangle Hitbox { get; set; }
         public bool IsAlive { get; private set; } = true;
-        public float CurrentHealth { get; set; } = 60f;
+        public float CurrentHealth { get; set; } = 135f;
         public Texture2D Texture { get; set; } = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Kapre");
         public float EnemyDamage { get; set; } = 20f;
         public float EnemySpeed { get; set; } = 30f;
@@ -23,7 +23,6 @@ namespace SWEN_Game
         public AnimationManager AnimationManager { get; set; }
         public int DamageFlashTimer { get; set; }
         public int DamageFlashFrames { get; set; } = 5;
-
 
         public Baumbart(Vector2 startPosition)
         {
@@ -97,11 +96,36 @@ namespace SWEN_Game
         {
             foreach (var bullet in bulletList)
             {
-                if (Hitbox.Intersects(bullet.bullet))
+                if (!bullet.IsVisible || bullet.HasProcessedThisFrame || bullet.HasHit(this))
                 {
-                    TakeDamage(bullet._damage);
+                    continue;
+                }
+
+                if (Hitbox.Intersects(bullet.BulletHitbox))
+                {
+                    bullet.RegisterHit(this);
+                    bullet.HasProcessedThisFrame = true;
+
+                    foreach (var mod in bullet.Weapon.GetModifiers())
+                    {
+                        if (!bullet.IsDemonBullet && mod is DemonBulletsModifier demonMod)
+                        {
+                            demonMod.OnBulletCollision(bullet.Position, bullet.Weapon, true);
+                        }
+                    }
+
+                    if (bullet.PiercingCount > 0)
+                    {
+                        bullet.PiercingCount--;
+                    }
+                    else
+                    {
+                        bullet.IsVisible = false;
+                        bullet.Timer = 0f;
+                    }
+
+                    TakeDamage(bullet.Damage);
                     System.Diagnostics.Debug.WriteLine("Enemy got hit: " + DateTime.Now);
-                    bullet._isVisible = false;
                     return true;
                 }
             }
