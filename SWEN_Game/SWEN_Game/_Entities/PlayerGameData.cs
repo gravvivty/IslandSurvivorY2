@@ -25,7 +25,7 @@ namespace SWEN_Game
         public static Color BulletTint;
 
         public static float Speed = 130f;
-        public static int Health = 6;
+        public static int Health = 100;
         public static Dictionary<int, Powerup> Powerups = new Dictionary<int, Powerup>();
 
         // Weapon Attribute Multipliers
