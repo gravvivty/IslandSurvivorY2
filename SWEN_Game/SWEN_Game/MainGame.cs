@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using MLEM.Font;
-using MLEM.Input;
-using MLEM.Maths;
-using MLEM.Textures;
-using MLEM.Ui;
-using MLEM.Ui.Style;
-
-namespace SWEN_Game
+﻿namespace SWEN_Game
 {
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using MLEM.Font;
+    using MLEM.Input;
+    using MLEM.Maths;
+    using MLEM.Textures;
+    using MLEM.Ui;
+    using MLEM.Ui.Style;
+
     public class MainGame : Game
     {
         private GraphicsDeviceManager _graphics;

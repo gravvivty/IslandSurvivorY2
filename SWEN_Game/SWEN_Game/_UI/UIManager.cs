@@ -33,7 +33,9 @@ namespace SWEN_Game
                 TextColor = Color.Gray,
                 TextScale = 1.5F,
                 PanelTexture = new NinePatch(content.Load<Texture2D>("Menu/nine_path_panel"), padding: 6),
-                ButtonTexture = new NinePatch(content.Load<Texture2D>("Menu/button_hover"), padding: 6),// Fixed Padding argument
+                ButtonTexture = new NinePatch(content.Load<Texture2D>("Menu/button_hover"), padding: 6),
+                CheckboxTexture = new NinePatch(content.Load<Texture2D>("Menu/checked"), padding: 6),
+                CheckboxCheckmark = new TextureRegion(content.Load<Texture2D>("Menu/checked_disabled"), new Rectangle(0, 0, 16, 16)),
             };
 
             _uiSystem = new UiSystem(game, style, _inputHandler)

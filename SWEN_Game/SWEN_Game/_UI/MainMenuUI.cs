@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MLEM.Maths;
 using MLEM.Ui;
@@ -99,7 +101,21 @@ public class MainMenuUI
 
     private void ShowOptionsMenu()
     {
-        var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
+        rootPanel.RemoveChildren();
+
+        var titleMenu = new Paragraph(Anchor.TopCenter, 1, "OPTIONS", true);
+        rootPanel.AddChild(titleMenu);
+        rootPanel.AddChild(new VerticalSpace(10));
+
+        AddCheckboxButton(rootPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
+        {
+            Globals.Fullscreen = isChecked;
+            Globals.Graphics.IsFullScreen = isChecked;
+            Globals.Graphics.ApplyChanges();
+        });
+        rootPanel.AddChild(new VerticalSpace(10));
+
+        /*var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
         var resolutions = new[]
         {
             new { Label ="1280x720", Width = 1280, Height = 720 },
@@ -121,38 +137,41 @@ public class MainMenuUI
             }, 0);
         }
 
-        rootPanel.AddChild(dropdown);
+        rootPanel.AddChild(dropdown);*/
 
-        // Add other options UI elements here
-        rootPanel.AddChild(new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Fullscreen")
+
+        var exitButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Exit");
+        exitButton.PositionOffset = new Vector2(3, 0);
+        exitButton.OnPressed += _ =>
         {
-            CanBePressed = false,
-            CanBeSelected = false,
-            PositionOffset = new Vector2(0, 30),
+            System.Diagnostics.Debug.WriteLine("Exit Clicked");
+            ui.Game.Exit();
+        };
+
+        rootPanel.AddChild(exitButton);
+    }
+
+    private void AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
+    {
+        var button = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "");
+        button.PositionOffset = new Vector2(3, 0);
+        button.AddChild(new Paragraph(Anchor.Center, 1, labelText)
+        {
+            PositionOffset = new Vector2(10, 0),
         });
 
-        var fullscreenCheck = new Checkbox(Anchor.AutoInline, new Vector2(0.5F, 0.6F), string.Empty)
+        var checkbox = new Checkbox(Anchor.CenterRight, new Vector2(0.2F, 0.8F), " ")
         {
-            Checked = Globals.Fullscreen,
+            Checked = isCheckedInitial,
+            CanBeSelected = false,
         };
 
-        fullscreenCheck.OnCheckStateChange += (element, isChecked) =>
+        checkbox.OnCheckStateChange += (elem, newState) =>
         {
-            Globals.Fullscreen = isChecked;
-            Globals.Graphics.IsFullScreen = isChecked;
-            Globals.Graphics.ApplyChanges();
+            onToggle?.Invoke(newState);
         };
 
-        rootPanel.AddChild(fullscreenCheck);
-
-        // BACK Button: Switch game state to MainMenu
-        var backButton = new Button(Anchor.AutoLeft, new Vector2(0.3F, 0.6F), "Save");
-        backButton.PositionOffset = new Vector2(0, 50);
-        backButton.OnPressed += _ =>
-        {
-            System.Diagnostics.Debug.WriteLine("Back Clicked");
-            ClearAndSwitch(MenuState.MainMenu);
-        };
-        rootPanel.AddChild(backButton);
+        button.AddChild(checkbox);
+        parentPanel.AddChild(button);
     }
 }
