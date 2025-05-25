@@ -16,6 +16,7 @@ namespace SWEN_Game
         private readonly PlayerWeapon _playerWeapon;
         private readonly PowerupManager _powerupManager;
         private readonly Debug _debug;
+        private readonly EnemyManager _enemyManager;
 
         public GameManager()
         {
@@ -29,6 +30,8 @@ namespace SWEN_Game
             _weaponManager = new WeaponManager();
             _weaponManager.InitWeapons();
             _playerWeapon = new PlayerWeapon(_weaponManager);
+
+            _enemyManager = new EnemyManager();
 
             _powerupManager = new PowerupManager(_playerWeapon);
 
@@ -56,6 +59,9 @@ namespace SWEN_Game
             _player.Update();
             _playerWeapon.Update();
 
+            // - 6 on the x axis so that the enemies try to hit the "middle"
+            _enemyManager.Update(_playerWeapon.GetBullets(), _player.Position - new Vector2(6, 0));
+
             // Debug
             _debug.DebugUpdate();
         }
@@ -70,6 +76,7 @@ namespace SWEN_Game
             _renderer.DrawWorld();
 
             _playerWeapon.DrawBullets();
+            _enemyManager.Draw();
             _player.Draw();
             Globals.SpriteBatch.End();
 

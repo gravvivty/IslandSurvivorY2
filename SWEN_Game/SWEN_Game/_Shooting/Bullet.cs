@@ -12,15 +12,15 @@ namespace SWEN_Game
         private Vector2 _position;
         private Vector2 _shotSpeed;
         private float _bulletSize;
-        private bool _isVisible = true;
+        public bool _isVisible = true;
         private float _timer = 0f;
         private float _visibilityTime = 1f;
         private int _piercingCount = 0;
         private Animation _animation;
-        private Rectangle bullet;
+        public Rectangle bullet;
         private PlayerWeapon _weapon;
         private bool _isDemonBullet;
-        private float _damage;
+        public float _damage;
 
         public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, PlayerWeapon weapon, float dmg, bool? isChild = null)
         {
