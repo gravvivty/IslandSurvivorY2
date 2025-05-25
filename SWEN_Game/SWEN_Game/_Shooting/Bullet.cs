@@ -34,7 +34,14 @@ namespace SWEN_Game
             _piercingCount = piercingCount;
             _weapon = weapon;
             _isDemonBullet = isChild ?? false;
-            _damage = dmg;
+            if (_isDemonBullet)
+            {
+                _damage = dmg / 2;
+            }
+            else
+            {
+                _damage = dmg;
+            }
         }
 
         public void Update()

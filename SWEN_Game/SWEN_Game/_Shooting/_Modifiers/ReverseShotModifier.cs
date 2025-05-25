@@ -29,35 +29,44 @@ namespace SWEN_Game
                     weapon.ShootInDirection(-direction, playerPos);
                     break;
                 case 2:
-                    Vector2 reverse = -direction;
-                    Vector2 perpClockwise = new Vector2(direction.Y, -direction.X);   // 90° CW
-                    Vector2 perpCounterCW = new Vector2(-direction.Y, direction.X);  // 90° CCW
+                    Vector2 reverseLvl2 = -direction;
+                    Vector2 perpClockwiseLvl2 = new Vector2(direction.Y, -direction.X);   // 90° CW
 
-                    weapon.ShootInDirection(reverse, playerPos);
-                    weapon.ShootInDirection(perpClockwise, playerPos);
-                    weapon.ShootInDirection(perpCounterCW, playerPos);
+                    weapon.ShootInDirection(reverseLvl2, playerPos);
+                    weapon.ShootInDirection(perpClockwiseLvl2, playerPos);
                     break;
                 case 3:
-                    Vector2 forward = direction;
-                    Vector2 backward = -direction;
-                    Vector2 left = new Vector2(-direction.Y, direction.X);
-                    Vector2 right = new Vector2(direction.Y, -direction.X);
+                    Vector2 reverseLvl3 = -direction;
+                    Vector2 perpClockwiseLvl3 = new Vector2(direction.Y, -direction.X);   // 90° CW
+                    Vector2 perpCounterCWLvl3 = new Vector2(-direction.Y, direction.X);  // 90° CCW
 
-                    // Intercardinal directions are sums of adjacent directions
-                    Vector2 forwardLeft = Vector2.Normalize(forward + left);
-                    Vector2 forwardRight = Vector2.Normalize(forward + right);
-                    Vector2 backwardLeft = Vector2.Normalize(backward + left);
-                    Vector2 backwardRight = Vector2.Normalize(backward + right);
-
-                    weapon.ShootInDirection(forward, playerPos);
-                    weapon.ShootInDirection(backward, playerPos);
-                    weapon.ShootInDirection(left, playerPos);
-                    weapon.ShootInDirection(right, playerPos);
-                    weapon.ShootInDirection(forwardLeft, playerPos);
-                    weapon.ShootInDirection(forwardRight, playerPos);
-                    weapon.ShootInDirection(backwardLeft, playerPos);
-                    weapon.ShootInDirection(backwardRight, playerPos);
+                    weapon.ShootInDirection(reverseLvl3, playerPos);
+                    weapon.ShootInDirection(perpClockwiseLvl3, playerPos);
+                    weapon.ShootInDirection(perpCounterCWLvl3, playerPos);
                     break;
+
+                /*
+                Vector2 forward = direction;
+                Vector2 backward = -direction;
+                Vector2 left = new Vector2(-direction.Y, direction.X);
+                Vector2 right = new Vector2(direction.Y, -direction.X);
+
+                // Intercardinal directions are sums of adjacent directions
+                Vector2 forwardLeft = Vector2.Normalize(forward + left);
+                Vector2 forwardRight = Vector2.Normalize(forward + right);
+                Vector2 backwardLeft = Vector2.Normalize(backward + left);
+                Vector2 backwardRight = Vector2.Normalize(backward + right);
+
+                weapon.ShootInDirection(forward, playerPos);
+                weapon.ShootInDirection(backward, playerPos);
+                weapon.ShootInDirection(left, playerPos);
+                weapon.ShootInDirection(right, playerPos);
+                weapon.ShootInDirection(forwardLeft, playerPos);
+                weapon.ShootInDirection(forwardRight, playerPos);
+                weapon.ShootInDirection(backwardLeft, playerPos);
+                weapon.ShootInDirection(backwardRight, playerPos);
+                break;
+                */
 
                 default:
                     break;
