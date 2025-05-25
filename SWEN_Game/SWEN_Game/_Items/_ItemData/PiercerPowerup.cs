@@ -24,12 +24,15 @@ namespace SWEN_Game
             {
                 case 1:
                     this.bulletPierce += 1;
+                    this.bulletDamageMult += 1.03f;
                     break;
                 case 2:
-                    this.bulletPierce += 2;
+                    this.bulletPierce += 1;
+                    this.bulletDamageMult += 1.05f;
                     break;
                 case 3:
-                    this.bulletPierce += 3;
+                    this.bulletPierce += 1;
+                    this.bulletDamageMult += 1.10f;
                     break;
                 default:
                     break;
