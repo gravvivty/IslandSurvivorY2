@@ -34,7 +34,7 @@ namespace SWEN_Game
             }
 
             // DEBUG REVERSE SHOT
-            if (_currentKeyboardState.IsKeyDown(Keys.R) && !_previousKeyboardState.IsKeyDown(Keys.R))
+            if (_currentKeyboardState.IsKeyDown(Keys.F1) && !_previousKeyboardState.IsKeyDown(Keys.F1))
             {
                 // _powerupManager.AddItem(1); // itemID 1 = GunpowderPowerup
                 // _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
