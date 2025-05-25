@@ -25,6 +25,8 @@ namespace SWEN_Game
         protected float bulletDamageFlat = 0;
 
         protected int bulletPierce = 0;
+        protected int magazineSizeBonus = 0;
+        protected int maxHealthBonus = 0;
 
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
@@ -46,6 +48,8 @@ namespace SWEN_Game
             PlayerGameData.BulletDamageFlat += bulletDamageFlat;
 
             PlayerGameData.BulletPierce += bulletPierce;
+            PlayerGameData.MagazineSizeBonus += magazineSizeBonus;
+            PlayerGameData.MaxHealth += maxHealthBonus;
         }
     }
 }

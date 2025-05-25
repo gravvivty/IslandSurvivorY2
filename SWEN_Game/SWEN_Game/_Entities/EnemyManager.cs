@@ -11,7 +11,7 @@ namespace SWEN_Game
 {
     public class EnemyManager
     {
-        private float _enemySpawnInterval = 0.75f;
+        private float _enemySpawnInterval = 1f;
         private int _maxEnemies = 100;
         private float _unlockCheckCooldown = 5f;
         private float _timeSinceLastUnlockCheck = 0f;
@@ -131,37 +131,14 @@ namespace SWEN_Game
         // Randomize the spawn position of an enemy within the game world
         private Vector2 RandomizeEnemySpawnPosition(Vector2 playerPosition)
         {
-            // Off screen padding to push enemies beyond view
-            int padding = 200;
+            float minDistance = 400f; // Minimum spawn radius
+            float maxDistance = 600f; // Maximum spawn radius
 
-            // Half screen size to offset from center
-            int halfScreenWidth = Globals.WindowSize.X / 2;
-            int halfScreenHeight = Globals.WindowSize.Y / 2;
+            double angle = _random.NextDouble() * MathHelper.TwoPi;
+            float distance = minDistance + (float)_random.NextDouble() * (maxDistance - minDistance);
 
-            // Randomly pick a side
-            int side = _random.Next(4);
-
-            float x = 0, y = 0;
-
-            switch (side)
-            {
-                case 0: // Top
-                    x = playerPosition.X + _random.Next(-halfScreenWidth, halfScreenWidth);
-                    y = playerPosition.Y - halfScreenHeight - padding;
-                    break;
-                case 1: // Bottom
-                    x = playerPosition.X + _random.Next(-halfScreenWidth, halfScreenWidth);
-                    y = playerPosition.Y + halfScreenHeight + padding;
-                    break;
-                case 2: // Left
-                    x = playerPosition.X - halfScreenWidth - padding;
-                    y = playerPosition.Y + _random.Next(-halfScreenHeight, halfScreenHeight);
-                    break;
-                case 3: // Right
-                    x = playerPosition.X + halfScreenWidth + padding;
-                    y = playerPosition.Y + _random.Next(-halfScreenHeight, halfScreenHeight);
-                    break;
-            }
+            float x = playerPosition.X + (float)Math.Cos(angle) * distance;
+            float y = playerPosition.Y + (float)Math.Sin(angle) * distance;
 
             return new Vector2(x, y);
         }

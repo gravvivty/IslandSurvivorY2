@@ -51,6 +51,8 @@ namespace SWEN_Game
             float gametime = Globals.Time;
             TimeSinceLastShot += (float)gametime;
 
+            Reload(gametime);
+
             for (int i = 0; i < _bullets.Count; i++)
             {
                 _bullets[i].HasProcessedThisFrame = false;
@@ -81,17 +83,36 @@ namespace SWEN_Game
         public void Shoot(Vector2 direction, Vector2 player_position)
         {
             System.Diagnostics.Debug.WriteLine("PlayerWeapon is now Trying to shoot" + DateTime.Now);
-            if (TimeSinceLastShot >= PlayerGameData.CurrentWeapon.attackSpeed)
+            if (PlayerGameData.CurrentWeapon.IsReloading)
             {
-                ShootInDirection(direction, player_position);
+                return;
+            }
 
-                foreach (var mod in _modifiers)
+            if (TimeSinceLastShot >= PlayerGameData.CurrentWeapon.AttackSpeed)
+            {
+                if (PlayerGameData.CurrentWeapon.CurrentAmmo > 0)
                 {
-                    mod.OnShoot(direction, player_position, this);
-                }
+                    ShootInDirection(direction, player_position);
+                    PlayerGameData.CurrentWeapon.CurrentAmmo--;
 
-                System.Diagnostics.Debug.WriteLine("PlayerWeapon is now shooting" + DateTime.Now);
-                TimeSinceLastShot = 0f;
+                    foreach (var mod in _modifiers)
+                    {
+                        mod.OnShoot(direction, player_position, this);
+                    }
+
+                    TimeSinceLastShot = 0f;
+                }
+                else
+                {
+                    // Start reloading
+                    PlayerGameData.CurrentWeapon.IsReloading = true;
+                    PlayerGameData.CurrentWeapon.ReloadTimer = 0f;
+
+                    if (PlayerGameData.CurrentWeapon.CurrentAmmo == 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Reloading...");
+                    }
+                }
             }
         }
 
@@ -113,8 +134,22 @@ namespace SWEN_Game
                 16,
                 1,
                 tint,
-                PlayerGameData.CurrentWeapon.bulletSize);
-            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.shotSpeed, PlayerGameData.CurrentWeapon.bulletSize, PlayerGameData.BulletPierce, this, PlayerGameData.CurrentWeapon.bulletDamage, isChild));
+                PlayerGameData.CurrentWeapon.BulletSize);
+            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.ShotSpeed, PlayerGameData.CurrentWeapon.BulletSize, PlayerGameData.BulletPierce, this, PlayerGameData.CurrentWeapon.BulletDamage, isChild));
+        }
+
+        private void Reload(float gametime)
+        {
+            if (PlayerGameData.CurrentWeapon.IsReloading)
+            {
+                PlayerGameData.CurrentWeapon.ReloadTimer += gametime;
+                if (PlayerGameData.CurrentWeapon.ReloadTimer >= PlayerGameData.CurrentWeapon.ReloadTime)
+                {
+                    PlayerGameData.CurrentWeapon.CurrentAmmo = PlayerGameData.CurrentWeapon.MagazineSize;
+                    PlayerGameData.CurrentWeapon.IsReloading = false;
+                    PlayerGameData.CurrentWeapon.ReloadTimer = 0f;
+                }
+            }
         }
     }
 }

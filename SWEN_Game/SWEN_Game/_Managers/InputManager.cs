@@ -36,6 +36,12 @@ namespace SWEN_Game
                 moveDirection.X = 1;
             }
 
+            if (keyboardState.IsKeyDown(Keys.R) && !PlayerGameData.CurrentWeapon.IsReloading)
+            {
+                PlayerGameData.CurrentWeapon.IsReloading = true;
+                PlayerGameData.CurrentWeapon.ReloadTimer = 0f;
+            }
+
             // Normalize Vector
             if (moveDirection != Vector2.Zero)
             {

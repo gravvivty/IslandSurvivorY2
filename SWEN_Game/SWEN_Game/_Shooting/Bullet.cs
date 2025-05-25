@@ -75,6 +75,7 @@ namespace SWEN_Game
                 System.Diagnostics.Debug.WriteLine("Trying to draw the Bullet" + DateTime.Now);
             }
         }
+
         public bool HasHit(IEnemy enemy)
         {
             return _hitEnemies.Contains(enemy);

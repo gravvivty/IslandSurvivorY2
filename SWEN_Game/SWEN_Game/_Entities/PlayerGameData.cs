@@ -48,6 +48,7 @@ namespace SWEN_Game
         // Special Powerups
         public static int ReverseShotLevel = 0;
         public static int BulletPierce = 0;
+        public static int MagazineSizeBonus = 0;
 
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.
@@ -57,16 +58,18 @@ namespace SWEN_Game
             UpdatePlayerGameData();
 
             // Update the current weapon with the new multipliers and flat values
-            CurrentWeapon.attackSpeed = (BaseWeapon.attackSpeed * AttackSpeedMult) + AttackSpeedFlat;
-            CurrentWeapon.shotSpeed = (BaseWeapon.shotSpeed * ShotSpeedMult) + ShotSpeedFlat;
-            CurrentWeapon.bulletSize = (BaseWeapon.bulletSize * BulletSizeMult) + BulletSizeFlat;
-            CurrentWeapon.bulletSpread = (BaseWeapon.bulletSpread * BulletSpreadMult) + BulletSpreadFlat;
-            CurrentWeapon.bulletsPerShot = (int)((BaseWeapon.bulletsPerShot * BulletsPerShotMult) + BulletsPerShotFlat);
-            CurrentWeapon.bulletDamage = (BaseWeapon.bulletDamage * BulletDamageMult) + BulletDamageFlat;
+            CurrentWeapon.AttackSpeed = (BaseWeapon.AttackSpeed * AttackSpeedMult) + AttackSpeedFlat;
+            CurrentWeapon.ShotSpeed = (BaseWeapon.ShotSpeed * ShotSpeedMult) + ShotSpeedFlat;
+            CurrentWeapon.BulletSize = (BaseWeapon.BulletSize * BulletSizeMult) + BulletSizeFlat;
+            CurrentWeapon.BulletSpread = (BaseWeapon.BulletSpread * BulletSpreadMult) + BulletSpreadFlat;
+            CurrentWeapon.BulletsPerShot = (int)((BaseWeapon.BulletsPerShot * BulletsPerShotMult) + BulletsPerShotFlat);
+            CurrentWeapon.BulletDamage = (BaseWeapon.BulletDamage * BulletDamageMult) + BulletDamageFlat;
         }
 
         private static void UpdatePlayerGameData()
         {
+            MaxHealth = 6;
+
             // Reset to base before applying powerups
             AttackSpeedMult = 1;
             ShotSpeedMult = 1;
@@ -84,6 +87,7 @@ namespace SWEN_Game
 
             ReverseShotLevel = 0;
             BulletPierce = 0;
+            MagazineSizeBonus = 0;
 
             foreach (var powerup in Powerups.Values)
             {
