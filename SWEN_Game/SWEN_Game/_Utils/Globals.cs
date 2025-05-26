@@ -5,6 +5,7 @@ using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MLEM.Ui;
 
 namespace SWEN_Game
 {

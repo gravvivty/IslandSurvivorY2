@@ -115,28 +115,10 @@ public class MainMenuUI
         });
         rootPanel.AddChild(new VerticalSpace(10));
 
+        ShowResolutionSelector(rootPanel);
+        rootPanel.AddChild(new VerticalSpace(10));
+
         /*var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
-        var resolutions = new[]
-        {
-            new { Label ="1280x720", Width = 1280, Height = 720 },
-            new { Label ="1600x900", Width = 1600, Height = 900 },
-            new { Label ="1920x1080", Width = 1920, Height = 1080 },
-        };
-
-        foreach (var res in resolutions)
-        {
-            dropdown.AddElement(
-                res.Label,
-                element =>
-            {
-                Globals.WindowSize = new Point(res.Width, res.Height);
-                Globals.Graphics.PreferredBackBufferWidth = res.Width;
-                Globals.Graphics.PreferredBackBufferHeight = res.Height;
-                Globals.Graphics.ApplyChanges();
-                dropdown.IsOpen = false;
-            }, 0);
-        }
-
         rootPanel.AddChild(dropdown);*/
 
 
@@ -174,4 +156,40 @@ public class MainMenuUI
         button.AddChild(checkbox);
         parentPanel.AddChild(button);
     }
-}
+
+    // Fix the error by removing the incorrect usage of `ui.System`.
+    // The `UiSystem` class does not have a `System` property or method.
+    // Replace `ui.System.RecalculateLayout();` with `ui.RecalculateLayout();`.
+
+    private void ShowResolutionSelector(Panel parent)
+    {
+        var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Window Size")
+        {
+            PositionOffset = new Vector2(3, 0),
+            IsOpen = false,
+        };
+
+        var resolutions = new[]
+        {
+            new { Label = "1280x720", Width = 1280, Height = 720 },
+            new { Label = "1600x900", Width = 1600, Height = 900 },
+            new { Label = "1920x1080", Width = 1920, Height = 1080 },
+        };
+
+        foreach (var res in resolutions)
+        {
+            dropdown.AddElement(
+                res.Label,
+                element =>
+                {
+                    Globals.WindowSize = new Point(res.Width, res.Height);
+                    Globals.Graphics.PreferredBackBufferWidth = res.Width;
+                    Globals.Graphics.PreferredBackBufferHeight = res.Height;
+                    Globals.Graphics.ApplyChanges();
+                    dropdown.IsOpen = false;
+                }, 0);
+        }
+
+        parent.AddChild(dropdown);
+    }
+    }

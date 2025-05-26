@@ -40,7 +40,7 @@ namespace SWEN_Game
 
             _uiSystem = new UiSystem(game, style, _inputHandler)
             {
-                AutoScaleReferenceSize = new Point(1280, 720),
+                AutoScaleReferenceSize = new Point(1920, 1080),
                 AutoScaleWithScreen = true,
             };
 
