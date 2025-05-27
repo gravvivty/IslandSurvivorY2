@@ -132,6 +132,11 @@ public class MainMenuUI
         saveButton.PositionOffset = new Vector2(10, 10);
         saveButton.OnPressed += _ =>
         {
+            System.Diagnostics.Debug.WriteLine("Save Settings Clicked");
+            System.Diagnostics.Debug.WriteLine($"Fullscreen: {Globals.Fullscreen}");
+            System.Diagnostics.Debug.WriteLine($"Window Size: {Globals.WindowSize}");
+            System.Diagnostics.Debug.WriteLine($"Sound Volume: {Globals.SoundVolume}");
+            System.Diagnostics.Debug.WriteLine($"Music Volume: {Globals.MusicVolume}");
             ClearAndSwitch(MenuState.MainMenu);
         };
 
@@ -228,14 +233,15 @@ public class MainMenuUI
         {
             Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress"), padding: 6),
             ScrollerTexture = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), padding: 6),
-            StepPerScroll = 1f,
+            StepPerScroll = 0.1f,
             PositionOffset = new Vector2(10, 10),
             CurrentValue = initialVolume,
-            OnValueChanged = (elem, newValue) =>
-            {
-                onChanged?.Invoke(newValue);
-            }
         };
+        slider.OnValueChanged += (elem, newValue) =>
+        {
+            onChanged?.Invoke(newValue);
+        };
+
         parentPanel.AddChild(slider);
         parentPanel.AddChild(new VerticalSpace(20));
 
