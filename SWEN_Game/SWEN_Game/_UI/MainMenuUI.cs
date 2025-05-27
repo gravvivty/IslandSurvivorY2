@@ -32,7 +32,7 @@ public class MainMenuUI
         this.game = game;
 
         // Create the root panel that contains all menu elements
-        rootPanel = new Panel(Anchor.Center, new Vector2(0.4F, 0.3F), Vector2.Zero);
+        rootPanel = new Panel(Anchor.Center, new Vector2(700, 400), Vector2.Zero);
         rootPanel.DrawColor = Color.White * 0.7f;
         uiSystem.Add("MainMenu", rootPanel);
 
@@ -102,54 +102,76 @@ public class MainMenuUI
 
     private void ShowOptionsMenu()
     {
-        rootPanel.RemoveChildren();
+        // rootPanel.RemoveChildren();
 
         var titleMenu = new Paragraph(Anchor.TopCenter, 1, "OPTIONS", true);
         rootPanel.AddChild(titleMenu);
-        rootPanel.AddChild(new VerticalSpace(10));
+        rootPanel.AddChild(new VerticalSpace(40));
 
-        AddCheckboxButton(rootPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
+        var horizintalGroup = new Group(Anchor.TopCenter, new Vector2(660, 340));
+        rootPanel.AddChild(horizintalGroup);
+
+        var leftPanel = new Panel(Anchor.TopLeft, new Vector2(320, 330), Vector2.Zero)
+        {
+            Padding = Padding.Empty,
+            PositionOffset = new Vector2(0, 40)
+        };
+        horizintalGroup.AddChild(leftPanel);
+
+        AddCheckboxButton(leftPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
         {
             Globals.Fullscreen = isChecked;
             Globals.Graphics.IsFullScreen = isChecked;
             Globals.Graphics.ApplyChanges();
         });
-        rootPanel.AddChild(new VerticalSpace(10));
 
-        ShowResolutionSelector(rootPanel);
-        rootPanel.AddChild(new VerticalSpace(10));
-
-        /*var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
-        rootPanel.AddChild(dropdown);*/
-        AddVolumeSlider(rootPanel, "SFX Volume", Globals.SoundVolume, newValue =>
-         {
-             Globals.SoundVolume = newValue;
-             // Update SFX volume in the game
-         });
-
-        var saveButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Save  Settings");
-        saveButton.PositionOffset = new Vector2(3, 0);
+        leftPanel.AddChild(new VerticalSpace(20));
+        ShowResolutionSelector(leftPanel);
+        leftPanel.AddChild(new VerticalSpace(20));
+        var saveButton = new Button(Anchor.AutoLeft, new Vector2(280, 80), "Save  Settings");
+        saveButton.PositionOffset = new Vector2(10, 10);
         saveButton.OnPressed += _ =>
         {
             ClearAndSwitch(MenuState.MainMenu);
         };
 
-        rootPanel.AddChild(saveButton);
+        leftPanel.AddChild(saveButton);
+
+        var rightPanel = new Panel(Anchor.TopRight, new Vector2(320, 330), Vector2.Zero)
+        {
+            Padding = Padding.Empty,
+            PositionOffset = new Vector2(0, 40),
+        };
+        horizintalGroup.AddChild(rightPanel);
+
+        AddVolumeSlider(rightPanel, "SFX Volume", Globals.SoundVolume, newValue =>
+         {
+             Globals.SoundVolume = newValue;
+         });
+
+        rightPanel.AddChild(new VerticalSpace(10));
+        AddVolumeSlider(rightPanel, "Music Volume", Globals.MusicVolume, newValue =>
+         {
+             Globals.MusicVolume = newValue;
+
+         });
+
     }
 
     private void AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
     {
-        var button = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "");
-        button.PositionOffset = new Vector2(3, 0);
+        var button = new Button(Anchor.AutoLeft, new Vector2(280, 80), "");
+        button.PositionOffset = new Vector2(10, 10);
         button.AddChild(new Paragraph(Anchor.Center, 1, labelText)
         {
             PositionOffset = new Vector2(10, 0),
         });
 
-        var checkbox = new Checkbox(Anchor.CenterRight, new Vector2(0.2F, 0.8F), " ")
+        var checkbox = new Checkbox(Anchor.CenterRight, new Vector2(60, 60), " ")
         {
             Checked = isCheckedInitial,
             CanBeSelected = false,
+            PositionOffset = new Vector2(10, 0),
         };
 
         checkbox.OnCheckStateChange += (elem, newState) =>
@@ -163,9 +185,9 @@ public class MainMenuUI
 
     private void ShowResolutionSelector(Panel parent)
     {
-        var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Window Size")
+        var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(280, 80), "Window Size")
         {
-            PositionOffset = new Vector2(3, 0),
+            PositionOffset = new Vector2(10, 0),
             IsOpen = false,
         };
 
@@ -196,28 +218,26 @@ public class MainMenuUI
 
     private void AddVolumeSlider(Panel parentPanel, string labelText, float initialVolume, Action<float> onChanged)
     {
-        var container = new Group(Anchor.AutoLeft, new Vector2(0.8F, 0.2F));
-        container.AddChild(new Paragraph(Anchor.Center, 1, labelText)
+       parentPanel.AddChild(new Paragraph(Anchor.AutoLeft, 1, labelText)
         {
-            PositionOffset = new Vector2(3, 0),
+            PositionOffset = new Vector2(10, 10),
         });
+        parentPanel.AddChild(new VerticalSpace(10));
 
-        var slider = new Slider(Anchor.CenterRight, new Vector2(0.3F, 0.5F), 0, 1)
+        var slider = new Slider(Anchor.AutoLeft, new Vector2(280, 40), 40, 1)
         {
             Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress"), padding: 6),
             ScrollerTexture = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), padding: 6),
-            ScrollerSize = new Vector2(20, 20 ),
             StepPerScroll = 1f,
+            PositionOffset = new Vector2(10, 10),
             CurrentValue = initialVolume,
             OnValueChanged = (elem, newValue) =>
             {
                 onChanged?.Invoke(newValue);
-
-               
             }
         };
-        
-        container.AddChild(slider);
-        parentPanel.AddChild(container);
+        parentPanel.AddChild(slider);
+        parentPanel.AddChild(new VerticalSpace(20));
+
     }
 }
