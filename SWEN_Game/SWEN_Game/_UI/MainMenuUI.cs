@@ -49,15 +49,19 @@ public class MainMenuUI
                 ShowMainMenu();
                 break;
             case MenuState.Options:
-                ShowOptionsMenu();
+                ShowOptionsMenu("OPTIONS", "Save Settings");
                 break;
+            case MenuState.Paused:
+                ShowOptionsMenu("PAUSED", "Resume Game");
+                break;
+
         }
     }
 
     public void ShowOptionsOnly()
     {
         Show();
-        ClearAndSwitch(MenuState.Options);
+        ClearAndSwitch(MenuState.Paused);
     }
 
     public void Show() => rootPanel.IsHidden = false;
@@ -100,11 +104,11 @@ public class MainMenuUI
         rootPanel.AddChild(exitButton);
     }
 
-    private void ShowOptionsMenu()
+    private void ShowOptionsMenu(String MenuName, String ButtonName)
     {
         Checkbox fullscreenCheckbox;
 
-        var titleMenu = new Paragraph(Anchor.TopCenter, 1, "OPTIONS", true);
+        var titleMenu = new Paragraph(Anchor.TopCenter, 1, MenuName, true);
         rootPanel.AddChild(titleMenu);
         rootPanel.AddChild(new VerticalSpace(40));
 
@@ -128,7 +132,7 @@ public class MainMenuUI
 
         ShowResolutionSelector(leftPanel, fullscreenCheckbox);
         leftPanel.AddChild(new VerticalSpace(20));
-        var saveButton = new Button(Anchor.AutoLeft, new Vector2(280, 80), "Save  Settings");
+        var saveButton = new Button(Anchor.AutoLeft, new Vector2(280, 80), ButtonName);
         saveButton.PositionOffset = new Vector2(10, 10);
         saveButton.OnPressed += _ =>
         {
