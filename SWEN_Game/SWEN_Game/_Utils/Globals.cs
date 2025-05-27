@@ -30,6 +30,8 @@ namespace SWEN_Game
         public static bool Fullscreen { get; set; } = false;
         public static bool Borderless { get; set; } = false;
         public static UiSystem UiSystem { get; set; }
+        public static float SoundVolume { get; set; } = 1.0f;
+        public static float MusicVolume { get; set; } = 1.0f;
 
         public static void UpdateTime(GameTime gameTime)
         {

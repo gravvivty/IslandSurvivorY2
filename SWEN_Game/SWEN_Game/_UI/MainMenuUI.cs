@@ -6,6 +6,7 @@ using MLEM.Maths;
 using MLEM.Ui;
 using MLEM.Ui.Elements;
 using MLEM.Ui.Style;
+using MLEM.Textures;
 
 namespace SWEN_Game;
 
@@ -120,13 +121,17 @@ public class MainMenuUI
 
         /*var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(0.5F, 0.6F), "Window Size");
         rootPanel.AddChild(dropdown);*/
-
+        AddVolumeSlider(rootPanel, "SFX Volume", Globals.SoundVolume, newValue =>
+         {
+             Globals.SoundVolume = newValue;
+             // Update SFX volume in the game
+         });
 
         var saveButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Save  Settings");
         saveButton.PositionOffset = new Vector2(3, 0);
         saveButton.OnPressed += _ =>
         {
-           ClearAndSwitch(MenuState.MainMenu);
+            ClearAndSwitch(MenuState.MainMenu);
         };
 
         rootPanel.AddChild(saveButton);
@@ -155,10 +160,6 @@ public class MainMenuUI
         button.AddChild(checkbox);
         parentPanel.AddChild(button);
     }
-
-    // Fix the error by removing the incorrect usage of `ui.System`.
-    // The `UiSystem` class does not have a `System` property or method.
-    // Replace `ui.System.RecalculateLayout();` with `ui.RecalculateLayout();`.
 
     private void ShowResolutionSelector(Panel parent)
     {
@@ -192,4 +193,26 @@ public class MainMenuUI
 
         parent.AddChild(dropdown);
     }
+
+    private void AddVolumeSlider(Panel parentPanel, string labelText, float initialVolume, Action<float> onChanged)
+    {
+        var container = new Group(Anchor.AutoLeft, new Vector2(0.5F, 0.2F));
+        container.AddChild(new Paragraph(Anchor.Center, 1, labelText)
+        {
+            PositionOffset = new Vector2(3, 0),
+        });
+
+        var slider = new Slider(Anchor.CenterRight, new Vector2(0.3F, 0.5F), 0, 1)
+        {
+            Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress"), padding: 6),
+            Grabber = new TextureRegion(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), new Rectangle(0, 0, 16, 16)),
+            CurrentValue = initialVolume,
+        };
+        slider.OnValueChanged += (elem, newValue) =>
+        {
+            onChanged?.Invoke(newValue);
+        };
+        container.AddChild(slider);
+        parentPanel.AddChild(container);
     }
+}

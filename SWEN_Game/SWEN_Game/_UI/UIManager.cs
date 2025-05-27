@@ -1,8 +1,10 @@
-﻿using MLEM.Font;
+﻿
+using MLEM.Font;
 using MLEM.Input;
 using MLEM.Maths;
 using MLEM.Textures;
 using MLEM.Ui;
+using MLEM.Ui.Elements;
 using MLEM.Ui.Style;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -39,7 +41,6 @@ namespace SWEN_Game
             };
 
             _uiSystem = new UiSystem(game, style, _inputHandler)
-            {
                 AutoScaleWithScreen = true,
             };
 
@@ -82,5 +83,12 @@ namespace SWEN_Game
             spriteBatch.End();
             _uiSystem.Draw(gameTime, spriteBatch);
         }
+    }
+
+    // Add the following definition for SliderStyle if it is missing in your project
+    public class SliderStyle
+    {
+        public NinePatch Background { get; set; }
+        public TextureRegion Grabber { get; set; }
     }
 }
