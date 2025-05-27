@@ -122,15 +122,14 @@ public class MainMenuUI
         rootPanel.AddChild(dropdown);*/
 
 
-        var exitButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Exit");
-        exitButton.PositionOffset = new Vector2(3, 0);
-        exitButton.OnPressed += _ =>
+        var saveButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Save  Settings");
+        saveButton.PositionOffset = new Vector2(3, 0);
+        saveButton.OnPressed += _ =>
         {
-            System.Diagnostics.Debug.WriteLine("Exit Clicked");
-            ui.Game.Exit();
+           ClearAndSwitch(MenuState.MainMenu);
         };
 
-        rootPanel.AddChild(exitButton);
+        rootPanel.AddChild(saveButton);
     }
 
     private void AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
