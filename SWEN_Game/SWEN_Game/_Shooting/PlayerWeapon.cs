@@ -149,7 +149,17 @@ namespace SWEN_Game
                 1,
                 tint,
                 PlayerGameData.CurrentWeapon.BulletSize);
-            _bullets.Add(new Bullet(anim, player_position, direction, PlayerGameData.CurrentWeapon.ShotSpeed, PlayerGameData.CurrentWeapon.BulletSize, PlayerGameData.BulletPierce, this, PlayerGameData.CurrentWeapon.BulletDamage, isChild));
+            _bullets.Add(
+                new Bullet(
+                    anim,
+                    player_position,
+                    direction,
+                    PlayerGameData.CurrentWeapon.ShotSpeed,
+                    PlayerGameData.CurrentWeapon.BulletSize,
+                    PlayerGameData.CurrentWeapon.Pierce,
+                    this,
+                    PlayerGameData.CurrentWeapon.BulletDamage,
+                    isChild));
         }
 
         /// <summary>

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SWEN_Game
 {
-    public class RocketspeedPowerup : Powerup
+    public class QuickHandsPowerup : Powerup
     {
-        // ID 5
+        // ID 8
 
-        public RocketspeedPowerup(int level)
+        public QuickHandsPowerup(int level)
         {
             this.Level = level;
             SetLevelValues();
-            this.itemID = 5;
+            this.itemID = 8;
         }
 
         public void SetLevelValues()
@@ -23,13 +23,13 @@ namespace SWEN_Game
             switch (this.Level)
             {
                 case 1:
-                    this.shotSpeedFlat += 100;
+                    this.reloadSpeedBonus -= 0.2f;
                     break;
                 case 2:
-                    this.shotSpeedFlat += 200;
+                    this.reloadSpeedBonus -= 0.4f;
                     break;
                 case 3:
-                    this.shotSpeedFlat += 350;
+                    this.reloadSpeedBonus -= 0.6f;
                     break;
                 default:
                     break;

@@ -21,12 +21,13 @@ namespace SWEN_Game
         public bool IsReloading { get; set; } = false;
         public float ReloadTime { get; set; } = 1.0f;
         public float ReloadTimer { get; set; } = 0f;
+        public int Pierce { get; set; } = 0;
 
         public Texture2D bulletTexture;
         public Texture2D ingameSprite;
         public Texture2D iconSprite;
 
-        public Weapon(float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, int magSize, Texture2D bulletTexture, Texture2D icon, Texture2D ingame)
+        public Weapon(float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, int magSize, float reloadTime, int pierce, Texture2D bulletTexture, Texture2D icon, Texture2D ingame)
         {
             this.AttackSpeed = attackspeed;
             this.ShotSpeed = shotspeed;
@@ -36,6 +37,8 @@ namespace SWEN_Game
             this.BulletDamage = bulletDamage;
             this.MagazineSize = magSize;
             this.CurrentAmmo = this.MagazineSize;
+            this.ReloadTime = reloadTime;
+            this.Pierce = pierce;
 
             this.bulletTexture = bulletTexture;
             this.ingameSprite = ingame;
@@ -59,6 +62,8 @@ namespace SWEN_Game
                 this.BulletsPerShot,
                 this.BulletDamage,
                 this.MagazineSize,
+                this.ReloadTime,
+                this.Pierce,
                 this.bulletTexture,
                 this.iconSprite,
                 this.ingameSprite);

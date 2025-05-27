@@ -18,9 +18,9 @@ namespace SWEN_Game
         public static Texture2D BulletTexture;
         public static Color BulletTint;
 
-        public static float Speed = 130f;
         public static int CurrentHealth = 6;
         public static int MaxHealth = 6;
+        public static float Speed = 130f;
         public static Dictionary<int, Powerup> Powerups = new Dictionary<int, Powerup>();
 
         // Weapon Attribute Multipliers
@@ -41,8 +41,10 @@ namespace SWEN_Game
 
         // Special Powerups
         public static int ReverseShotLevel = 0;
-        public static int BulletPierce = 0;
+        public static int BulletPierceBonus = 0;
         public static int MagazineSizeBonus = 0;
+        public static float ReloadSpeedBonus = 0; // Lower = faster
+        public static float SpeedBonus = 0;
 
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.
@@ -58,6 +60,12 @@ namespace SWEN_Game
             CurrentWeapon.BulletSpread = (BaseWeapon.BulletSpread * BulletSpreadMult) + BulletSpreadFlat;
             CurrentWeapon.BulletsPerShot = (int)((BaseWeapon.BulletsPerShot * BulletsPerShotMult) + BulletsPerShotFlat);
             CurrentWeapon.BulletDamage = (BaseWeapon.BulletDamage * BulletDamageMult) + BulletDamageFlat;
+
+            CurrentWeapon.ReloadTime = BaseWeapon.ReloadTime + ReloadSpeedBonus;
+            CurrentWeapon.Pierce = BaseWeapon.Pierce + BulletPierceBonus;
+
+            float newSpeed = Speed + SpeedBonus;
+            InputManager.SetSpeed(newSpeed);
         }
 
         /// <summary>
@@ -86,8 +94,10 @@ namespace SWEN_Game
             BulletDamageFlat = 0;
 
             ReverseShotLevel = 0;
-            BulletPierce = 0;
+            BulletPierceBonus = 0;
             MagazineSizeBonus = 0;
+            ReloadSpeedBonus = 0;
+            SpeedBonus = 0;
 
             foreach (var powerup in Powerups.Values)
             {

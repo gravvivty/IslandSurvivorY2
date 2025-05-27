@@ -17,8 +17,6 @@ namespace SWEN_Game
         public Vector2 RealPos { get; private set; }
         public Vector2 HitboxPos { get; private set; }
         public Rectangle Hitbox { get; private set; }
-
-        public float Speed { get; private set; }
         public Vector2 Direction { get; private set; }
 
         // Invincibility Handling Stuff
@@ -32,8 +30,6 @@ namespace SWEN_Game
 
         public Player()
         {
-            Speed = PlayerGameData.Speed;
-
             // SpritePos and Spawn Position
             Position = new Vector2(750, 750);
 

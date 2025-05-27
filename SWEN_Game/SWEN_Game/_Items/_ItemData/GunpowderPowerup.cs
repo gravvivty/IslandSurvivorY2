@@ -23,13 +23,13 @@ namespace SWEN_Game
             switch (this.Level)
             {
                 case 1:
-                    this.bulletDamageFlat += 3;
+                    this.bulletDamageFlat += 5;
                     break;
                 case 2:
-                    this.bulletDamageFlat += 6;
+                    this.bulletDamageFlat += 10;
                     break;
                 case 3:
-                    this.bulletDamageFlat += 10;
+                    this.bulletDamageFlat += 20;
                     break;
                 default:
                     break;

@@ -67,6 +67,10 @@ namespace SWEN_Game
                     return new RancidEnergyDrinkPowerup(level);
                 case 7:
                     return new DemonBulletsPowerup(level);
+                case 8:
+                    return new QuickHandsPowerup(level);
+                case 9:
+                    return new SpicyNoodlesPowerup(level);
 
                 // Add more item cases here
                 default:

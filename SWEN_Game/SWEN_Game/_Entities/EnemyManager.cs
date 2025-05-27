@@ -92,7 +92,7 @@ namespace SWEN_Game
                 // Check collision with player only if player is not invincible
                 if (!_player.GetIsInvincible() && enemy.Hitbox.Intersects(_player.Hitbox))
                 {
-                    _player.TakeDamage(1);  // reduce health by 1
+                    _player.TakeDamage(enemy.EnemyDamage);  // reduce health by enemy damage
                     System.Diagnostics.Debug.WriteLine("Player hit by enemy: " + DateTime.Now);
                 }
             }

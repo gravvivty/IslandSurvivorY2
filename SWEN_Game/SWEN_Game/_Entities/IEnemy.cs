@@ -15,7 +15,7 @@ namespace SWEN_Game
         bool IsAlive { get; }
         float CurrentHealth { get; set; }
         Texture2D Texture { get; set; }
-        float EnemyDamage { get; set; }
+        int EnemyDamage { get; set; }
         float EnemySpeed { get; set; }
         int FrameSize {  get; set; }
         AnimationManager AnimationManager { get; set; }

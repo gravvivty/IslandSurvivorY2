@@ -1,4 +1,5 @@
 ﻿using System;
+using Assimp.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +10,8 @@ namespace SWEN_Game
 {
     public static class InputManager
     {
+        public static float Speed { get; set; } = 130f;
+
         /// <summary>
         /// Called every frame to check Key Input.
         /// </summary>
@@ -64,6 +67,11 @@ namespace SWEN_Game
             player.SetDirection(moveDirection);
         }
 
+        public static void SetSpeed(float speed)
+        {
+            Speed = speed;
+        }
+
         /// <summary>
         /// Checks movement in Y direction.
         /// </summary>
@@ -73,7 +81,7 @@ namespace SWEN_Game
         private static void CheckYMovement(Player player, Vector2 moveDirection, float delta)
         {
             Vector2 tentativePosition = player.Position;
-            tentativePosition.Y += moveDirection.Y * player.Speed * delta;
+            tentativePosition.Y += moveDirection.Y * Speed * delta;
 
             Rectangle yCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 8, 8, 8);
 
@@ -92,7 +100,7 @@ namespace SWEN_Game
         private static void CheckXMovement(Player player, Vector2 moveDirection, float delta)
         {
             Vector2 tentativePosition = player.Position;
-            tentativePosition.X += moveDirection.X * player.Speed * delta;
+            tentativePosition.X += moveDirection.X * Speed * delta;
 
             Rectangle xCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 8, 8, 8);
 

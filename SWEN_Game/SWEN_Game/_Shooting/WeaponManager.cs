@@ -29,22 +29,22 @@ namespace SWEN_Game
 
             Texture2D pistolIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/pistol");
             Texture2D pistolIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/pistol");
-            Weapon pistol = new Weapon(0.25f, 300f, 1f, 1, 1, 10f, 8, vanillaBulletTexture, pistolIconTexture, pistolIngameTexture);
+            Weapon pistol = new Weapon(0.25f, 300f, 1f, 1, 1, 10f, 8, 1f, 0, vanillaBulletTexture, pistolIconTexture, pistolIngameTexture);
             _weapons.Add("Pistol", pistol);
 
             Texture2D assaultRifleIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/assault_rifle");
             Texture2D assaultIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/assault_rifle");
-            Weapon assault_rifle = new Weapon(0.15f, 300f, 0.7f, 1, 1, 5f, 24, vanillaBulletTexture, assaultRifleIconTexture, assaultIngameTexture);
+            Weapon assault_rifle = new Weapon(0.15f, 300f, 0.7f, 1, 1, 4f, 24, 1.5f, 0, vanillaBulletTexture, assaultRifleIconTexture, assaultIngameTexture);
             _weapons.Add("Assault_Rifle", assault_rifle);
 
             Texture2D precisionRifleIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/precision_rifle");
             Texture2D precisionRifleIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/precision_rifle");
-            Weapon precision_rifle = new Weapon(0.4f, 500f, 0.7f, 1, 1, 20f, 4, vanillaBulletTexture, precisionRifleIconTexture, precisionRifleIconTexture);
+            Weapon precision_rifle = new Weapon(0.4f, 500f, 0.7f, 1, 1, 25f, 4, 2f, 3, vanillaBulletTexture, precisionRifleIconTexture, precisionRifleIconTexture);
             _weapons.Add("Precision_Rifle", precision_rifle);
 
             // Get it twice cuz if not they have the same reference
-            PlayerGameData.BaseWeapon = this.GetWeapon("Pistol");
-            PlayerGameData.CurrentWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.BaseWeapon = this.GetWeapon("Precision_Rifle");
+            PlayerGameData.CurrentWeapon = this.GetWeapon("Precision_Rifle");
             PlayerGameData.UpdateWeaponGameData();
         }
 
@@ -64,13 +64,8 @@ namespace SWEN_Game
             // If this returns Null. We are fucked.
             // We dont need exception handling ~ Nico
 
-            // How about just a fallback? :eyes: ~ Steven
-            Texture2D vanillaBulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
-
-            Texture2D pistolIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/pistol");
-            Texture2D pistolIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/pistol");
-
-            return new Weapon(0.25f, 300f, 1f, 1, 1, 10f, 8, vanillaBulletTexture, pistolIconTexture, pistolIngameTexture);
+            // How about just a fallback to current base weapon? :eyes: ~ Steven
+            return PlayerGameData.BaseWeapon;
         }
     }
 }

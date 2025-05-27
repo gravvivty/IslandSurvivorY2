@@ -17,7 +17,7 @@ namespace SWEN_Game
         public bool IsAlive { get; private set; } = true;
         public float CurrentHealth { get; set; } = 135f;
         public Texture2D Texture { get; set; } = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Kapre");
-        public float EnemyDamage { get; set; } = 20f;
+        public int EnemyDamage { get; set; } = 2;
         public float EnemySpeed { get; set; } = 30f;
         public int FrameSize { get; set; } = 24;
         public AnimationManager AnimationManager { get; set; }
