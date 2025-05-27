@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SWEN_Game
 {
+    /// <summary>
+    /// Represents a bullet fired by the player, managing its position, animation,
+    /// collision detection, piercing capability, and rendering.
+    /// </summary>
     public class Bullet
     {
         private HashSet<IEnemy> _hitEnemies = new();
@@ -24,6 +28,18 @@ namespace SWEN_Game
         private float _visibilityTime = 1f;
         private Animation _animation;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Bullet"/> class with provided parameters.
+        /// </summary>
+        /// <param name="animation">The animation object used to render the bullet.</param>
+        /// <param name="startposition">The initial position of the bullet.</param>
+        /// <param name="direction">The normalized direction in which the bullet travels.</param>
+        /// <param name="shotSpeed">The speed at which the bullet travels.</param>
+        /// <param name="bulletSize">The size of the bullet for collision purposes.</param>
+        /// <param name="piercingCount">How many enemies the bullet can pierce through.</param>
+        /// <param name="weapon">The weapon instance that created the bullet.</param>
+        /// <param name="dmg">The damage this bullet deals.</param>
+        /// <param name="isChild">Indicates if this bullet is a child (demon) bullet with modified damage.</param>
         public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, PlayerWeapon weapon, float dmg, bool? isChild = null)
         {
             _animation = animation;
@@ -38,7 +54,7 @@ namespace SWEN_Game
             IsDemonBullet = isChild ?? false;
             if (IsDemonBullet)
             {
-                Damage = dmg / 2;
+                Damage = dmg / 3;
             }
             else
             {
@@ -46,6 +62,9 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Updates the bullet's position, animation, visibility, and collision status.
+        /// </summary>
         public void Update()
         {
             Position += _shotSpeed * (float)Globals.Time;
@@ -67,6 +86,10 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Draws the bullet to the screen using its animation if it is visible.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used to render the bullet.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (IsVisible)
@@ -76,11 +99,20 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Checks if the bullet has already hit the given enemy to avoid double damage.
+        /// </summary>
+        /// <param name="enemy">The enemy to check against the hit history.</param>
+        /// <returns>True if the bullet has hit the enemy; otherwise, false.</returns>
         public bool HasHit(IEnemy enemy)
         {
             return _hitEnemies.Contains(enemy);
         }
 
+        /// <summary>
+        /// Registers that this bullet has hit the specified enemy.
+        /// </summary>
+        /// <param name="enemy">The enemy to register as hit.</param>
         public void RegisterHit(IEnemy enemy)
         {
             _hitEnemies.Add(enemy);

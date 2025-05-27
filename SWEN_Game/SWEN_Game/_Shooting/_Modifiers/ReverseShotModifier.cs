@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace SWEN_Game
 {
+    /// <summary>
+    /// A weapon modifier that fires additional bullets in reverse or perpendicular directions
+    /// depending on its level.
+    /// </summary>
     public class ReverseShotModifier : IWeaponModifier
     {
         private int level;
@@ -16,17 +20,28 @@ namespace SWEN_Game
             this.level = 1;
         }
 
+        /// <summary>
+        /// Sets the modifier level which determines how many and in which directions bullets are shot.
+        /// </summary>
+        /// <param name="level">The new modifier level.</param>
         public void SetReverseShotModifier(int level)
         {
             this.level = level;
         }
 
+        /// <summary>
+        /// Executes the reverse shot behavior when the player fires a weapon.
+        /// Based on the current level, additional bullets are fired in reverse or perpendicular directions.
+        /// </summary>
+        /// <param name="direction">The original shooting direction.</param>
+        /// <param name="playerPos">The position of the player when shooting.</param>
+        /// <param name="weapon">The weapon being used to shoot.</param>
         public void OnShoot(Vector2 direction, Vector2 playerPos, PlayerWeapon weapon)
         {
             switch (level)
             {
                 case 1:
-                    weapon.ShootInDirection(-direction, playerPos);
+                    weapon.ShootInDirection(-direction, playerPos); // Behind
                     break;
                 case 2:
                     Vector2 reverseLvl2 = -direction;

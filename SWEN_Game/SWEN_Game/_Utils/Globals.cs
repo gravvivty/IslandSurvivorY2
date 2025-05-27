@@ -9,7 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace SWEN_Game
 {
     /// <summary>
-    /// Global Variables like Content,Spritebatch,Time,etc.
+    /// Holds global references and utilities used across the game, such as content,
+    /// rendering tools, world data, collision grids, and game timing.
     /// </summary>
     public static class Globals
     {
@@ -28,12 +29,20 @@ namespace SWEN_Game
         public static bool Fullscreen { get; set; } = false;
         public static bool Borderless { get; set; } = false;
 
+        /// <summary>
+        /// Updates the time delta and total game time using the provided GameTime.
+        /// </summary>
+        /// <param name="gameTime">The GameTime from the game loop.</param>
         public static void UpdateTime(GameTime gameTime)
         {
             Time = (float)gameTime.ElapsedGameTime.TotalSeconds;
             TotalGameTime += Time;
         }
 
+        /// <summary>
+        /// Calculates collision rectangles from the collision layer of the LDtk world.
+        /// Populates the <see cref="Collisions"/> list.
+        /// </summary>
         public static void CalculateAllCollisions()
         {
             var level0 = World.Levels[0];
@@ -65,6 +74,10 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Calculates hitbox rectangles from the hitbox layer of the LDtk world.
+        /// Populates the <see cref="Hitboxes"/> list.
+        /// </summary>
         public static void CalculateAllHitboxes()
         {
             var level0 = World.Levels[0];
@@ -96,6 +109,11 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Checks if the given rectangle collides with any world collision rectangle.
+        /// </summary>
+        /// <param name="entityRect">The rectangle to test.</param>
+        /// <returns>True if a collision occurs, otherwise false.</returns>
         public static bool IsColliding(Rectangle entityRect)
         {
             // Assumes entity collision as small rectangle at the very bottom of the Sprite
@@ -111,6 +129,11 @@ namespace SWEN_Game
             return false;
         }
 
+        /// <summary>
+        /// Checks if the given rectangle collides with any hitbox rectangle.
+        /// </summary>
+        /// <param name="entityRect">The rectangle to test.</param>
+        /// <returns>True if a hitbox is intersected, otherwise false.</returns>
         public static bool IsCollidingHitbox(Rectangle entityRect)
         {
             // Assumes entity collision as small rectangle at the very bottom of the Sprite
@@ -126,6 +149,10 @@ namespace SWEN_Game
             return false;
         }
 
+        /// <summary>
+        /// Sets a new zoom level for the game view.
+        /// </summary>
+        /// <param name="newZoom">The new zoom level to apply.</param>
         public static void SetZoom(int newZoom)
         {
             Zoom = newZoom;

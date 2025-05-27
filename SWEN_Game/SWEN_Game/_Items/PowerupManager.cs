@@ -13,6 +13,10 @@ namespace SWEN_Game
             weapon = playerWpn;
         }
 
+        /// <summary>
+        /// Adds or levels up an item with itemID to the powerup list of the player as well as registering the Weapon Modifier if the powerup is one.
+        /// </summary>
+        /// <param name="itemID">ID of the item.</param>
         public void AddItem(int itemID)
         {
             RetrieveCurrentItems();
@@ -38,6 +42,13 @@ namespace SWEN_Game
             RegisterModifier(itemID, newLevel);
         }
 
+        /// <summary>
+        /// Creates a new powerup based on itemID and level.
+        /// </summary>
+        /// <param name="itemID">ID of the item.</param>
+        /// <param name="level">Level of the powerup.</param>
+        /// <returns>A new Powerup with a level.</returns>
+        /// <exception cref="ArgumentException">Powerup does not exist.</exception>
         private Powerup CreatePowerup(int itemID, int level)
         {
             switch (itemID)
@@ -63,11 +74,25 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Retrieves the current Powerups the player has.
+        /// </summary>
+        /// <remarks>
+        /// This should get called at the start of adding an Item to get the most recent changes.
+        /// </remarks>
         private void RetrieveCurrentItems()
         {
             savedPowerups = PlayerGameData.Powerups;
         }
 
+        /// <summary>
+        /// Creates or levels up the Modifiers for the weapon.
+        /// </summary>
+        /// <remarks>
+        /// Treat it as a powerup but since these need custom code that manipulate bullets it is something extra.
+        /// </remarks>
+        /// <param name="itemID">ID of the item.</param>
+        /// <param name="level">Level of the item.</param>
         private void RegisterModifier(int itemID, int level)
         {
             List<IWeaponModifier> modifiers = weapon.GetModifiers();

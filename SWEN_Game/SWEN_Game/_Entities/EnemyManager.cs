@@ -12,7 +12,7 @@ namespace SWEN_Game
     public class EnemyManager
     {
         private float _enemySpawnInterval = 1f;
-        private int _maxEnemies = 100;
+        private int _maxEnemiesAllowed = 100;
         private float _unlockCheckCooldown = 5f;
         private float _timeSinceLastUnlockCheck = 0f;
         private float TimeSinceLastSpawn { get; set; }
@@ -38,6 +38,9 @@ namespace SWEN_Game
             _player = player;
         }
 
+        /// <summary>
+        /// Draws all enemies using each enemies Draw() function.
+        /// </summary>
         public void Draw()
         {
             foreach (var enemy in _allEnemies)
@@ -46,6 +49,10 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Spawns a random enemy which has been unlocked.
+        /// </summary>
+        /// <param name="spawnPosition">Where the enemy should be spawned.</param>
         public void SpawnEnemy(Vector2 spawnPosition)
         {
             string randomizedEnemyType = GetRandomEnemyType();
@@ -75,6 +82,9 @@ namespace SWEN_Game
             _allEnemies.RemoveAll(e => !e.IsAlive);
         }
 
+        /// <summary>
+        /// Compares the Player Hitbox with all Enemy Hitboxes to handle taking damage.
+        /// </summary>
         private void CheckEnemyPlayerCollision()
         {
             foreach (var enemy in _allEnemies)
@@ -88,15 +98,21 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Check if an enemy can be spawned depending on SpawnInterval and MaxEnemiesAllowed.
+        /// </summary>
         private void CheckCanSpawnEnemy()
         {
-            if (TimeSinceLastSpawn >= _enemySpawnInterval && _allEnemies.Count < _maxEnemies)
+            if (TimeSinceLastSpawn >= _enemySpawnInterval && _allEnemies.Count < _maxEnemiesAllowed)
             {
                 SpawnEnemy(RandomizeEnemySpawnPosition(_player.RealPos));
                 TimeSinceLastSpawn = 0f;
             }
         }
 
+        /// <summary>
+        /// Check and unlock enemies depending on UnlockCheckCooldown Interval.
+        /// </summary>
         private void CheckEnemyUnlock()
         {
             if (_timeSinceLastUnlockCheck >= _unlockCheckCooldown)
@@ -106,7 +122,12 @@ namespace SWEN_Game
             }
         }
 
-        // Randomly spawn an enemy based on the type
+        /// <summary>
+        /// Create an enemy depending on parameters.
+        /// </summary>
+        /// <param name="enemyType">Name of the enemy.</param>
+        /// <param name="spawnPosition">Spawn Position of the enemy.</param>
+        /// <exception cref="ArgumentException">Triggered when there is an Unknown Enemy Type.</exception>
         private void RandomizeSpawnedEnemy(string enemyType, Vector2 spawnPosition)
         {
             switch (enemyType)
@@ -128,7 +149,11 @@ namespace SWEN_Game
             }
         }
 
-        // Randomize the spawn position of an enemy within the game world
+        /// <summary>
+        /// Chooses a random spawn position around the player.
+        /// </summary>
+        /// <param name="playerPosition">Player Position.</param>
+        /// <returns>Random Vector close to the Player.</returns>
         private Vector2 RandomizeEnemySpawnPosition(Vector2 playerPosition)
         {
             float minDistance = 400f; // Minimum spawn radius
@@ -143,6 +168,9 @@ namespace SWEN_Game
             return new Vector2(x, y);
         }
 
+        /// <summary>
+        /// Adds and removes Enemy Types from the spawnableEnemyTypes List depending on TotalGameTime.
+        /// </summary>
         private void UpdateEnemyUnlocks()
         {
             float gameTime = Globals.TotalGameTime;
@@ -179,9 +207,16 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Chooses a random Enemy depepnding on their weights.
+        /// </summary>
+        /// <returns>Name of the enemy.</returns>
         private string GetRandomEnemyType()
         {
+            // e.g. 0.4+0.9=1.3
             float totalWeight = currentSpawnWeights.Values.Sum();
+
+            // e.g. 0.35 * 1.3
             float randomValue = (float)_random.NextDouble() * totalWeight;
 
             float cumulative = 0f;

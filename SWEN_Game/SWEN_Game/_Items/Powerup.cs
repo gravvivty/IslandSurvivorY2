@@ -31,6 +31,9 @@ namespace SWEN_Game
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
 
+        /// <summary>
+        /// Updates the PlayerGameData Values of the Player with nem powerup values.
+        /// </summary>
         public void UpdatePlayerGameDataValues()
         {
             PlayerGameData.AttackSpeedMult += attackSpeedMult;

@@ -9,6 +9,12 @@ namespace SWEN_Game
 {
     public static class MouseManager
     {
+        /// <summary>
+        /// Updates the Mouse Position each frame.
+        /// </summary>
+        /// <param name="player">Player reference.</param>
+        /// <param name="playerWeapon">PlayerWeapon reference.</param>
+        /// <param name="mouseState">Current MouseState.</param>
         public static void UpdateMouse(Player player, PlayerWeapon playerWeapon, MouseState mouseState)
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)

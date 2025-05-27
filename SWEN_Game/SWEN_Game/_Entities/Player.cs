@@ -12,16 +12,9 @@ namespace SWEN_Game
         private SpriteManager _spriteManager;
         private AnimationManager _anims = new();
 
-        // For general enemies/entities we can copy most of these variables
         public Texture2D PlayerTexture { get; private set; }
-
-        // Used for drawing the Sprite
         public Vector2 Position { get; private set; }
-
-        // Used to check if something is near the player
         public Vector2 RealPos { get; private set; }
-
-        // Used to check if something entered the player's hitbox
         public Vector2 HitboxPos { get; private set; }
         public Rectangle Hitbox { get; private set; }
 
@@ -30,10 +23,10 @@ namespace SWEN_Game
 
         // Invincibility Handling Stuff
         private bool _isInvincible = false;
-        private float _invincibilityTime = 1.0f; // seconds
+        private float _invincibilityTime = 1.0f; // In seconds
         private float _invincibilityTimer = 0f;
 
-        private float _flickerRate = 0.075f; // seconds
+        private float _flickerRate = 0.075f; // In seconds
         private float _flickerTimer = 0f;
         private bool _isVisible = true;
 
@@ -51,6 +44,10 @@ namespace SWEN_Game
             HitboxPos = new Vector2(Position.X + 4, Position.Y + 8);
         }
 
+        /// <summary>
+        /// Add SpriteManager to Player and register all input direction keys with Animations.
+        /// </summary>
+        /// <param name="spriteManager">SpriteManager reference.</param>
         public void AddSpriteManager(SpriteManager spriteManager)
         {
             PlayerTexture = Globals.Content.Load<Texture2D>("player");
@@ -66,6 +63,10 @@ namespace SWEN_Game
             _anims.AddAnimation(new Vector2(-1, -1), new(PlayerTexture, 1, 3, 0.1f, 16, 8)); // UpLeft
         }
 
+        /// <summary>
+        /// Sets the position of the Player and his relative positions like Hitbox/RealPosition. Updates Hitbox as well.
+        /// </summary>
+        /// <param name="newPos">New Position of the Player.</param>
         public void SetPosition(Vector2 newPos)
         {
             Position = newPos;
@@ -74,6 +75,9 @@ namespace SWEN_Game
             Hitbox = new Rectangle((int)HitboxPos.X, (int)HitboxPos.Y, 8, 12);
         }
 
+        /// <summary>
+        /// Update Animation depending on movment input and handles invincibility when getting hit.
+        /// </summary>
         public void Update()
         {
             _anims.Update(this.Direction);
@@ -98,11 +102,21 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Sets the new directional vector of the player.
+        /// </summary>
+        /// <param name="direction">Direction (8 possibilities).</param>
         public void SetDirection(Vector2 direction)
         {
             this.Direction = direction;
         }
 
+        /// <summary>
+        /// Calls the Draw() in Animation for the Player if he is supposed to be visible.
+        /// </summary>
+        /// <remarks>
+        /// Player will toggle visible and invisible fast when he gets hit by something.
+        /// </remarks>
         public void Draw()
         {
             if (_isVisible)
@@ -111,7 +125,9 @@ namespace SWEN_Game
             }
         }
 
-        // Use this to trigger invincibilty Flicker/Frames
+        /// <summary>
+        /// Triggers Invincibility.
+        /// </summary>
         public void TriggerInvincibility()
         {
             _isInvincible = true;
@@ -120,11 +136,19 @@ namespace SWEN_Game
             _isVisible = true;
         }
 
+        /// <summary>
+        /// Get current invincibility State.
+        /// </summary>
+        /// <returns>_isInvincible.</returns>
         public bool GetIsInvincible()
         {
             return _isInvincible;
         }
 
+        /// <summary>
+        /// Reduces the player health by amount if he is not invincible.
+        /// </summary>
+        /// <param name="amount">How much Player HP is reduced.</param>
         public void TakeDamage(int amount)
         {
             if (!_isInvincible)

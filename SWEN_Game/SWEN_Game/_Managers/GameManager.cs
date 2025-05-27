@@ -47,6 +47,9 @@ namespace SWEN_Game
             Globals.SpriteManager = _spriteManager;
         }
 
+        /// <summary>
+        /// Calls all Update functions in all other classes.
+        /// </summary>
         public void Update()
         {
            // System.Diagnostics.Debug.WriteLine("GameManager Update running" + DateTime.Now);
@@ -66,6 +69,9 @@ namespace SWEN_Game
             _debug.DebugUpdate();
         }
 
+        /// <summary>
+        /// Calls all Draw functions in all other classes.
+        /// </summary>
         public void Draw()
         {
             // Begin the sprite batch with depth sorting (FrontToBack) and apply the camera transformation.
@@ -73,17 +79,20 @@ namespace SWEN_Game
                 SpriteSortMode.FrontToBack,
                 transformMatrix: _renderer.CalcTranslation(),
                 samplerState: SamplerState.PointClamp);
-            _renderer.DrawWorld();
 
+            _renderer.DrawWorld();
             _playerWeapon.DrawBullets();
             _enemyManager.Draw();
             _player.Draw();
+
             Globals.SpriteBatch.End();
+
+            // Custom draw functions that differ from basic game draw logic
 
             // _debug.DrawWorldDebug();
             Cursor.DrawCursor();
 
-           // System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
+            System.Diagnostics.Debug.WriteLine("GameManager Draw running" + DateTime.Now);
         }
     }
 }

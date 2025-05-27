@@ -6,10 +6,50 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SWEN_Game
 {
+    /// <summary>
+    /// Responsible for calculating rendering depth for sprites based on anchor tiles,
+    /// helping to correctly layer sprites based on their position relative to the player.
+    /// </summary>
     public class SpriteCalculator
     {
         private readonly SpriteManager _spriteManager;
         private readonly Player _player;
+        private readonly Dictionary<string, int> _anchorTileMap = new Dictionary<string, int>
+        {
+            { "BigCleanHouse", 413 },
+            { "BigMossHouse", 377 },
+            { "ShackMoss", 92 },
+            { "FrogStatue", 249 },
+            { "MonkStatue", 160 },
+            { "SmallHouseOrange", 85 },
+            { "Cart", 330 },
+            { "SmallHouseCrashed", 89 },
+            { "GiantLog", 447 },
+            { "SingleTree", 284 },
+            { "GroupTree", 321 },
+            { "Ruins", 178 },
+            { "Pillar", 202 },
+            { "SmallPillar", 163 },
+            { "HouseRuins", 81 },
+            { "Walls", 410 },
+            { "Bookshelf", 458 },
+            { "EmptyShelf", 459 },
+            { "Drawer", 457 },
+            { "RoundShelf", 456 },
+            { "Pool", 348 },
+            { "SmallGreenHouseDesert", 101 },
+            { "BigGreenHouseDesert", 345 },
+            { "MarketStandDesert", 462 },
+            { "SmallRectangleHouseDesert", 107 },
+            { "BigRectangleHouseDesert", 267 },
+            { "CastleTower", 395 },
+            { "SingleTreeDesert", 472 },
+            { "GroupTreeDesert", 391 },
+            { "Watchtower", 175 },
+            { "BushDesert", 468 },
+            { "LionStatue", 460 },
+        };
+
         public SpriteCalculator(SpriteManager spriteManager, Player player)
         {
             _spriteManager = spriteManager;
@@ -77,115 +117,20 @@ namespace SWEN_Game
             return result;
         }
 
+        /// <summary>
+        /// Returns the anchor tile ID corresponding to a sprite group identifier.
+        /// The anchor tile represents the "bottom-most" tile used for depth sorting.
+        /// </summary>
+        /// <param name="enumName">The sprite group identifier (EnumTag).</param>
+        /// <returns>The tile ID used as anchor, or 0 if none.</returns>
         public int GetAnchorTileID(string enumName)
         {
-            // Select the correct anchor Tile depending on Sprite (bottomost tile of sprite)
-            int anchorID = 0;
-            switch (enumName)
+            if (_anchorTileMap.TryGetValue(enumName, out int anchorID))
             {
-                case "BigCleanHouse": // FOREST
-                    anchorID = 413;
-                    break;
-                case "BigMossHouse":
-                    anchorID = 377;
-                    break;
-                case "ShackMoss":
-                    anchorID = 92;
-                    break;
-                case "FrogStatue":
-                    anchorID = 249;
-                    break;
-                case "MonkStatue":
-                    anchorID = 160;
-                    break;
-                case "SmallHouseOrange":
-                    anchorID = 85;
-                    break;
-                case "Cart":
-                    anchorID = 330;
-                    break;
-                case "SmallHouseCrashed":
-                    anchorID = 89;
-                    break;
-                case "GiantLog":
-                    anchorID = 447;
-                    break;
-                case "SingleTree":
-                    anchorID = 284;
-                    break;
-                case "GroupTree":
-                    anchorID = 321;
-                    break;
-                case "Ruins":
-                    anchorID = 178;
-                    break;
-                case "Pillar":
-                    anchorID = 202;
-                    break;
-                case "SmallPillar":
-                    anchorID = 163;
-                    break;
-                case "HouseRuins":
-                    anchorID = 81;
-                    break;
-                case "Walls":
-                    anchorID = 410;
-                    break;
-                case "Bookshelf":
-                    anchorID = 458;
-                    break;
-                case "EmptyShelf":
-                    anchorID = 459;
-                    break;
-                case "Drawer":
-                    anchorID = 457;
-                    break;
-                case "RoundShelf":
-                    anchorID = 456;
-                    break;
-                case "Pool":
-                    anchorID = 348; // DESERT
-                    break;
-                case "SmallGreenHouseDesert":
-                    anchorID = 101;
-                    break;
-                case "BigGreenHouseDesert":
-                    anchorID = 345;
-                    break;
-                case "MarketStandDesert":
-                    anchorID = 462;
-                    break;
-                case "SmallRectangleHouseDesert":
-                    anchorID = 107;
-                    break;
-                case "BigRectangleHouseDesert":
-                    anchorID = 267;
-                    break;
-                case "CastleTower":
-                    anchorID = 395;
-                    break;
-                case "SingleTreeDesert":
-                    anchorID = 472;
-                    break;
-                case "GroupTreeDesert":
-                    anchorID = 391;
-                    break;
-                case "Watchtower":
-                    anchorID = 175; // FOREST TOWER
-                    break;
-                case "BushDesert":
-                    anchorID = 468;
-                    break;
-                case "LionStatue":
-                    anchorID = 460;
-                    break;
-                default:
-                    break;
-
-                    // Sprites that are one singular tile like most Small_Deco tiles - wont need an anchor
+                return anchorID;
             }
 
-            return anchorID;
+            return 0; // Default if not found
         }
     }
 }

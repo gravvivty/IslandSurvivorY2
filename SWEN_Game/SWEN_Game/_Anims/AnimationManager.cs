@@ -15,6 +15,11 @@ namespace SWEN_Game
             // dummy
         }
 
+        /// <summary>
+        /// Add an Animation to the Collection of your entity.
+        /// </summary>
+        /// <param name="key">Object under which your Animation should be known.</param>
+        /// <param name="animation">Animation itself.</param>
         public void AddAnimation(object key, Animation animation)
         {
             _animations.Add(key, animation);
@@ -24,6 +29,10 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Starts and Updates the Animation if the Key exists - stops and resets if it doesn't.
+        /// </summary>
+        /// <param name="key">Object under which the Animation is known for lookup.</param>
         public void Update(object key)
         {
             // If Key exists - start the animation and update it
@@ -40,6 +49,11 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Draws the Animation depending on the key.
+        /// </summary>
+        /// <param name="position">Where the Sprite should be drawn.</param>
+        /// <param name="tintColor">Optional: Color for the Sprite.</param>
         public void Draw(Vector2 position, Color? tintColor = null)
         {
             _animations[_currentKey].Draw(position, tintColor);

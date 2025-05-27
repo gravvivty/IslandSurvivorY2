@@ -9,6 +9,11 @@ namespace SWEN_Game
 {
     public static class InputManager
     {
+        /// <summary>
+        /// Called every frame to check Key Input.
+        /// </summary>
+        /// <param name="player">Player class reference.</param>
+        /// <param name="keyboardState">KeyboardState reference.</param>
         public static void Update(Player player, KeyboardState keyboardState)
         {
             Vector2 moveDirection = Vector2.Zero;
@@ -59,7 +64,13 @@ namespace SWEN_Game
             player.SetDirection(moveDirection);
         }
 
-        private static Vector2 CheckYMovement(Player player, Vector2 moveDirection, float delta)
+        /// <summary>
+        /// Checks movement in Y direction.
+        /// </summary>
+        /// <param name="player">Player reference.</param>
+        /// <param name="moveDirection">Cardinal or intercardinal direction.</param>
+        /// <param name="delta">DeltaTime between frames.</param>
+        private static void CheckYMovement(Player player, Vector2 moveDirection, float delta)
         {
             Vector2 tentativePosition = player.Position;
             tentativePosition.Y += moveDirection.Y * player.Speed * delta;
@@ -70,10 +81,14 @@ namespace SWEN_Game
             {
                 player.SetPosition(tentativePosition);
             }
-
-            return tentativePosition;
         }
 
+        /// <summary>
+        /// Checks movement in X direction.
+        /// </summary>
+        /// <param name="player">Player reference.</param>
+        /// <param name="moveDirection">Cardinal or intercardinal direction.</param>
+        /// <param name="delta">DeltaTime between frames.</param>
         private static void CheckXMovement(Player player, Vector2 moveDirection, float delta)
         {
             Vector2 tentativePosition = player.Position;

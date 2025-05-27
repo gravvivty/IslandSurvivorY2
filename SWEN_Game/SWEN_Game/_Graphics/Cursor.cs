@@ -11,6 +11,9 @@ namespace SWEN_Game
     {
         private static Texture2D cursorTexture = Globals.Content.Load<Texture2D>("crosshair");
 
+        /// <summary>
+        /// Draws the Cursor with a Texture.
+        /// </summary>
         public static void DrawCursor()
         {
             MouseState mouse = Mouse.GetState();

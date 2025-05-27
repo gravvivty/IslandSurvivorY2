@@ -6,6 +6,9 @@ using SWEN_Game;
 
 namespace SWEN_Game
 {
+    /// <summary>
+    /// Manages all weapons available in the game and initializes their attributes and textures.
+    /// </summary>
     public class WeaponManager
     {
         private Dictionary<string, Weapon> _weapons;
@@ -15,6 +18,10 @@ namespace SWEN_Game
             _weapons = new Dictionary<string, Weapon>();
         }
 
+        /// <summary>
+        /// Loads textures and initializes the weapon data for all available weapons.
+        /// Also sets the player's base and current weapon to the pistol by default.
+        /// </summary>
         public void InitWeapons()
         {
             // Pistol
@@ -41,6 +48,11 @@ namespace SWEN_Game
             PlayerGameData.UpdateWeaponGameData();
         }
 
+        /// <summary>
+        /// Retrieves a cloned copy of the weapon by its name.
+        /// </summary>
+        /// <param name="weaponName">The name of the weapon to retrieve.</param>
+        /// <returns>A cloned <see cref="Weapon"/> instance if found; otherwise, null.</returns>
         public Weapon GetWeapon(string weaponName)
         {
             if (_weapons.TryGetValue(weaponName, out Weapon weapon))
@@ -49,9 +61,16 @@ namespace SWEN_Game
             }
 
             // This should never return Null
-            // If this return Null. We are fucked.
+            // If this returns Null. We are fucked.
             // We dont need exception handling ~ Nico
-            return null;
+
+            // How about just a fallback? :eyes: ~ Steven
+            Texture2D vanillaBulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
+
+            Texture2D pistolIconTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_UI/pistol");
+            Texture2D pistolIngameTexture = Globals.Content.Load<Texture2D>("Sprites/Guns/Guns_Ingame/pistol");
+
+            return new Weapon(0.25f, 300f, 1f, 1, 1, 10f, 8, vanillaBulletTexture, pistolIconTexture, pistolIngameTexture);
         }
     }
 }

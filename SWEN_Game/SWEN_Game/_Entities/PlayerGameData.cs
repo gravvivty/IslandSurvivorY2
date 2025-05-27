@@ -8,17 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SWEN_Game
 {
+    /// <summary>
+    /// Stores all Player info regarding the actual Game like Speed, Health, Damage, etc.
+    /// </summary>
     public static class PlayerGameData
     {
-        /*
-        Weapon Class Attributes:
-        private float attackSpeed;
-        private float shotSpeed;
-        private float bulletSize;
-        private float bulletSpread;
-        private int bulletsPerShot;
-        private float bulletDamage;
-        */
         public static Weapon CurrentWeapon;
         public static Weapon BaseWeapon;
         public static Texture2D BulletTexture;
@@ -66,6 +60,12 @@ namespace SWEN_Game
             CurrentWeapon.BulletDamage = (BaseWeapon.BulletDamage * BulletDamageMult) + BulletDamageFlat;
         }
 
+        /// <summary>
+        /// Resets the additional upgrades and adds them back going through the collection of powerups.
+        /// </summary>
+        /// <remarks>
+        /// Happens every time the player gains a new powerup.
+        /// </remarks>
         private static void UpdatePlayerGameData()
         {
             MaxHealth = 6;

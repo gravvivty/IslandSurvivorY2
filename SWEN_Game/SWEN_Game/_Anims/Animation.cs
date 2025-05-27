@@ -12,7 +12,7 @@ namespace SWEN_Game
 
         private readonly Texture2D _texture;
 
-        // Used to determine WHERE in the Spritesheet to get the Frame from
+        // Used to determine WHERE in the Spritesheet to get the Frames from
         private readonly List<Rectangle> _srcRect = new();
         private readonly int _totalFrames;
         private readonly float _frameTime;
@@ -48,22 +48,34 @@ namespace SWEN_Game
             _scale = scale ?? 1f;
         }
 
+        /// <summary>
+        /// Starts the Animation.
+        /// </summary>
         public void Start()
         {
             isActive = true;
         }
 
+        /// <summary>
+        /// Stops the Animation.
+        /// </summary>
         public void Stop()
         {
             isActive = false;
         }
 
+        /// <summary>
+        /// Resets the current Animation to first Frame.
+        /// </summary>
         public void Reset()
         {
             _currentFrame = 0;
             _frameTimeLeft = _frameTime;
         }
 
+        /// <summary>
+        /// Handles the Frame Timer and cycles through all Frames of an Animation.
+        /// </summary>
         public void Update()
         {
             if (!isActive)
@@ -82,6 +94,11 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Draws a single Frame of an Animation with depth calculation.
+        /// </summary>
+        /// <param name="position">Where the Sprite should be drawn.</param>
+        /// <param name="tintColor">Optional: Color for the Sprite.</param>
         public void Draw(Vector2 position, Color? tintColor = null)
         {
             Color color = tintColor ?? _tintColor;

@@ -22,7 +22,7 @@ namespace SWEN_Game
         }
 
         /// <summary>
-        /// Draws the entire game world including background tiles, sprite groups, the player, and collision boxes.
+        /// Draws the entire game world including background tiles and sprite groups.
         /// </summary>
         /// <remarks>
         /// This method precomputes anchor depths for sprite groups near the player, applies the camera transformation,
@@ -51,7 +51,7 @@ namespace SWEN_Game
 
                 // Retrieve the texture for this tileset.
                 Texture2D tilesetTexture = _spriteManager.GetTilesetTextureFromRenderer(level, layer._TilesetRelPath);
-                float renderRadius = 1000f; // 2000px total area (1000px in all directions)
+                float renderRadius = 1000f; // 1000px in all directions going out from the player in the middle
                 Vector2 playerPos = _player.RealPos;
 
                 // Process each tile in the current layer.
@@ -99,6 +99,10 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Calculates the Camera with Mouse offset for the game.
+        /// </summary>
+        /// <returns>Matrix that corresponds with the actual offsets.</returns>
         public Matrix CalcTranslation()
         {
             MouseState mouseState = Mouse.GetState();
@@ -139,13 +143,29 @@ namespace SWEN_Game
                     0);
         }
 
-        // Draw a tile with its depth computed from its world position
+        /// <summary>
+        /// Draws a single tile using a dynamically calculated depth based on its world position.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used to render the tile.</param>
+        /// <param name="texture">The tileset texture containing the source tile graphic.</param>
+        /// <param name="sourceRect">The source rectangle within the texture to draw (tile's appearance).</param>
+        /// <param name="position">The world position where the tile should be drawn.</param>
+        /// <param name="layer">The layer instance the tile belongs to, used for depth calculation context.</param>
         private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, LayerInstance layer)
         {
             float depth = _spriteManager.GetDepth(position, sourceRect.Width, layer);
             spriteBatch.Draw(texture, position, sourceRect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
 
+        /// <summary>
+        /// Draws a single tile using a shared anchor depth, typically used for grouped sprite rendering.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used to render the tile.</param>
+        /// <param name="texture">The tileset texture containing the source tile graphic.</param>
+        /// <param name="sourceRect">The source rectangle within the texture to draw (tile's appearance).</param>
+        /// <param name="position">The world position where the tile should be drawn.</param>
+        /// <param name="anchorDepth">The precomputed depth based on an anchor tile shared by the sprite group.</param>
+        /// <param name="layer">The layer instance the tile belongs to, used for contextual rendering data.</param>
         private void DrawTile(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, float anchorDepth, LayerInstance layer)
         {
             float depth = _spriteManager.GetDepth(anchorDepth, layer);

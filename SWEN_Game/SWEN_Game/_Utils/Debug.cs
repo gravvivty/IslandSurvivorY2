@@ -7,6 +7,10 @@ using SWEN_Game;
 
 namespace SWEN_Game
 {
+    /// <summary>
+    /// Provides debug functionality such as input-based toggles, power-up injection,
+    /// and hitbox/collision rendering for development and testing.
+    /// </summary>
     public class Debug
     {
         private readonly Player _player;
@@ -22,6 +26,9 @@ namespace SWEN_Game
             _powerupManager = powerupmanager;
         }
 
+        /// <summary>
+        /// Checks debug input and executes relevant debug actions, such as toggling invincibility or applying powerups.
+        /// </summary>
         public void DebugUpdate()
         {
             _previousKeyboardState = _currentKeyboardState;
@@ -48,6 +55,9 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Draws visual debug overlays, including player hitboxes, real position rectangles, and collision boxes.
+        /// </summary>
         public void DrawWorldDebug()
         {
             Globals.SpriteBatch.Begin(
