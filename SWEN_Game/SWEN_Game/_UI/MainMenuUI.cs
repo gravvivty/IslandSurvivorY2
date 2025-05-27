@@ -186,6 +186,7 @@ public class MainMenuUI
                     Globals.Graphics.PreferredBackBufferWidth = res.Width;
                     Globals.Graphics.PreferredBackBufferHeight = res.Height;
                     Globals.Graphics.ApplyChanges();
+                    Globals.UiSystem.Viewport = new Rectangle(0, 0, res.Width, res.Height);
                     dropdown.IsOpen = false;
                 }, 0);
         }

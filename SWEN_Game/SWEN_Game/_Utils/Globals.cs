@@ -29,6 +29,7 @@ namespace SWEN_Game
         public static int Zoom { get; private set; } = 4;
         public static bool Fullscreen { get; set; } = false;
         public static bool Borderless { get; set; } = false;
+        public static UiSystem UiSystem { get; set; }
 
         public static void UpdateTime(GameTime gameTime)
         {

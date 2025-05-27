@@ -40,10 +40,10 @@ namespace SWEN_Game
 
             _uiSystem = new UiSystem(game, style, _inputHandler)
             {
-                AutoScaleReferenceSize = new Point(1920, 1080),
                 AutoScaleWithScreen = true,
             };
 
+            Globals.UiSystem = _uiSystem;
             _mainMenuUI = new MainMenuUI(_uiSystem, _gameStateManager, game);
             _mainMenuUI.Show();
         }
