@@ -41,6 +41,7 @@ namespace SWEN_Game
             };
 
             _uiSystem = new UiSystem(game, style, _inputHandler)
+            {
                 AutoScaleWithScreen = true,
             };
 

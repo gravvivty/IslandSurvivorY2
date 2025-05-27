@@ -196,7 +196,7 @@ public class MainMenuUI
 
     private void AddVolumeSlider(Panel parentPanel, string labelText, float initialVolume, Action<float> onChanged)
     {
-        var container = new Group(Anchor.AutoLeft, new Vector2(0.5F, 0.2F));
+        var container = new Group(Anchor.AutoLeft, new Vector2(0.8F, 0.2F));
         container.AddChild(new Paragraph(Anchor.Center, 1, labelText)
         {
             PositionOffset = new Vector2(3, 0),
@@ -205,13 +205,18 @@ public class MainMenuUI
         var slider = new Slider(Anchor.CenterRight, new Vector2(0.3F, 0.5F), 0, 1)
         {
             Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress"), padding: 6),
-            Grabber = new TextureRegion(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), new Rectangle(0, 0, 16, 16)),
+            ScrollerTexture = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), padding: 6),
+            ScrollerSize = new Vector2(20, 20 ),
+            StepPerScroll = 1f,
             CurrentValue = initialVolume,
+            OnValueChanged = (elem, newValue) =>
+            {
+                onChanged?.Invoke(newValue);
+
+               
+            }
         };
-        slider.OnValueChanged += (elem, newValue) =>
-        {
-            onChanged?.Invoke(newValue);
-        };
+        
         container.AddChild(slider);
         parentPanel.AddChild(container);
     }
