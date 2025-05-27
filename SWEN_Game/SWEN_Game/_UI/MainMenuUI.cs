@@ -102,7 +102,7 @@ public class MainMenuUI
 
     private void ShowOptionsMenu()
     {
-        // rootPanel.RemoveChildren();
+        Checkbox fullscreenCheckbox;
 
         var titleMenu = new Paragraph(Anchor.TopCenter, 1, "OPTIONS", true);
         rootPanel.AddChild(titleMenu);
@@ -118,15 +118,15 @@ public class MainMenuUI
         };
         horizintalGroup.AddChild(leftPanel);
 
-        AddCheckboxButton(leftPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
+        fullscreenCheckbox = AddCheckboxButton(leftPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
         {
             Globals.Fullscreen = isChecked;
             Globals.Graphics.IsFullScreen = isChecked;
             Globals.Graphics.ApplyChanges();
         });
-
         leftPanel.AddChild(new VerticalSpace(20));
-        ShowResolutionSelector(leftPanel);
+
+        ShowResolutionSelector(leftPanel, fullscreenCheckbox);
         leftPanel.AddChild(new VerticalSpace(20));
         var saveButton = new Button(Anchor.AutoLeft, new Vector2(280, 80), "Save  Settings");
         saveButton.PositionOffset = new Vector2(10, 10);
@@ -160,10 +160,9 @@ public class MainMenuUI
              Globals.MusicVolume = newValue;
 
          });
-
     }
 
-    private void AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
+    private Checkbox AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
     {
         var button = new Button(Anchor.AutoLeft, new Vector2(280, 80), "");
         button.PositionOffset = new Vector2(10, 10);
@@ -186,9 +185,10 @@ public class MainMenuUI
 
         button.AddChild(checkbox);
         parentPanel.AddChild(button);
-    }
+        return checkbox;
+}
 
-    private void ShowResolutionSelector(Panel parent)
+    private void ShowResolutionSelector(Panel parent, Checkbox fullscreenCheckbox)
     {
         var dropdown = new Dropdown(Anchor.AutoLeft, new Vector2(280, 80), "Window Size")
         {
@@ -215,6 +215,20 @@ public class MainMenuUI
                     Globals.Graphics.ApplyChanges();
                     Globals.UiSystem.Viewport = new Rectangle(0, 0, res.Width, res.Height);
                     dropdown.IsOpen = false;
+
+                    if (res.Width == 1920 && res.Height == 1080)
+                    {
+                        fullscreenCheckbox.IsDisabled = false;
+
+                    }
+                    else
+                    {
+                        fullscreenCheckbox.IsDisabled = true;
+                        fullscreenCheckbox.Checked = false;
+                        Globals.Fullscreen = false;
+                        Globals.Graphics.IsFullScreen = false;
+                        Globals.Graphics.ApplyChanges();
+                    }
                 }, 0);
         }
 
