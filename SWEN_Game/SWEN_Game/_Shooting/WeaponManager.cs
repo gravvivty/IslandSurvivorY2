@@ -43,8 +43,8 @@ namespace SWEN_Game
             _weapons.Add("Precision_Rifle", precision_rifle);
 
             // Get it twice cuz if not they have the same reference
-            PlayerGameData.BaseWeapon = this.GetWeapon("Precision_Rifle");
-            PlayerGameData.CurrentWeapon = this.GetWeapon("Precision_Rifle");
+            PlayerGameData.BaseWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.CurrentWeapon = this.GetWeapon("Pistol");
             PlayerGameData.UpdateWeaponGameData();
         }
 

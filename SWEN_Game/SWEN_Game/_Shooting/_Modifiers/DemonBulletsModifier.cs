@@ -53,7 +53,7 @@ namespace SWEN_Game
 
             for (int i = 0; i < demonBulletsCount; i++)
             {
-                float angle = (float)(Rand.NextDouble() * Math.PI * 2); // 0 to 2π
+                float angle = (float)(Rand.NextDouble() * MathHelper.TwoPi); // 0 to 2π
                 Vector2 randomDir = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
 
                 weapon.ShootInDirection(randomDir, position, isDemonBullet);
