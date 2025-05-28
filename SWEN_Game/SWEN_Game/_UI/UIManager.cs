@@ -62,7 +62,8 @@ namespace SWEN_Game
                 if (_gameStateManager.CurrentGameState == GameState.Playing)
                 {
                     _gameStateManager.ChangeGameState(GameState.Paused);
-                    _mainMenuUI.ShowOptionsOnly();
+                    _mainMenuUI.ClearAndSwitch(MenuState.Paused);
+                    _mainMenuUI.Show();
                 }
                 else if (_gameStateManager.CurrentGameState == GameState.Paused)
                 {

@@ -49,20 +49,17 @@ public class MainMenuUI
                 ShowMainMenu();
                 break;
             case MenuState.Options:
-                ShowOptionsMenu("OPTIONS", "Save Settings");
+                ShowOptionsMenu("OPTIONS", "Save Settings", () => ClearAndSwitch(MenuState.MainMenu));
                 break;
             case MenuState.Paused:
-                ShowOptionsMenu("PAUSED", "Resume Game");
+                ShowOptionsMenu("PAUSED", "Resume Game", () =>
+                {
+                    gameStateManager.ChangeGameState(GameState.Playing); // Use the instance to call the method
+                    Hide();
+                });
                 break;
-
         }
-    }
-
-    public void ShowOptionsOnly()
-    {
-        Show();
-        ClearAndSwitch(MenuState.Paused);
-    }
+        }
 
     public void Show() => rootPanel.IsHidden = false;
     public void Hide() => rootPanel.IsHidden = true;
@@ -97,14 +94,13 @@ public class MainMenuUI
         exitButton.PositionOffset = new Vector2(3, 0);
         exitButton.OnPressed += _ =>
         {
-            System.Diagnostics.Debug.WriteLine("Exit Clicked");
             ui.Game.Exit();
         };
 
         rootPanel.AddChild(exitButton);
     }
 
-    private void ShowOptionsMenu(String MenuName, String ButtonName)
+    private void ShowOptionsMenu(String MenuName, String ButtonName, Action onButtonPressed)
     {
         Checkbox fullscreenCheckbox;
 
@@ -136,12 +132,12 @@ public class MainMenuUI
         saveButton.PositionOffset = new Vector2(10, 10);
         saveButton.OnPressed += _ =>
         {
+            onButtonPressed?.Invoke();
             System.Diagnostics.Debug.WriteLine("Save Settings Clicked");
             System.Diagnostics.Debug.WriteLine($"Fullscreen: {Globals.Fullscreen}");
             System.Diagnostics.Debug.WriteLine($"Window Size: {Globals.WindowSize}");
             System.Diagnostics.Debug.WriteLine($"Sound Volume: {Globals.SoundVolume}");
             System.Diagnostics.Debug.WriteLine($"Music Volume: {Globals.MusicVolume}");
-            ClearAndSwitch(MenuState.MainMenu);
         };
 
         leftPanel.AddChild(saveButton);
@@ -235,8 +231,19 @@ public class MainMenuUI
                     }
                 }, 0);
         }
-
-        parent.AddChild(dropdown);
+        if (Globals.WindowSize.X == 1920 && Globals.WindowSize.Y == 1080)
+        {
+           fullscreenCheckbox.IsDisabled = false;
+        }
+        else
+        {
+            fullscreenCheckbox.IsDisabled = true;
+            fullscreenCheckbox.Checked = false;
+            Globals.Fullscreen = false;
+            Globals.Graphics.IsFullScreen = false;
+            Globals.Graphics.ApplyChanges();
+        }
+            parent.AddChild(dropdown);
     }
 
     private void AddVolumeSlider(Panel parentPanel, string labelText, float initialVolume, Action<float> onChanged)
