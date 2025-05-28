@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SWEN_Game;
 using SWEN_Game._Entities;
+using SWEN_Game._Graphics;
 using SWEN_Game._Items;
 
 namespace SWEN_Game._Utils
@@ -46,7 +47,7 @@ namespace SWEN_Game._Utils
             if (_currentKeyboardState.IsKeyDown(Keys.F1) && !_previousKeyboardState.IsKeyDown(Keys.F1))
             {
                 // _powerupManager.AddItem(1); // itemID 1 = GunpowderPowerup
-                // _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
+                 _powerupManager.AddItem(2); // itemID 2 = ReverseShotPowerup
                  _powerupManager.AddItem(3); // itemID 3 = PiercerPowerup
                 // _powerupManager.AddItem(4); // itemID 4 = AdrenalinePowerup
                 // _powerupManager.AddItem(5); // itemID 5 = RocketspeedPowerup
