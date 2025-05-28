@@ -160,6 +160,14 @@ public class MainMenuUI
              Globals.MusicVolume = newValue;
 
          });
+        rightPanel.AddChild(new VerticalSpace(10));
+        var exitButton = new Button(Anchor.AutoCenter, new Vector2(200, 60), "Game Ende");
+        exitButton.PositionOffset = new Vector2(10, 10);
+        exitButton.OnPressed += _ =>
+        {
+            ui.Game.Exit();
+        };
+        rightPanel.AddChild(exitButton);
     }
 
     private Checkbox AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
@@ -252,7 +260,7 @@ public class MainMenuUI
         {
             PositionOffset = new Vector2(10, 10),
         });
-        parentPanel.AddChild(new VerticalSpace(10));
+       // parentPanel.AddChild(new VerticalSpace(10));
 
         var slider = new Slider(Anchor.AutoLeft, new Vector2(280, 40), 40, 1)
         {
@@ -268,7 +276,7 @@ public class MainMenuUI
         };
 
         parentPanel.AddChild(slider);
-        parentPanel.AddChild(new VerticalSpace(20));
+       // parentPanel.AddChild(new VerticalSpace(20));
 
     }
 }
