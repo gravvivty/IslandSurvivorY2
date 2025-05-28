@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SWEN_Game
+namespace SWEN_Game._Anims
 {
     public class AnimationManager
     {

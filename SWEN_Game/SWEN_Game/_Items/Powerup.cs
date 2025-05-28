@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SWEN_Game._Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWEN_Game
+namespace SWEN_Game._Items
 {
     public class Powerup
     {

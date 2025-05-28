@@ -7,8 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Assimp.Unmanaged;
 using SharpFont.Cache;
+using SWEN_Game._Anims;
+using SWEN_Game._Entities;
+using SWEN_Game._Utils;
+using SWEN_Game._Shooting;
+using SWEN_Game._Shooting._Modifiers;
 
-namespace SWEN_Game
+namespace SWEN_Game._Enemies.Enemies
 {
     public class Shark : IEnemy
     {

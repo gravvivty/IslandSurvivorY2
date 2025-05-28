@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting._Modifiers
 {
     /// <summary>
     /// A weapon modifier that fires additional bullets in reverse or perpendicular directions

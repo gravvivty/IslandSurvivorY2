@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Anims
 {
     public class Animation
     {

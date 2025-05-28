@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 using Microsoft.Xna.Framework.Graphics;
 using System.Runtime.ConstrainedExecution;
+using SWEN_Game._Entities;
 
 namespace SWEN_GameTests
 {

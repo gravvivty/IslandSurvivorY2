@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SWEN_Game
+namespace SWEN_Game._Entities
 {
     public class EnemyData
     {

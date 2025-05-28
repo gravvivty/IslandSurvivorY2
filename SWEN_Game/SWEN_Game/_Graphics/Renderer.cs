@@ -4,8 +4,11 @@ using LDtk;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game._Entities;
+using SWEN_Game._Managers;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Graphics
 {
     public class Renderer
     {

@@ -5,8 +5,9 @@ using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Managers;
 
-namespace SWEN_Game
+namespace SWEN_Game._Utils
 {
     /// <summary>
     /// Holds global references and utilities used across the game, such as content,

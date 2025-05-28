@@ -8,8 +8,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Managers;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._UI
 {
     public class UIManager
     {

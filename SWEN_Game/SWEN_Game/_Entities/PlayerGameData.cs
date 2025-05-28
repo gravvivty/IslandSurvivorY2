@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Items;
+using SWEN_Game._Managers;
+using SWEN_Game._Shooting;
 
-namespace SWEN_Game
+namespace SWEN_Game._Entities
 {
     /// <summary>
     /// Stores all Player info regarding the actual Game like Speed, Health, Damage, etc.

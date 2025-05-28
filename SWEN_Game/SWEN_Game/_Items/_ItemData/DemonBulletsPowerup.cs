@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWEN_Game
+namespace SWEN_Game._Items._ItemData
 {
     public class DemonBulletsPowerup : Powerup
     {

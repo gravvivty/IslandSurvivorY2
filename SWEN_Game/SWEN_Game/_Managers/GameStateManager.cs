@@ -4,8 +4,10 @@ using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._UI;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Managers
 {
     public enum GameState
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting._Modifiers
 {
     /// <summary>
     /// Modifier that causes bullets to spawn additional demon bullets upon collision.

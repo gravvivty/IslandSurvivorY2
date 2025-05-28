@@ -1,11 +1,13 @@
 ﻿using System;
-using Assimp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game._Entities;
+using SWEN_Game._Utils;
+using SWEN_Game._Anims;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting
 {
     /// <summary>
     /// Represents a bullet fired by the player, managing its position, animation,

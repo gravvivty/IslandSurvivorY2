@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Moq;
 using SWEN_Game;
+using SWEN_Game._Managers;
 using Xunit;
 
 
@@ -18,7 +19,7 @@ namespace SWEN_GameTests
                 _mockTexture = new Mock<Texture2D>();
                 _mockSpriteManager = new Mock<SpriteManager>();
                 _spriteBatch = new SpriteBatch(TestHelpers.CreateGraphicsDevice());
-                Globals.SpriteBatch = _spriteBatch;
+                SWEN_Game._Utils.Globals.SpriteBatch = _spriteBatch;
             }
 
         public static class TestHelpers

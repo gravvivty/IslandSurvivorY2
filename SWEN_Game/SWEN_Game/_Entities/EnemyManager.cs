@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using SWEN_Game;
+using SWEN_Game._Shooting;
+using SWEN_Game._Utils;
+using SWEN_Game._Enemies.Enemies;
 
-namespace SWEN_Game
+namespace SWEN_Game._Entities
 {
     public class EnemyManager
     {

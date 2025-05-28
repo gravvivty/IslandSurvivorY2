@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using SWEN_Game;
+using SWEN_Game._Utils;
 
 namespace SWEN_GameTests
 {

@@ -4,8 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game._Anims;
+using SWEN_Game._Managers;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Entities
 {
     public class Player
     {
@@ -18,6 +21,8 @@ namespace SWEN_Game
         public Vector2 HitboxPos { get; private set; }
         public Rectangle Hitbox { get; private set; }
         public Vector2 Direction { get; private set; }
+
+        public float Speed { get; private set;}
 
         // Invincibility Handling Stuff
         private bool _isInvincible = false;

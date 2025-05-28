@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting
 {
     /// <summary>
     /// Represents a weapon modifier that can alter the behavior of a weapon when it shoots.

@@ -4,8 +4,10 @@ using MLEM.Maths;
 using MLEM.Ui;
 using MLEM.Ui.Elements;
 using MLEM.Ui.Style;
+using SWEN_Game._Managers;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game;
+namespace SWEN_Game._UI;
 
 public enum MenuState
 {

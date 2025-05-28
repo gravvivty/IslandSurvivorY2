@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using SWEN_Game._Anims;
+using SWEN_Game._Shooting;
 
-namespace SWEN_Game
+namespace SWEN_Game._Entities
 {
     public interface IEnemy
     {

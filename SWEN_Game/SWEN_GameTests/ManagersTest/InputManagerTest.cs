@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using SWEN_Game;
 using Xunit;
+using SWEN_Game._Utils;
+using SWEN_Game._Managers;
+using SWEN_Game._Entities;
 
 namespace SWEN_GameTests.ManagersTest
 {

@@ -3,8 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SWEN_Game;
+using SWEN_Game._Entities;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting
 {
     /// <summary>
     /// Manages all weapons available in the game and initializes their attributes and textures.
