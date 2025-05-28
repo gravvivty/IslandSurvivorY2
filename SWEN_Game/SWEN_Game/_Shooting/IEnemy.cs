@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using SWEN_Game._Anims;
-using SWEN_Game._Shooting;
 
-namespace SWEN_Game._Entities
+namespace SWEN_Game._Shooting
 {
     public interface IEnemy
     {

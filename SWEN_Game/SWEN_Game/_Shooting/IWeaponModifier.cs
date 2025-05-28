@@ -21,6 +21,6 @@ namespace SWEN_Game._Shooting
         /// <param name="direction">The direction the weapon is shooting in.</param>
         /// <param name="playerPos">The world position of the player.</param>
         /// <param name="weapon">The player's weapon instance that is firing.</param>
-        void OnShoot(Vector2 direction, Vector2 playerPos, PlayerWeapon weapon);
+        void OnShoot(Vector2 direction, Vector2 playerPos, IPlayerWeapon weapon);
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SWEN_Game._Entities;
 using SWEN_Game._Utils;
 using SWEN_Game._Anims;
 
@@ -19,7 +18,7 @@ namespace SWEN_Game._Shooting
         public bool HasProcessedThisFrame { get; set; } = false;
         public Rectangle BulletHitbox { get; set; }
         public float Damage { get; set; }
-        public PlayerWeapon Weapon { get; set; }
+        public IPlayerWeapon Weapon { get; set; }
         public bool IsVisible { get; set; } = true;
         public float Timer { get; set; }
         public bool IsDemonBullet { get; set; }
@@ -42,7 +41,7 @@ namespace SWEN_Game._Shooting
         /// <param name="weapon">The weapon instance that created the bullet.</param>
         /// <param name="dmg">The damage this bullet deals.</param>
         /// <param name="isChild">Indicates if this bullet is a child (demon) bullet with modified damage.</param>
-        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, PlayerWeapon weapon, float dmg, bool? isChild = null)
+        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, IPlayerWeapon weapon, float dmg, bool? isChild = null)
         {
             _animation = animation;
             _animation.Reset();

@@ -36,7 +36,7 @@ namespace SWEN_Game._Shooting._Modifiers
         /// <param name="direction">The original shooting direction.</param>
         /// <param name="playerPos">The position of the player when shooting.</param>
         /// <param name="weapon">The weapon being used to shoot.</param>
-        public void OnShoot(Vector2 direction, Vector2 playerPos, PlayerWeapon weapon)
+        public void OnShoot(Vector2 direction, Vector2 playerPos, IPlayerWeapon weapon)
         {
             switch (level)
             {

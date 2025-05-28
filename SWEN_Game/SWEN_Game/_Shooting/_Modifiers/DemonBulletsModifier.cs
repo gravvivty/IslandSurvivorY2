@@ -36,7 +36,7 @@ namespace SWEN_Game._Shooting._Modifiers
         /// <param name="direction">The direction of the shot.</param>
         /// <param name="playerPos">The position of the player.</param>
         /// <param name="weapon">The player's weapon instance.</param>
-        public void OnShoot(Vector2 direction, Vector2 playerPos, PlayerWeapon weapon)
+        public void OnShoot(Vector2 direction, Vector2 playerPos, IPlayerWeapon weapon)
         {
             // This modifier doesnt affect shooting, only collisions
         }
@@ -47,7 +47,7 @@ namespace SWEN_Game._Shooting._Modifiers
         /// <param name="position">The position where the bullet collided.</param>
         /// <param name="weapon">The player's weapon instance used to spawn new bullets.</param>
         /// <param name="isDemonBullet">Flag indicating if the original bullet is already a demon bullet (to avoid infinite recursion).</param>
-        public void OnBulletCollision(Vector2 position, PlayerWeapon weapon, bool isDemonBullet)
+        public void OnBulletCollision(Vector2 position, IPlayerWeapon weapon, bool isDemonBullet)
         {
             int demonBulletsCount = level; // Number of child bullets per bounce
 

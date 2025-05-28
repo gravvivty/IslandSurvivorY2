@@ -10,7 +10,7 @@ using SWEN_Game._Utils;
 
 namespace SWEN_Game._Entities
 {
-    public class Player
+    public class Player : IPlayerPos
     {
         private SpriteManager _spriteManager;
         private AnimationManager _anims = new();
@@ -22,7 +22,7 @@ namespace SWEN_Game._Entities
         public Rectangle Hitbox { get; private set; }
         public Vector2 Direction { get; private set; }
 
-        public float Speed { get; private set;}
+        public float Speed { get; private set; }
 
         // Invincibility Handling Stuff
         private bool _isInvincible = false;

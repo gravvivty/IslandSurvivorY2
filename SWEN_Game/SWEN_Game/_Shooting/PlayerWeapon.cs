@@ -12,7 +12,7 @@ namespace SWEN_Game._Shooting
     /// <summary>
     /// Represents a weapon used by the player, managing shooting, bullets, and weapon modifiers.
     /// </summary>
-    public class PlayerWeapon
+    public class PlayerWeapon : IPlayerWeapon
     {
         private List<Bullet> _bullets = new List<Bullet>();
         private List<IWeaponModifier> _modifiers = new List<IWeaponModifier>();

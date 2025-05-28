@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SWEN_Game._Entities;
 using SWEN_Game._Managers;
 
 namespace SWEN_Game._Utils
@@ -15,7 +14,7 @@ namespace SWEN_Game._Utils
     public class SpriteCalculator
     {
         private readonly SpriteManager _spriteManager;
-        private readonly Player _player;
+        private readonly IPlayerPos _player;
         private readonly Dictionary<string, int> _anchorTileMap = new Dictionary<string, int>
         {
             { "BigCleanHouse", 413 },
@@ -52,7 +51,7 @@ namespace SWEN_Game._Utils
             { "LionStatue", 460 },
         };
 
-        public SpriteCalculator(SpriteManager spriteManager, Player player)
+        public SpriteCalculator(SpriteManager spriteManager, IPlayerPos player)
         {
             _spriteManager = spriteManager;
             _player = player;
