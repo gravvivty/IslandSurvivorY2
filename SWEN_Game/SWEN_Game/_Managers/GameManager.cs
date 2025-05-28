@@ -21,9 +21,11 @@ namespace SWEN_Game._Managers
         private readonly PowerupManager _powerupManager;
         private readonly Debug _debug;
         private readonly EnemyManager _enemyManager;
+        private readonly PlayerGameData _playerGameData;
 
         public GameManager()
         {
+            _playerGameData = new PlayerGameData();
             _spriteManager = new SpriteManager();
             _spriteManager.MapTileToTexture();
             _player = new Player();
@@ -37,7 +39,7 @@ namespace SWEN_Game._Managers
 
             _enemyManager = new EnemyManager(_player);
 
-            _powerupManager = new PowerupManager(_playerWeapon);
+            _powerupManager = new PowerupManager(_playerWeapon, PlayerGameData.Instance);
 
             _debug = new Debug(_player, _renderer, _powerupManager);
 

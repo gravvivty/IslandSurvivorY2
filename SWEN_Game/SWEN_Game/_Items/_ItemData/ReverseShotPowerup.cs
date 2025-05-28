@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 2
 
-        public ReverseShotPowerup(int level)
+        public ReverseShotPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             this.ApplyPowerupLevel();
@@ -21,7 +21,7 @@ namespace SWEN_Game._Items._ItemData
 
         private void ApplyPowerupLevel()
         {
-            PlayerGameData.ReverseShotLevel = this.Level;
+            PlayerGameData.Instance.ReverseShotLevel = this.Level;
         }
 
         private void SetLevelValues()

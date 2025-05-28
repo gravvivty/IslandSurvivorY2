@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SWEN_Game._Entities;
 using SWEN_Game._Items._ItemData;
 using SWEN_Game._Shooting;
 using SWEN_Game._Shooting._Modifiers;
@@ -11,10 +10,12 @@ namespace SWEN_Game._Items
     {
         public Dictionary<int, Powerup> savedPowerups = new Dictionary<int, Powerup>();
         private PlayerWeapon weapon;
+        private IPlayerStats stats;
 
-        public PowerupManager(PlayerWeapon playerWpn)
+        public PowerupManager(PlayerWeapon playerWpn, IPlayerStats playerStats)
         {
             weapon = playerWpn;
+            stats = playerStats;
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace SWEN_Game._Items
             }
 
             Powerup newPowerup = CreatePowerup(itemID, newLevel);
-            PlayerGameData.Powerups[itemID] = newPowerup;
+            PlayerGameData.Instance.Powerups[itemID] = newPowerup;
 
             // Modifier logic
             RegisterModifier(itemID, newLevel);
@@ -58,23 +59,23 @@ namespace SWEN_Game._Items
             switch (itemID)
             {
                 case 1:
-                    return new GunpowderPowerup(level);
+                    return new GunpowderPowerup(level, stats);
                 case 2:
-                    return new ReverseShotPowerup(level);
+                    return new ReverseShotPowerup(level, stats);
                 case 3:
-                    return new PiercerPowerup(level);
+                    return new PiercerPowerup(level, stats);
                 case 4:
-                    return new AdrenalinePowerup(level);
+                    return new AdrenalinePowerup(level, stats);
                 case 5:
-                    return new RocketspeedPowerup(level);
+                    return new RocketspeedPowerup(level, stats);
                 case 6:
-                    return new RancidEnergyDrinkPowerup(level);
+                    return new RancidEnergyDrinkPowerup(level, stats);
                 case 7:
-                    return new DemonBulletsPowerup(level);
+                    return new DemonBulletsPowerup(level, stats);
                 case 8:
-                    return new QuickHandsPowerup(level);
+                    return new QuickHandsPowerup(level, stats);
                 case 9:
-                    return new SpicyNoodlesPowerup(level);
+                    return new SpicyNoodlesPowerup(level, stats);
 
                 // Add more item cases here
                 default:
@@ -90,7 +91,7 @@ namespace SWEN_Game._Items
         /// </remarks>
         private void RetrieveCurrentItems()
         {
-            savedPowerups = PlayerGameData.Powerups;
+            savedPowerups = PlayerGameData.Instance.Powerups;
         }
 
         /// <summary>

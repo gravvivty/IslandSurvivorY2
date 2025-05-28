@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 8
 
-        public QuickHandsPowerup(int level)
+        public QuickHandsPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

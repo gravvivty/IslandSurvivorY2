@@ -9,6 +9,8 @@ namespace SWEN_Game._Items
 {
     public class Powerup
     {
+        protected IPlayerStats _playerStats;
+
         // Weapon Attribute Multipliers
         protected float attackSpeedMult = 0;
         protected float shotSpeedMult = 0;
@@ -34,30 +36,34 @@ namespace SWEN_Game._Items
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
 
+        public Powerup(IPlayerStats playerStats)
+        {
+            _playerStats = playerStats;
+        }
+
         /// <summary>
         /// Updates the PlayerGameData Values of the Player with nem powerup values.
         /// </summary>
         public void UpdatePlayerGameDataValues()
         {
-            PlayerGameData.AttackSpeedMult += attackSpeedMult;
-            PlayerGameData.ShotSpeedMult += shotSpeedMult;
-            PlayerGameData.BulletSizeMult += bulletSizeMult;
-            PlayerGameData.BulletSpreadMult += bulletSpreadMult;
-            PlayerGameData.BulletsPerShotMult += bulletsPerShotMult;
-            PlayerGameData.BulletDamageMult += bulletDamageMult;
+            _playerStats.AddAttackSpeedMult(attackSpeedMult);
+            _playerStats.AddShotSpeedMult(shotSpeedMult);
+            _playerStats.AddBulletSizeMult(bulletSizeMult);
+            _playerStats.AddBulletSpreadMult(bulletSpreadMult);
+            _playerStats.AddBulletsPerShotMult(bulletsPerShotMult);
+            _playerStats.AddBulletDamageMult(bulletDamageMult);
 
-            PlayerGameData.AttackSpeedFlat += attackSpeedFlat;
-            PlayerGameData.ShotSpeedFlat += shotSpeedFlat;
-            PlayerGameData.BulletSizeFlat += bulletSizeFlat;
-            PlayerGameData.BulletSpreadFlat += bulletSpreadFlat;
-            PlayerGameData.BulletsPerShotFlat += bulletsPerShotFlat;
-            PlayerGameData.BulletDamageFlat += bulletDamageFlat;
+            _playerStats.AddAttackSpeedFlat(attackSpeedFlat);
+            _playerStats.AddShotSpeedFlat(shotSpeedFlat);
+            _playerStats.AddBulletSizeFlat(bulletSizeFlat);
+            _playerStats.AddBulletSpreadFlat(bulletSpreadFlat);
+            _playerStats.AddBulletsPerShotFlat(bulletsPerShotFlat);
+            _playerStats.AddBulletDamageFlat(bulletDamageFlat);
 
-            PlayerGameData.BulletPierceBonus += bulletPierce;
-            PlayerGameData.MagazineSizeBonus += magazineSizeBonus;
-            PlayerGameData.MaxHealth += maxHealthBonus;
-            PlayerGameData.ReloadSpeedBonus += reloadSpeedBonus;
-            PlayerGameData.SpeedBonus += speedBonus;
+            _playerStats.AddBulletPierceBonus(bulletPierce);
+            _playerStats.AddMagazineSizeBonus(magazineSizeBonus);
+            _playerStats.AddReloadSpeedBonus(reloadSpeedBonus);
+            _playerStats.AddSpeedBonus(speedBonus);
         }
     }
 }

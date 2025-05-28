@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 6
 
-        public RancidEnergyDrinkPowerup(int level)
+        public RancidEnergyDrinkPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

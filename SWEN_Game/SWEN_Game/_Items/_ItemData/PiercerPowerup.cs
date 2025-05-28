@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 3
 
-        public PiercerPowerup(int level)
+        public PiercerPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

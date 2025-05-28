@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SWEN_Game._Shooting
 {
-    public class Weapon
+    public class Weapon : IWeapon
     {
-        public float AttackSpeed {  get; set; }
+        public float AttackSpeed { get; set; }
         public float ShotSpeed { get; set; }
         public float BulletSize { get; set; }
         public float BulletSpread { get; set; }
-        public int   BulletsPerShot { get; set; }
+        public int BulletsPerShot { get; set; }
         public float BulletDamage { get; set; }
         public float TimeSinceLastShot { get; set; }
         public int MagazineSize { get; set; }

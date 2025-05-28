@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 9
 
-        public SpicyNoodlesPowerup(int level)
+        public SpicyNoodlesPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

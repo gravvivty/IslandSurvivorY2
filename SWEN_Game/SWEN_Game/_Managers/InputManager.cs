@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpFont;
 using SWEN_Game._Entities;
+using SWEN_Game._Items;
 using SWEN_Game._Utils;
 
 namespace SWEN_Game._Managers
@@ -46,10 +47,10 @@ namespace SWEN_Game._Managers
                 moveDirection.X = 1;
             }
 
-            if (keyboardState.IsKeyDown(Keys.R) && !PlayerGameData.CurrentWeapon.IsReloading)
+            if (keyboardState.IsKeyDown(Keys.R) && !PlayerGameData.Instance.CurrentWeapon.IsReloading)
             {
-                PlayerGameData.CurrentWeapon.IsReloading = true;
-                PlayerGameData.CurrentWeapon.ReloadTimer = 0f;
+                PlayerGameData.Instance.CurrentWeapon.IsReloading = true;
+                PlayerGameData.Instance.CurrentWeapon.ReloadTimer = 0f;
             }
 
             // Normalize Vector

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SWEN_Game;
-using SWEN_Game._Entities;
+using SWEN_Game._Items;
 using SWEN_Game._Utils;
 
 namespace SWEN_Game._Shooting
@@ -45,9 +45,9 @@ namespace SWEN_Game._Shooting
             _weapons.Add("Precision_Rifle", precision_rifle);
 
             // Get it twice cuz if not they have the same reference
-            PlayerGameData.BaseWeapon = this.GetWeapon("Pistol");
-            PlayerGameData.CurrentWeapon = this.GetWeapon("Pistol");
-            PlayerGameData.UpdateWeaponGameData();
+            PlayerGameData.Instance.BaseWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.Instance.CurrentWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.Instance.UpdateWeaponGameData();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace SWEN_Game._Shooting
         /// </summary>
         /// <param name="weaponName">The name of the weapon to retrieve.</param>
         /// <returns>A cloned <see cref="Weapon"/> instance if found; otherwise, null.</returns>
-        public Weapon GetWeapon(string weaponName)
+        public IWeapon GetWeapon(string weaponName)
         {
             if (_weapons.TryGetValue(weaponName, out Weapon weapon))
             {
@@ -67,7 +67,7 @@ namespace SWEN_Game._Shooting
             // We dont need exception handling ~ Nico
 
             // How about just a fallback to current base weapon? :eyes: ~ Steven
-            return PlayerGameData.BaseWeapon;
+            return PlayerGameData.Instance.BaseWeapon;
         }
     }
 }

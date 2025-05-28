@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 4
 
-        public AdrenalinePowerup(int level)
+        public AdrenalinePowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SWEN_Game._Anims;
+using SWEN_Game._Items;
 using SWEN_Game._Managers;
 using SWEN_Game._Utils;
 
@@ -154,13 +155,13 @@ namespace SWEN_Game._Entities
         {
             if (!_isInvincible)
             {
-                PlayerGameData.CurrentHealth -= amount;
+                PlayerGameData.Instance.CurrentHealth -= amount;
                 TriggerInvincibility();
 
-                if (PlayerGameData.CurrentHealth <= 0)
+                if (PlayerGameData.Instance.CurrentHealth <= 0)
                 {
                     // Handle player death here
-                    PlayerGameData.CurrentHealth = 0;
+                    PlayerGameData.Instance.CurrentHealth = 0;
                     System.Diagnostics.Debug.WriteLine("Player died");
                 }
             }

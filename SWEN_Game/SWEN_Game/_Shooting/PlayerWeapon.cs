@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SWEN_Game._Entities;
 using SWEN_Game._Utils;
 using SWEN_Game._Anims;
+using SWEN_Game._Items;
 
 namespace SWEN_Game._Shooting
 {
@@ -22,8 +22,8 @@ namespace SWEN_Game._Shooting
 
         public PlayerWeapon(WeaponManager weaponManager)
         {
-            PlayerGameData.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
-            PlayerGameData.BulletTint = new Color(25, 106, 150);
+            PlayerGameData.Instance.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
+            PlayerGameData.Instance.BulletTint = new Color(25, 106, 150);
         }
 
         /// <summary>
@@ -93,17 +93,17 @@ namespace SWEN_Game._Shooting
         public void Shoot(Vector2 direction, Vector2 player_position)
         {
             System.Diagnostics.Debug.WriteLine("PlayerWeapon is now Trying to shoot" + DateTime.Now);
-            if (PlayerGameData.CurrentWeapon.IsReloading)
+            if (PlayerGameData.Instance.CurrentWeapon.IsReloading)
             {
                 return;
             }
 
-            if (TimeSinceLastShot >= PlayerGameData.CurrentWeapon.AttackSpeed)
+            if (TimeSinceLastShot >= PlayerGameData.Instance.CurrentWeapon.AttackSpeed)
             {
-                if (PlayerGameData.CurrentWeapon.CurrentAmmo > 0)
+                if (PlayerGameData.Instance.CurrentWeapon.CurrentAmmo > 0)
                 {
                     ShootInDirection(direction, player_position);
-                    PlayerGameData.CurrentWeapon.CurrentAmmo--;
+                    PlayerGameData.Instance.CurrentWeapon.CurrentAmmo--;
 
                     foreach (var mod in _modifiers)
                     {
@@ -115,10 +115,10 @@ namespace SWEN_Game._Shooting
                 else
                 {
                     // Start reloading
-                    PlayerGameData.CurrentWeapon.IsReloading = true;
-                    PlayerGameData.CurrentWeapon.ReloadTimer = 0f;
+                    PlayerGameData.Instance.CurrentWeapon.IsReloading = true;
+                    PlayerGameData.Instance.CurrentWeapon.ReloadTimer = 0f;
 
-                    if (PlayerGameData.CurrentWeapon.CurrentAmmo == 0)
+                    if (PlayerGameData.Instance.CurrentWeapon.CurrentAmmo == 0)
                     {
                         System.Diagnostics.Debug.WriteLine("Reloading...");
                     }
@@ -134,7 +134,7 @@ namespace SWEN_Game._Shooting
         /// <param name="isDemonBullet">Optional flag to mark the bullet as a "demon" bullet.</param>
         public void ShootInDirection(Vector2 direction, Vector2 player_position, bool? isDemonBullet = null)
         {
-            Color tint = PlayerGameData.BulletTint;
+            Color tint = PlayerGameData.Instance.BulletTint;
             bool isChild = isDemonBullet ?? false;
 
             if (isChild)
@@ -143,24 +143,24 @@ namespace SWEN_Game._Shooting
             }
 
             Animation anim = new Animation(
-                PlayerGameData.BulletTexture,
+                PlayerGameData.Instance.BulletTexture,
                 1,
                 4,
                 0.1f,
                 16,
                 1,
                 tint,
-                PlayerGameData.CurrentWeapon.BulletSize);
+                PlayerGameData.Instance.CurrentWeapon.BulletSize);
             _bullets.Add(
                 new Bullet(
                     anim,
                     player_position,
                     direction,
-                    PlayerGameData.CurrentWeapon.ShotSpeed,
-                    PlayerGameData.CurrentWeapon.BulletSize,
-                    PlayerGameData.CurrentWeapon.Pierce,
+                    PlayerGameData.Instance.CurrentWeapon.ShotSpeed,
+                    PlayerGameData.Instance.CurrentWeapon.BulletSize,
+                    PlayerGameData.Instance.CurrentWeapon.Pierce,
                     this,
-                    PlayerGameData.CurrentWeapon.BulletDamage,
+                    PlayerGameData.Instance.CurrentWeapon.BulletDamage,
                     isChild));
         }
 
@@ -170,14 +170,14 @@ namespace SWEN_Game._Shooting
         /// <param name="gametime">The amount of game time that has passed since the last frame.</param>
         private void Reload(float gametime)
         {
-            if (PlayerGameData.CurrentWeapon.IsReloading)
+            if (PlayerGameData.Instance.CurrentWeapon.IsReloading)
             {
-                PlayerGameData.CurrentWeapon.ReloadTimer += gametime;
-                if (PlayerGameData.CurrentWeapon.ReloadTimer >= PlayerGameData.CurrentWeapon.ReloadTime)
+                PlayerGameData.Instance.CurrentWeapon.ReloadTimer += gametime;
+                if (PlayerGameData.Instance.CurrentWeapon.ReloadTimer >= PlayerGameData.Instance.CurrentWeapon.ReloadTime)
                 {
-                    PlayerGameData.CurrentWeapon.CurrentAmmo = PlayerGameData.CurrentWeapon.MagazineSize;
-                    PlayerGameData.CurrentWeapon.IsReloading = false;
-                    PlayerGameData.CurrentWeapon.ReloadTimer = 0f;
+                    PlayerGameData.Instance.CurrentWeapon.CurrentAmmo = PlayerGameData.Instance.CurrentWeapon.MagazineSize;
+                    PlayerGameData.Instance.CurrentWeapon.IsReloading = false;
+                    PlayerGameData.Instance.CurrentWeapon.ReloadTimer = 0f;
                 }
             }
         }

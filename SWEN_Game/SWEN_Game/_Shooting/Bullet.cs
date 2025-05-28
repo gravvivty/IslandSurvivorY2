@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SWEN_Game._Utils;
 using SWEN_Game._Anims;
+using SWEN_Game._Entities;
 
 namespace SWEN_Game._Shooting
 {

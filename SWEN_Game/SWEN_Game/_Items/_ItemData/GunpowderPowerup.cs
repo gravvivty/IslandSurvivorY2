@@ -11,7 +11,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 1
 
-        public GunpowderPowerup(int level)
+        public GunpowderPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

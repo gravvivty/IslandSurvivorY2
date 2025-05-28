@@ -10,7 +10,7 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 7
 
-        public DemonBulletsPowerup(int level)
+        public DemonBulletsPowerup(int level, IPlayerStats playerStats) : base(playerStats)
         {
             this.Level = level;
             this.itemID = 7;
