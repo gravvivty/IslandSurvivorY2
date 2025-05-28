@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using SWEN_Game._Shooting;
 using SWEN_Game._Utils;
-using SWEN_Game._Enemies.Enemies;
+using SWEN_Game._Entities.Enemies;
 
 namespace SWEN_Game._Entities
 {

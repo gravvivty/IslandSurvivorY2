@@ -12,7 +12,7 @@ using SWEN_Game._Utils;
 using SWEN_Game._Shooting;
 using SWEN_Game._Shooting._Modifiers;
 
-namespace SWEN_Game._Enemies.Enemies
+namespace SWEN_Game._Entities.Enemies
 {
     public class Shark : IEnemy
     {
