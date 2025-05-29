@@ -14,17 +14,17 @@ using SWEN_Game._Shooting._Modifiers;
 
 namespace SWEN_Game._Entities.Enemies
 {
-    public class Shark : Enemy
+    public class Slime : Enemy
     {
-        public Shark(Vector2 startPosition)
+        public Slime(Vector2 startPosition)
         {
             Position = startPosition;
-            CurrentHealth = 75f;
+            CurrentHealth = 20f;
             EnemyDamage = 1;
-            EnemySpeed = 80f;
-            FrameWidth = 24;
-            FrameHeight = 24;
-            Texture = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Tiburones");
+            EnemySpeed = 100f;
+            FrameWidth = 16;
+            FrameHeight = 16;
+            Texture = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Slime");
 
             Animation walkLeft = new Animation(Texture, 1, 3, 0.2f, FrameWidth, FrameHeight, 1);
             Animation walkRight = new Animation(Texture, 1, 3, 0.2f, FrameWidth, FrameHeight, 2);

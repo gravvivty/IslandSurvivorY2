@@ -23,7 +23,7 @@ namespace SWEN_Game._Items
         public Texture2D BulletTexture;
         public Color BulletTint;
 
-        public int CurrentHealth = 6;
+        public int CurrentHealth = 8;
         public int MaxHealth = 6;
         public float Speed = 130f;
         public Dictionary<int, Powerup> Powerups = new Dictionary<int, Powerup>();

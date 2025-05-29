@@ -23,7 +23,7 @@ namespace SWEN_Game._Shooting
         public PlayerWeapon(WeaponManager weaponManager)
         {
             PlayerGameData.Instance.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
-            PlayerGameData.Instance.BulletTint = new Color(25, 106, 150);
+            PlayerGameData.Instance.BulletTint = Color.White;
         }
 
         /// <summary>
@@ -146,6 +146,7 @@ namespace SWEN_Game._Shooting
                 1,
                 4,
                 0.1f,
+                16,
                 16,
                 1,
                 tint,

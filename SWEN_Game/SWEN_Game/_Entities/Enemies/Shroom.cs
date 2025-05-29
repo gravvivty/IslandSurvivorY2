@@ -22,11 +22,12 @@ namespace SWEN_Game._Entities.Enemies
             CurrentHealth = 25f;
             EnemyDamage = 1;
             EnemySpeed = 100f;
-            FrameSize = 24;
+            FrameWidth = 24;
+            FrameHeight = 24;
             Texture = Globals.Content.Load<Texture2D>("Sprites/Entities/Enemies/Dwende-Red");
 
-            Animation walkLeft = new Animation(Texture, 1, 3, 0.2f, FrameSize, 1);
-            Animation walkRight = new Animation(Texture, 1, 3, 0.2f, FrameSize, 2);
+            Animation walkLeft = new Animation(Texture, 1, 3, 0.2f, FrameWidth, FrameHeight, 1);
+            Animation walkRight = new Animation(Texture, 1, 3, 0.2f, FrameWidth, FrameHeight, 2);
 
             this.AnimationManager = new AnimationManager();
             this.AnimationManager.AddAnimation("WalkLeft", walkLeft);

@@ -9,7 +9,9 @@ namespace SWEN_Game._Anims
     public class Animation
     {
         public float _scale;
-        public int frameSize = 16;
+
+        public int frameWidth;
+        public int frameHeight;
 
         private readonly Texture2D _texture;
 
@@ -23,7 +25,7 @@ namespace SWEN_Game._Anims
 
         private Color _tintColor;
 
-        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int frameSize, int column = 1, Color? tintColor = null, float? scale = null)
+        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int fWidth, int fHeight, int column = 1, Color? tintColor = null, float? scale = null)
         {
             // Spritesheet
             _texture = texture;
@@ -36,8 +38,8 @@ namespace SWEN_Game._Anims
 
             // Total Frames for anim
             _totalFrames = framesY;
-            int frameWidth = frameSize;
-            int frameHeight = frameWidth;
+            frameWidth = fWidth;
+            frameHeight = fHeight;
 
             // Add the sprite frames from the sheet
             for (int i = 0; i < _totalFrames; i++)
@@ -103,7 +105,7 @@ namespace SWEN_Game._Anims
         public void Draw(Vector2 position, Color? tintColor = null)
         {
             Color color = tintColor ?? _tintColor;
-            float depth = Globals.SpriteManager.GetDepth(position, frameSize);
+            float depth = Globals.SpriteManager.GetDepth(position, frameWidth);
             Globals.SpriteBatch.Draw(
                 _texture,
                 position,

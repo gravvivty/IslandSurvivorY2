@@ -21,12 +21,17 @@ namespace SWEN_Game._Entities
         public Texture2D Texture { get; protected set; }
         public int EnemyDamage { get; protected set; }
         public float EnemySpeed { get; protected set; }
-        public int FrameSize { get; protected set; }
+        public int FrameWidth { get; protected set; }
+        public int FrameHeight { get; protected set; }
         public AnimationManager AnimationManager { get; protected set; }
         public int DamageFlashFrames { get; protected set; } = 5;
         public int DamageFlashTimer { get; protected set; }
 
-        public virtual void Update(List<Bullet> bulletList, Vector2 playerPosition)
+        public virtual void UpdateCustomBehavior(EnemyManager enemyManager)
+        {
+        }
+
+        public virtual void Update(List<Bullet> bulletList, Vector2 playerPosition, EnemyManager enemyManager)
         {
             UpdateMovement(playerPosition);
             UpdateAnimation(playerPosition);
@@ -38,6 +43,8 @@ namespace SWEN_Game._Entities
             }
 
             UpdateDamageFlashTimer();
+
+            UpdateCustomBehavior(enemyManager);
         }
 
         public virtual void Draw()
@@ -121,7 +128,7 @@ namespace SWEN_Game._Entities
 
         private void UpdateHitbox()
         {
-            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, FrameSize, FrameSize);
+            Hitbox = new Rectangle((int)Position.X, (int)Position.Y, FrameWidth, FrameHeight);
         }
 
         private void UpdateDamageFlashTimer()
