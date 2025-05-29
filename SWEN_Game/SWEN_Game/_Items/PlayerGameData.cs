@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SWEN_Game._Managers;
-using SWEN_Game._Shooting;
+using SWEN_Game._PlayerData;
 
 namespace SWEN_Game._Items
 {
@@ -75,6 +75,8 @@ namespace SWEN_Game._Items
         public void AddMaxHealth(int value) => _instance.MaxHealth += value;
         public void AddReloadSpeedBonus(float value) => _instance.ReloadSpeedBonus += value;
         public void AddSpeedBonus(float value) => _instance.SpeedBonus += value;
+        public int GetCurrentHealth() => _instance.CurrentHealth;
+        public void SetCurrentHealth(int value) => _instance.CurrentHealth = value;
 
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.

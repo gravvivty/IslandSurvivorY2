@@ -5,8 +5,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SWEN_Game._Anims;
-using SWEN_Game._Items;
 using SWEN_Game._Managers;
+using SWEN_Game._PlayerData;
 using SWEN_Game._Utils;
 
 namespace SWEN_Game._Entities
@@ -15,6 +15,7 @@ namespace SWEN_Game._Entities
     {
         private SpriteManager _spriteManager;
         private AnimationManager _anims = new();
+        private IPlayerStats _playerStats;
 
         public Texture2D PlayerTexture { get; private set; }
         public Vector2 Position { get; private set; }
@@ -34,8 +35,9 @@ namespace SWEN_Game._Entities
         private float _flickerTimer = 0f;
         private bool _isVisible = true;
 
-        public Player()
+        public Player(IPlayerStats playerStats)
         {
+            _playerStats = playerStats;
             // SpritePos and Spawn Position
             Position = new Vector2(750, 750);
 
@@ -155,13 +157,13 @@ namespace SWEN_Game._Entities
         {
             if (!_isInvincible)
             {
-                PlayerGameData.Instance.CurrentHealth -= amount;
+                _playerStats.SetCurrentHealth(_playerStats.GetCurrentHealth() - amount);
                 TriggerInvincibility();
 
-                if (PlayerGameData.Instance.CurrentHealth <= 0)
+                if (_playerStats.GetCurrentHealth() <= 0)
                 {
                     // Handle player death here
-                    PlayerGameData.Instance.CurrentHealth = 0;
+                    _playerStats.SetCurrentHealth(0);
                     System.Diagnostics.Debug.WriteLine("Player died");
                 }
             }

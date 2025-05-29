@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Runtime.ConstrainedExecution;
 using SWEN_Game._Entities;
+using SWEN_Game._Items;
 
 namespace SWEN_GameTests
 {
@@ -15,7 +16,8 @@ namespace SWEN_GameTests
         [Fact]
         public void Player_Initialization_DefaultValues() 
         {
-            var player = new Player();
+            var playerData = new PlayerGameData();
+            var player = new Player(PlayerGameData.Instance);
             Assert.Equal(130f, player.Speed);
             Assert.Equal(new Vector2(450, 450), player.Position);
             Assert.Equal(new Vector2(456, 458), player.RealPos);
@@ -24,7 +26,8 @@ namespace SWEN_GameTests
         [Fact]
         public void SetPosition_UpdatesPositionAndRealPos()
         {
-            var player = new Player();
+            var playerData = new PlayerGameData();
+            var player = new Player(PlayerGameData.Instance);
             player.SetPosition(new Vector2(200, 200));
             Assert.Equal(new Vector2(200, 200), player.Position);
             Assert.Equal(new Vector2(206, 208), player.RealPos);
@@ -33,7 +36,8 @@ namespace SWEN_GameTests
         [Fact]
         public void SetDirection_GetDirection_Works()
         {
-            var player = new Player();
+            var playerData = new PlayerGameData();
+            var player = new Player(PlayerGameData.Instance);
             var direction = new Vector2(1, 0); 
             player.SetDirection(direction);
             Assert.Equal(direction, player.Direction);

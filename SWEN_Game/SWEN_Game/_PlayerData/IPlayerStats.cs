@@ -1,4 +1,4 @@
-﻿namespace SWEN_Game._Items
+﻿namespace SWEN_Game._PlayerData
 {
     public interface IPlayerStats
     {
@@ -20,5 +20,7 @@
         void AddMagazineSizeBonus(int value);
         void AddReloadSpeedBonus(float value);
         void AddSpeedBonus(float value);
+        int GetCurrentHealth();
+        void SetCurrentHealth(int value);
     }
 }

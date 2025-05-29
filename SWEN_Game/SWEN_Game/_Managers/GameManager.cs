@@ -28,7 +28,7 @@ namespace SWEN_Game._Managers
             _playerGameData = new PlayerGameData();
             _spriteManager = new SpriteManager();
             _spriteManager.MapTileToTexture();
-            _player = new Player();
+            _player = new Player(PlayerGameData.Instance);
             _player.AddSpriteManager(_spriteManager);
             _spriteCalculator = new SpriteCalculator(_spriteManager, _player);
             _renderer = new Renderer(_player, _spriteManager, _spriteCalculator);

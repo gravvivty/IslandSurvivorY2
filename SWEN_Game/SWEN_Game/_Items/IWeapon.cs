@@ -1,4 +1,6 @@
-﻿namespace SWEN_Game._Shooting
+﻿using SWEN_Game._Shooting;
+
+namespace SWEN_Game._Items
 {
     public interface IWeapon
     {

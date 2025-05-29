@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SWEN_Game._Items._ItemData;
+using SWEN_Game._PlayerData;
 using SWEN_Game._Shooting;
 using SWEN_Game._Shooting._Modifiers;
 
