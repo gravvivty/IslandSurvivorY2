@@ -110,21 +110,25 @@ namespace SWEN_Game._Graphics
         {
             MouseState mouseState = Mouse.GetState();
             Vector2 screenCenter = new Vector2(
-                Globals.Graphics.PreferredBackBufferWidth / 2f,
-                Globals.Graphics.PreferredBackBufferHeight / 2f);
+                Globals.WindowSize.X / 2f,
+                Globals.WindowSize.Y / 2f);
 
             // Raw mouse offset from the screen center -> cuz character is center of screen
             Vector2 rawMouseOffset = new Vector2(mouseState.X, mouseState.Y) - screenCenter;
 
-            float maxMouseRange = Globals.WindowSize.X; // Mouse can affect camera within this range
-            float maxCameraOffset = 40f; // Camera shifts within this range
+            Vector2 maxCameraOffset = new Vector2(60f, 60f);
+            Vector2 maxMouseRange = new Vector2(
+                Globals.WindowSize.X,
+                Globals.WindowSize.Y); // Mouse can affect camera within this range
 
             // Scales the Offset down - 0->maxMouseRange gets scaled to 0->maxCameraOffset
             // Ensures Camera smoothness
-            Vector2 mouseOffset = rawMouseOffset * (maxCameraOffset / maxMouseRange);
+            Vector2 mouseOffset = new Vector2(
+                rawMouseOffset.X * (maxCameraOffset.X / maxMouseRange.X),
+                rawMouseOffset.Y * (maxCameraOffset.Y / maxMouseRange.Y)); // Camera shifts within this range
 
             // Ensure the final offset never exceeds maxCameraOffset
-            if (mouseOffset.Length() > maxCameraOffset)
+            if (mouseOffset.Length() > maxCameraOffset.Length())
             {
                 mouseOffset.Normalize(); // Keep direction
                 mouseOffset = mouseOffset * maxCameraOffset; // Clamp to maxCameraOffset

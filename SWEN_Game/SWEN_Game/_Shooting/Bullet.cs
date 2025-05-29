@@ -15,7 +15,7 @@ namespace SWEN_Game._Shooting
     /// </summary>
     public class Bullet
     {
-        private HashSet<IEnemy> _hitEnemies = new();
+        private HashSet<Enemy> _hitEnemies = new();
         public bool HasProcessedThisFrame { get; set; } = false;
         public Rectangle BulletHitbox { get; set; }
         public float Damage { get; set; }
@@ -106,7 +106,7 @@ namespace SWEN_Game._Shooting
         /// </summary>
         /// <param name="enemy">The enemy to check against the hit history.</param>
         /// <returns>True if the bullet has hit the enemy; otherwise, false.</returns>
-        public bool HasHit(IEnemy enemy)
+        public bool HasHit(Enemy enemy)
         {
             return _hitEnemies.Contains(enemy);
         }
@@ -115,7 +115,7 @@ namespace SWEN_Game._Shooting
         /// Registers that this bullet has hit the specified enemy.
         /// </summary>
         /// <param name="enemy">The enemy to register as hit.</param>
-        public void RegisterHit(IEnemy enemy)
+        public void RegisterHit(Enemy enemy)
         {
             _hitEnemies.Add(enemy);
         }

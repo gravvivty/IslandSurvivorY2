@@ -18,7 +18,7 @@ namespace SWEN_Game._Entities
         private float _unlockCheckCooldown = 5f;
         private float _timeSinceLastUnlockCheck = 0f;
         private float TimeSinceLastSpawn { get; set; }
-        private List<IEnemy> _allEnemies = new List<IEnemy>();
+        private List<Enemy> _allEnemies = new List<Enemy>();
         private Player _player;
         // List of enemy types that can be spawned
         private List<string> spawnableEnemyTypes = new List<string>

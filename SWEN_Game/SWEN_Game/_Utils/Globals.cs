@@ -47,67 +47,13 @@ namespace SWEN_Game._Utils
         public static void CalculateAllCollisions()
         {
             var level0 = World.Levels[0];
-            var collisionLayer = level0.LayerInstances[1];
-
-            if (collisionLayer != null)
-            {
-                int gridSize = collisionLayer._GridSize;
-
-                // Number of Cells in a row
-                int gridCellWidth = collisionLayer._CWid;
-                int cells = 0;
-                foreach (var element in collisionLayer.IntGridCsv)
-                {
-                    if (collisionLayer.IntGridCsv[cells] == 1)
-                    {
-                        // e.g. x = 52 % 75 -> 52 * 16
-                        // e.g. y = 6 / 75 -> 6 * 16
-                        // --> loops around cuz math
-                        int x = (cells % gridCellWidth) * gridSize; // <-- WorldX/Y needed for offset
-                        int y = (cells / gridCellWidth) * gridSize;
-
-                        // Add to Global Collisions List
-                        Collisions.Add(new Rectangle(x, y, gridSize, gridSize));
-                    }
-
-                    cells++;
-                }
-            }
+            CalculateLayerRects(level0.LayerInstances[1], Collisions);
         }
 
-        /// <summary>
-        /// Calculates hitbox rectangles from the hitbox layer of the LDtk world.
-        /// Populates the <see cref="Hitboxes"/> list.
-        /// </summary>
         public static void CalculateAllHitboxes()
         {
             var level0 = World.Levels[0];
-            var hitboxLayer = level0.LayerInstances[0];
-
-            if (hitboxLayer != null)
-            {
-                int gridSize = hitboxLayer._GridSize;
-
-                // Number of Cells in a row
-                int gridCellWidth = hitboxLayer._CWid;
-                int cells = 0;
-                foreach (var element in hitboxLayer.IntGridCsv)
-                {
-                    if (hitboxLayer.IntGridCsv[cells] == 1)
-                    {
-                        // e.g. x = 52 % 75 -> 52 * 16
-                        // e.g. y = 6 / 75 -> 6 * 16
-                        // --> loops around cuz math
-                        int x = (cells % gridCellWidth) * gridSize; // <-- WorldX/Y needed for offset
-                        int y = (cells / gridCellWidth) * gridSize;
-
-                        // Add to Global Hotboxes List
-                        Hitboxes.Add(new Rectangle(x, y, gridSize, gridSize));
-                    }
-
-                    cells++;
-                }
-            }
+            CalculateLayerRects(level0.LayerInstances[0], Hitboxes);
         }
 
         /// <summary>
@@ -157,6 +103,27 @@ namespace SWEN_Game._Utils
         public static void SetZoom(int newZoom)
         {
             Zoom = newZoom;
+        }
+
+        private static void CalculateLayerRects(LayerInstance layer, List<Rectangle> outputList)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            int gridSize = layer._GridSize;
+            int gridCellWidth = layer._CWid;
+
+            for (int i = 0; i < layer.IntGridCsv.Count(); i++)
+            {
+                if (layer.IntGridCsv[i] == 1)
+                {
+                    int x = (i % gridCellWidth) * gridSize;
+                    int y = (i / gridCellWidth) * gridSize;
+                    outputList.Add(new Rectangle(x, y, gridSize, gridSize));
+                }
+            }
         }
     }
 }
