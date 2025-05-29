@@ -55,6 +55,7 @@ namespace SWEN_Game._Utils
                  _powerupManager.AddItem(7); // itemID 7 = DemonBulletsPowerup
                 // _powerupManager.AddItem(8); // itemID 8 = QuickHandsPowerup
                 // _powerupManager.AddItem(9); // itemID 9 = SpicyNoodlesPowerup
+                 _powerupManager.AddItem(10); // itemID 10 = DeadeyePowerup
 
                 PlayerGameData.Instance.UpdateWeaponGameData();
             }

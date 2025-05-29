@@ -92,7 +92,6 @@ namespace SWEN_Game._Shooting
         /// <param name="player_position">The position of the player.</param>
         public void Shoot(Vector2 direction, Vector2 player_position)
         {
-            System.Diagnostics.Debug.WriteLine("PlayerWeapon is now Trying to shoot" + DateTime.Now);
             if (PlayerGameData.Instance.CurrentWeapon.IsReloading)
             {
                 return;
@@ -159,6 +158,7 @@ namespace SWEN_Game._Shooting
                     PlayerGameData.Instance.CurrentWeapon.ShotSpeed,
                     PlayerGameData.Instance.CurrentWeapon.BulletSize,
                     PlayerGameData.Instance.CurrentWeapon.Pierce,
+                    PlayerGameData.Instance.CritChance,
                     this,
                     PlayerGameData.Instance.CurrentWeapon.BulletDamage,
                     isChild));

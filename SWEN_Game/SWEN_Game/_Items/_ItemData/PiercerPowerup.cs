@@ -1,10 +1,10 @@
-﻿using SWEN_Game._PlayerData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using SWEN_Game._PlayerData;
 
 namespace SWEN_Game._Items._ItemData
 {
@@ -12,7 +12,8 @@ namespace SWEN_Game._Items._ItemData
     {
         // ID 3
 
-        public PiercerPowerup(int level, IPlayerStats playerStats) : base(playerStats)
+        public PiercerPowerup(int level, IPlayerStats playerStats)
+            : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();

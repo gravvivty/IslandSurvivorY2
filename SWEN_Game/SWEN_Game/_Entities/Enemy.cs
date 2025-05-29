@@ -89,7 +89,16 @@ namespace SWEN_Game._Entities
                         bullet.Timer = 0f;
                     }
 
-                    TakeDamage(bullet.Damage);
+                    if (bullet.CritChance > 0f && new Random().NextDouble() <= bullet.CritChance)
+                    {
+                        TakeDamage(bullet.Damage * 2f); // Crit damage
+                        System.Diagnostics.Debug.WriteLine($"CRIT! Bullet dealt {bullet.Damage * 2} damage at position {Position}");
+                    }
+                    else
+                    {
+                        TakeDamage(bullet.Damage);
+                    }
+
                     return true;
                 }
             }

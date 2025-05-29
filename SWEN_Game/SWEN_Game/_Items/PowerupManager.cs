@@ -77,6 +77,8 @@ namespace SWEN_Game._Items
                     return new QuickHandsPowerup(level, stats);
                 case 9:
                     return new SpicyNoodlesPowerup(level, stats);
+                case 10:
+                    return new DeadeyePowerup(level, stats);
 
                 // Add more item cases here
                 default:

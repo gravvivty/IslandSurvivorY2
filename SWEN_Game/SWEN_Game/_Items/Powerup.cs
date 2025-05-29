@@ -33,6 +33,7 @@ namespace SWEN_Game._Items
         protected int maxHealthBonus = 0;
         protected float reloadSpeedBonus = 0;
         protected float speedBonus = 0;
+        protected float critChance = 0;
 
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
@@ -65,6 +66,7 @@ namespace SWEN_Game._Items
             _playerStats.AddMagazineSizeBonus(magazineSizeBonus);
             _playerStats.AddReloadSpeedBonus(reloadSpeedBonus);
             _playerStats.AddSpeedBonus(speedBonus);
+            _playerStats.AddCritChance(critChance);
         }
     }
 }

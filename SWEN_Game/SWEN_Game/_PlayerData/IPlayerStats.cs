@@ -20,6 +20,7 @@
         void AddMagazineSizeBonus(int value);
         void AddReloadSpeedBonus(float value);
         void AddSpeedBonus(float value);
+        void AddCritChance(float value);
         int GetCurrentHealth();
         void SetCurrentHealth(int value);
     }

@@ -50,6 +50,7 @@ namespace SWEN_Game._Items
         public int MagazineSizeBonus = 0;
         public float ReloadSpeedBonus = 0; // Lower = faster
         public float SpeedBonus = 0;
+        public float CritChance = 0;
 
         public PlayerGameData()
         {
@@ -75,6 +76,7 @@ namespace SWEN_Game._Items
         public void AddMaxHealth(int value) => _instance.MaxHealth += value;
         public void AddReloadSpeedBonus(float value) => _instance.ReloadSpeedBonus += value;
         public void AddSpeedBonus(float value) => _instance.SpeedBonus += value;
+        public void AddCritChance(float value) => _instance.CritChance += value;
         public int GetCurrentHealth() => _instance.CurrentHealth;
         public void SetCurrentHealth(int value) => _instance.CurrentHealth = value;
 
@@ -130,6 +132,7 @@ namespace SWEN_Game._Items
             MagazineSizeBonus = 0;
             ReloadSpeedBonus = 0;
             SpeedBonus = 0;
+            CritChance = 0;
 
             foreach (var powerup in Powerups.Values)
             {

@@ -59,7 +59,6 @@ namespace SWEN_Game._Entities
         {
             string randomizedEnemyType = GetRandomEnemyType();
             RandomizeSpawnedEnemy(randomizedEnemyType, spawnPosition);
-            System.Diagnostics.Debug.WriteLine("Spawned an enemy" + DateTime.Now);
         }
 
         public void Update(List<Bullet> bulletList, Vector2 playerPosition)
@@ -70,8 +69,6 @@ namespace SWEN_Game._Entities
 
             CheckEnemyUnlock();
             CheckCanSpawnEnemy();
-
-            System.Diagnostics.Debug.WriteLine("Trying to spawn an enemy" + DateTime.Now);
 
             foreach (var enemy in _allEnemies)
             {

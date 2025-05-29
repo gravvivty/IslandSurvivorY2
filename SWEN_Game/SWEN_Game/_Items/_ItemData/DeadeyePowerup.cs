@@ -8,16 +8,16 @@ using SWEN_Game._PlayerData;
 
 namespace SWEN_Game._Items._ItemData
 {
-    public class RocketspeedPowerup : Powerup
+    public class DeadeyePowerup : Powerup
     {
-        // ID 5
+        // ID 10
 
-        public RocketspeedPowerup(int level, IPlayerStats playerStats)
+        public DeadeyePowerup(int level, IPlayerStats playerStats)
             : base(playerStats)
         {
             this.Level = level;
             SetLevelValues();
-            this.itemID = 5;
+            this.itemID = 10;
         }
 
         public void SetLevelValues()
@@ -25,13 +25,13 @@ namespace SWEN_Game._Items._ItemData
             switch (this.Level)
             {
                 case 1:
-                    this.shotSpeedFlat += 100;
+                    this.critChance += 0.1f;
                     break;
                 case 2:
-                    this.shotSpeedFlat += 200;
+                    this.critChance += 0.15f;
                     break;
                 case 3:
-                    this.shotSpeedFlat += 350;
+                    this.critChance += 0.25f;
                     break;
                 default:
                     break;
