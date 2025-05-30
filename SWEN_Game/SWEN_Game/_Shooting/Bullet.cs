@@ -28,7 +28,7 @@ namespace SWEN_Game._Shooting
         public float CritChance { get; set; } = 0f;
         private Vector2 _shotSpeed;
         private float _bulletSize;
-        private float _visibilityTime = 1f;
+        private float _visibilityTime = 2f;
         private Animation _animation;
 
         /// <summary>
