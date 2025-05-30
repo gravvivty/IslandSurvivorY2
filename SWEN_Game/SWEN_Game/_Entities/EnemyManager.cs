@@ -14,7 +14,7 @@ namespace SWEN_Game._Entities
     public class EnemyManager
     {
         public Player _player { get; set; }
-        private float _enemySpawnInterval = 1f;
+        private float _enemySpawnInterval = 1.5f;
         private int _maxEnemiesAllowed = 200;
         private float _unlockCheckCooldown = 5f;
         private float _timeSinceLastUnlockCheck = 0f;
@@ -206,35 +206,26 @@ namespace SWEN_Game._Entities
         {
             float gameTime = Globals.TotalGameTime;
 
-            if (gameTime < 15f)
-            {
-                currentSpawnWeights = new Dictionary<string, float>()
-                {
-                   { "Mummy", 0.8f },
-                   { "Shroom", 0.2f },
-                };
-                spawnableEnemyTypes = new List<string> { "Mummy", "Shroom" };
-
-                // Boss Spawn
-                if (_spawnFirstBoss)
-                {
-                    _spawnFirstBoss = false;
-                    Vector2 bossSpawn = RandomizeEnemySpawnPosition(_player.RealPos);
-                    SpawnEnemy("SlimeBoss", bossSpawn);
-                    SpawnEnemy("Witch", bossSpawn);
-                }
-            }
-            else if (gameTime >= 15f && gameTime < 30f)
+            if (gameTime < 60f)
             {
                 currentSpawnWeights = new Dictionary<string, float>()
                 {
                    { "Mummy", 0.5f },
-                   { "Shark", 0.3f },
-                   { "Shroom", 0.2f },
+                   { "Shroom", 0.5f },
+                };
+                spawnableEnemyTypes = new List<string> { "Mummy", "Shroom" };
+            }
+            else if (gameTime >= 60f && gameTime < 120f)
+            {
+                currentSpawnWeights = new Dictionary<string, float>()
+                {
+                   { "Mummy", 0.5f },
+                   { "Shark", 0.2f },
+                   { "Shroom", 0.3f },
                 };
                 spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom" };
             }
-            else if (gameTime >= 30f && gameTime < 60f)
+            else if (gameTime >= 120f && gameTime < 240f)
             {
                 currentSpawnWeights = new Dictionary<string, float>()
                 {
@@ -244,6 +235,44 @@ namespace SWEN_Game._Entities
                     { "Baumbart", 0.1f },
                 };
                 spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom", "Baumbart" };
+            }
+            else if (gameTime >= 240f && gameTime < 300f)
+            {
+                currentSpawnWeights = new Dictionary<string, float>()
+                {
+                    { "Mummy", 0.3f },
+                    { "Shark", 0.4f },
+                    { "Shroom", 0.1f },
+                    { "Baumbart", 0.2f },
+                };
+                spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom", "Baumbart" };
+
+                // Boss Spawn
+                if (_spawnFirstBoss)
+                {
+                    _spawnFirstBoss = false;
+                    Vector2 bossSpawn = RandomizeEnemySpawnPosition(_player.RealPos);
+                    SpawnEnemy("SlimeBoss", bossSpawn);
+                }
+            }
+            else if (gameTime >= 300f && gameTime < 420f)
+            {
+                currentSpawnWeights = new Dictionary<string, float>()
+                {
+                    { "Mummy", 0.1f },
+                    { "Shark", 0.4f },
+                    { "Shroom", 0f },
+                    { "Baumbart", 0.3f },
+                    { "Witch", 0.2f },
+                };
+                spawnableEnemyTypes = new List<string> { "Mummy", "Shark", "Shroom", "Baumbart", "Witch" };
+
+                if (_spawnSecondBoss)
+                {
+                    _spawnSecondBoss = false;
+                    Vector2 bossSpawn = RandomizeEnemySpawnPosition(_player.RealPos);
+                    SpawnEnemy("SlimeBoss", bossSpawn);
+                }
             }
         }
 

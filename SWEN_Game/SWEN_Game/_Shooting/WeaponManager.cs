@@ -60,8 +60,8 @@ namespace SWEN_Game._Shooting
             _weapons.Add("Revolver", revolver);
 
             // Get it twice cuz if not they have the same reference
-            PlayerGameData.Instance.BaseWeapon = this.GetWeapon("Revolver");
-            PlayerGameData.Instance.CurrentWeapon = this.GetWeapon("Revolver");
+            PlayerGameData.Instance.BaseWeapon = this.GetWeapon("Pistol");
+            PlayerGameData.Instance.CurrentWeapon = this.GetWeapon("Pistol");
             PlayerGameData.Instance.UpdateWeaponGameData();
         }
 

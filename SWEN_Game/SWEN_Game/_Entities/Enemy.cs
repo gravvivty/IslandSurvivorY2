@@ -68,7 +68,7 @@ namespace SWEN_Game._Entities
         {
             foreach (var bullet in bulletList)
             {
-                if (!bullet.IsVisible || bullet.HasProcessedThisFrame || bullet.HasHit(this))
+                if (bullet.HasProcessedThisFrame || bullet.HasHit(this))
                 {
                     continue;
                 }
