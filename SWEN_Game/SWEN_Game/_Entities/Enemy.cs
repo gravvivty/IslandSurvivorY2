@@ -37,7 +37,7 @@ namespace SWEN_Game._Entities
             UpdateAnimation(playerPosition);
             UpdateHitbox();
 
-            if (CheckBulletCollision(bulletList))
+            if (GotHitByBullet(bulletList) && CurrentHealth <= 0)
             {
                 HandleDeath();
             }
@@ -66,52 +66,71 @@ namespace SWEN_Game._Entities
 
         public virtual bool GotHitByBullet(List<Bullet> bulletList)
         {
-            foreach (var bullet in bulletList)
+            var hits = bulletList
+                .Where(bullet => !bullet.HasProcessedThisFrame && !bullet.HasHit(this))
+                .Where(bullet => Hitbox.Intersects(bullet.BulletHitbox))
+                .ToList();
+
+            foreach (var bullet in hits)
             {
-                if (bullet.HasProcessedThisFrame || bullet.HasHit(this))
-                {
-                    continue;
-                }
-
-                if (Hitbox.Intersects(bullet.BulletHitbox))
-                {
-                    bullet.RegisterHit(this);
-                    bullet.HasProcessedThisFrame = true;
-
-                    foreach (var mod in bullet.Weapon.GetModifiers())
-                    {
-                        if (!bullet.IsDemonBullet && mod is DemonBulletsModifier demonMod)
-                        {
-                            demonMod.OnBulletCollision(bullet.Position, bullet.Weapon, true);
-                        }
-                    }
-
-                    if (bullet.PiercingCount > 0)
-                    {
-                        bullet.PiercingCount--;
-                    }
-                    else
-                    {
-                        bullet.IsVisible = false;
-                        bullet.Timer = 0f;
-                    }
-
-                    if (bullet.CritChance > 0f && new Random().NextDouble() <= bullet.CritChance)
-                    {
-                        TakeDamage(bullet.Damage * 2f); // Crit damage
-                        System.Diagnostics.Debug.WriteLine($"CRIT! Bullet dealt {bullet.Damage * 2} damage at position {Position}");
-                    }
-                    else
-                    {
-                        TakeDamage(bullet.Damage);
-                    }
-
-                    return true;
-                }
+                ProcessBulletHit(bullet);
+                return true; // only one hit matters
             }
 
             return false;
         }
+
+        private void ProcessBulletHit(Bullet bullet)
+        {
+            bullet.RegisterHit(this);
+            bullet.HasProcessedThisFrame = true;
+
+            HandleBulletModifiers(bullet);
+            HandleBulletPiercing(bullet);
+            ApplyBulletDamage(bullet);
+        }
+
+        private void HandleBulletModifiers(Bullet bullet)
+        {
+            if (bullet.IsDemonBullet)
+            {
+                return;
+            }
+
+            foreach (var mod in bullet.Weapon.GetModifiers())
+            {
+                if (mod is DemonBulletsModifier demonMod)
+                {
+                    demonMod.OnBulletCollision(bullet.Position, bullet.Weapon, true);
+                }
+            }
+        }
+
+        private void HandleBulletPiercing(Bullet bullet)
+        {
+            if (bullet.PiercingCount > 0)
+            {
+                bullet.PiercingCount--;
+            }
+            else
+            {
+                bullet.IsVisible = false;
+                bullet.Timer = 0f;
+            }
+        }
+
+        private void ApplyBulletDamage(Bullet bullet)
+        {
+            float damage = bullet.Damage;
+            if (bullet.CritChance > 0f && new Random().NextDouble() <= bullet.CritChance)
+            {
+                damage *= 2f;
+                System.Diagnostics.Debug.WriteLine($"CRIT! Bullet dealt {damage} damage at position {Position}");
+            }
+
+            TakeDamage(damage);
+        }
+
 
         private void UpdateMovement(Vector2 playerPosition)
         {
@@ -137,11 +156,6 @@ namespace SWEN_Game._Entities
             {
                 DamageFlashTimer--;
             }
-        }
-
-        private bool CheckBulletCollision(List<Bullet> bullets)
-        {
-            return GotHitByBullet(bullets) && CurrentHealth <= 0;
         }
 
         private void HandleDeath()
