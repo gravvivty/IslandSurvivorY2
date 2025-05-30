@@ -57,7 +57,7 @@ namespace SWEN_Game._Utils
                 // _powerupManager.AddItem(9); // itemID 9 = SpicyNoodlesPowerup
                  _powerupManager.AddItem(10); // itemID 10 = DeadeyePowerup
 
-                PlayerGameData.Instance.UpdateWeaponGameData();
+                 PlayerGameData.Instance.UpdateWeaponGameData();
             }
         }
 

@@ -9,18 +9,18 @@ namespace SWEN_Game._Entities.EnemySpawning
 {
     public class EnemySpawner
     {
+        private readonly IEnemyConsumer _enemyManagerConsumer;
         private float _enemySpawnInterval = 1.5f;
         private float _timeSinceLastSpawn = 0f;
         private int _maxAllowedEnemies = 200;
         private Dictionary<string, float> _currentSpawnWeights;
         private Random _random = new Random();
         private Player _player;
-        private readonly IEnemyConsumer _enemyManagerConsumer;
 
         public EnemySpawner(Player player, IEnemyConsumer consumer)
         {
             _player = player;
-            _currentSpawnWeights = new Dictionary<string, float> { { "Mummy", 0.8f }, { "Shroom", 0.2f } };
+            _currentSpawnWeights = new Dictionary<string, float> { { "Mummy", 0.5f }, { "Shroom", 0.5f } };
             _enemyManagerConsumer = consumer;
         }
 
@@ -43,7 +43,7 @@ namespace SWEN_Game._Entities.EnemySpawning
 
         public void SpawnEnemy(string type, Vector2 pos)
         {
-            Enemy e = type switch
+            Enemy enemy = type switch
             {
                 "Mummy" => new Mummy(pos),
                 "Shark" => new Shark(pos),
@@ -54,7 +54,7 @@ namespace SWEN_Game._Entities.EnemySpawning
                 "SlimeBoss" => new SlimeBoss(pos),
                 _ => throw new ArgumentException($"Unknown type: {type}")
             };
-            _enemyManagerConsumer.QueueEnemy(e);
+            _enemyManagerConsumer.QueueEnemy(enemy);
         }
 
         public Vector2 RandomizeSpawnPosition(Vector2 playerPos)

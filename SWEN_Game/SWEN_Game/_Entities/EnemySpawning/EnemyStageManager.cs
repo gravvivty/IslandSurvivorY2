@@ -44,6 +44,15 @@ namespace SWEN_Game._Entities.EnemySpawning
                     Vector2 pos = _spawner.RandomizeSpawnPosition(_player.RealPos);
                     _spawner.SpawnEnemy("SlimeBoss", pos);
                 }
+                else if (stage.StageIndex == 0) // DEBUG SPAWN - REMOVE FOR FINAL BUILD
+                {
+                    _spawnedSecondBoss = true;
+                    Vector2 pos = _spawner.RandomizeSpawnPosition(_player.RealPos);
+                    _spawner.SpawnEnemy("Witch", pos);
+                    _spawner.SpawnEnemy("Witch", pos);
+                    _spawner.SpawnEnemy("Witch", pos);
+                    _spawner.SpawnEnemy("Witch", pos);
+                }
             }
         }
 

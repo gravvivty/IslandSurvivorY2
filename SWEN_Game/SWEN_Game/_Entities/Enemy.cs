@@ -131,7 +131,6 @@ namespace SWEN_Game._Entities
             TakeDamage(damage);
         }
 
-
         private void UpdateMovement(Vector2 playerPosition)
         {
             Vector2 direction = playerPosition - Position;
