@@ -21,6 +21,9 @@ namespace SWEN_Game
         private Texture2D _backgroundTexture;
         private InputHandler _inputHandler;
 
+        private RenderTarget2D _gameRenderTarget;
+
+
         private bool wasEscPressed = false;
 
         public UIManager(GameStateManager gameStateManager, Game game, ContentManager content, GraphicsDeviceManager graphics, SpriteBatch spriteBatch)
@@ -61,6 +64,22 @@ namespace SWEN_Game
                 wasEscPressed = true;
                 if (_gameStateManager.CurrentGameState == GameState.Playing)
                 {
+                    _gameRenderTarget = new RenderTarget2D(Globals.Graphics.GraphicsDevice, Globals.WindowSize.X, Globals.WindowSize.Y);
+                    Globals.Graphics.GraphicsDevice.SetRenderTarget(_gameRenderTarget);
+                    Globals.Graphics.GraphicsDevice.Clear(Color.White);
+                    if (_gameRenderTarget != null)
+                    {
+                        //Globals.SpriteBatch.Begin();
+                        _gameStateManager.Draw(gameTime, Globals.SpriteBatch); 
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Game render target is null, cannot draw the game state to the UI.");
+                    }
+
+                    _gameStateManager.Update(gameTime);
+                    Globals.Graphics.GraphicsDevice.SetRenderTarget(null);
+
                     _gameStateManager.ChangeGameState(GameState.Paused);
                     _mainMenuUI.ClearAndSwitch(MenuState.Paused);
                     _mainMenuUI.Show();
@@ -80,7 +99,16 @@ namespace SWEN_Game
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if  (_gameStateManager.CurrentGameState == GameState.MainMenu)
+            if  (_gameStateManager.CurrentGameState == GameState.Paused)
+            {
+                if(_gameRenderTarget != null)
+                {
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(_gameRenderTarget, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
+                    spriteBatch.End();
+                }
+            }
+            else if (_gameStateManager.CurrentGameState == GameState.MainMenu)
             {
                 spriteBatch.Begin();
                 spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
