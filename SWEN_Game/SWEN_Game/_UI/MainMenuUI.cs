@@ -264,7 +264,7 @@ public class MainMenuUI
 
         var slider = new Slider(Anchor.AutoLeft, new Vector2(280, 40), 40, 1)
         {
-            Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress"), padding: 6),
+            Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress_hover"), padding: 6),
             ScrollerTexture = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), padding: 6),
             StepPerScroll = 0.1f,
             PositionOffset = new Vector2(10, 10),
