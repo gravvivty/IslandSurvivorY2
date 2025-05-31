@@ -68,9 +68,9 @@ public class MainMenuUI
     {
         var titleMenu = new Paragraph(Anchor.TopCenter, 1, "MAIN MENU", true);
         rootPanel.AddChild(titleMenu);
-        rootPanel.AddChild(new VerticalSpace(10));
+        rootPanel.AddChild(new VerticalSpace(20));
 
-        var playButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Play");
+        var playButton = new Button(Anchor.AutoCenter, new Vector2(0.5F, 0.2F), "Play");
         playButton.PositionOffset = new Vector2(3, 0);
 
         playButton.OnPressed += _ =>
@@ -80,17 +80,17 @@ public class MainMenuUI
         };
 
         rootPanel.AddChild(playButton);
-        rootPanel.AddChild(new VerticalSpace(10));
+        rootPanel.AddChild(new VerticalSpace(20));
 
-        var optionsButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Options");
+        var optionsButton = new Button(Anchor.AutoCenter, new Vector2(0.5F, 0.2F), "Options");
         optionsButton.PositionOffset = new Vector2(3, 0);
         optionsButton.OnPressed += _ => ClearAndSwitch(MenuState.Options);
 
         rootPanel.AddChild(optionsButton);
 
-        rootPanel.AddChild(new VerticalSpace(10));
+        rootPanel.AddChild(new VerticalSpace(20));
 
-        var exitButton = new Button(Anchor.AutoLeft, new Vector2(0.5F, 0.2F), "Exit");
+        var exitButton = new Button(Anchor.AutoCenter, new Vector2(0.5F, 0.2F), "Exit");
         exitButton.PositionOffset = new Vector2(3, 0);
         exitButton.OnPressed += _ =>
         {
@@ -102,11 +102,12 @@ public class MainMenuUI
 
     private void ShowOptionsMenu(String MenuName, String ButtonName, Action onButtonPressed)
     {
-        Checkbox fullscreenCheckbox;
+        Checkbox fullscreenCheckbox = null;
+        Checkbox borderlessCheckbox = null;
 
         var titleMenu = new Paragraph(Anchor.TopCenter, 1, MenuName, true);
         rootPanel.AddChild(titleMenu);
-        rootPanel.AddChild(new VerticalSpace(40));
+        rootPanel.AddChild(new VerticalSpace(60));
 
         var horizintalGroup = new Group(Anchor.TopCenter, new Vector2(660, 340));
         rootPanel.AddChild(horizintalGroup);
@@ -120,16 +121,30 @@ public class MainMenuUI
 
         fullscreenCheckbox = AddCheckboxButton(leftPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
         {
+            if (isChecked)
+            {
+                Globals.Borderless = false;
+                borderlessCheckbox.Checked = false;
+                game.Window.IsBorderless = false;
+
+            }
             Globals.Fullscreen = isChecked;
             Globals.Graphics.IsFullScreen = isChecked;
             Globals.Graphics.ApplyChanges();
         });
         leftPanel.AddChild(new VerticalSpace(20));
 
-        fullscreenCheckbox = AddCheckboxButton(leftPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
+        borderlessCheckbox  = AddCheckboxButton(leftPanel, "Borderless", Globals.Borderless, isChecked =>
         {
-            Globals.Fullscreen = isChecked;
-            Globals.Graphics.IsFullScreen = isChecked;
+            if (isChecked)
+            {
+                Globals.Fullscreen = false;
+                fullscreenCheckbox.Checked = false;
+                Globals.Graphics.IsFullScreen = false;
+                Globals.Graphics.ApplyChanges();
+            }
+            Globals.Borderless = isChecked;
+            game.Window.IsBorderless = isChecked;
             Globals.Graphics.ApplyChanges();
         });
         leftPanel.AddChild(new VerticalSpace(20));
