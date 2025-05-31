@@ -36,7 +36,7 @@ namespace SWEN_Game
                 TextScale = 1.5F,
                 PanelTexture = new NinePatch(content.Load<Texture2D>("Menu/nine_path_panel"), padding: 6),
                 ButtonTexture = new NinePatch(content.Load<Texture2D>("Menu/button_hover"), padding: 6),
-                CheckboxTexture = new NinePatch(content.Load<Texture2D>("Menu/slider_progress_hover"), padding:6),
+                CheckboxTexture = new NinePatch(content.Load<Texture2D>("Menu/slider_progress_hover"), padding: 6),
                 CheckboxCheckmark = new TextureRegion(content.Load<Texture2D>("Menu/checked_disabled"), new Rectangle(0, 0, 16, 16)),
             };
 
@@ -80,17 +80,21 @@ namespace SWEN_Game
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
-            spriteBatch.End();
+            if  (_gameStateManager.CurrentGameState == GameState.MainMenu)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
+                spriteBatch.End();
+            }
             _uiSystem.Draw(gameTime, spriteBatch);
         }
-    }
 
-    // Add the following definition for SliderStyle if it is missing in your project
-    public class SliderStyle
-    {
-        public NinePatch Background { get; set; }
-        public TextureRegion Grabber { get; set; }
+
+        // Add the following definition for SliderStyle if it is missing in your project
+        public class SliderStyle
+        {
+            public NinePatch Background { get; set; }
+            public TextureRegion Grabber { get; set; }
+        }
     }
 }
