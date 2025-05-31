@@ -179,7 +179,7 @@ public class MainMenuUI
             PositionOffset = new Vector2(10, 0),
         });
 
-        var checkbox = new Checkbox(Anchor.CenterRight, new Vector2(60, 60), " ")
+        var checkbox = new Checkbox(Anchor.CenterRight, new Vector2(40, 40), " ")
         {
             Checked = isCheckedInitial,
             CanBeSelected = false,
