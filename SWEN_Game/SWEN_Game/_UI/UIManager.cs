@@ -104,7 +104,7 @@ namespace SWEN_Game
                 if(_gameRenderTarget != null)
                 {
                     spriteBatch.Begin();
-                    spriteBatch.Draw(_gameRenderTarget, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
+                    spriteBatch.Draw(_gameRenderTarget, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White*0.3f);
                     spriteBatch.End();
                 }
             }
