@@ -32,7 +32,7 @@ public class MainMenuUI
         this.game = game;
 
         // Create the root panel that contains all menu elements
-        rootPanel = new Panel(Anchor.Center, new Vector2(700, 400), Vector2.Zero);
+        rootPanel = new Panel(Anchor.Center, new Vector2(700, 500), Vector2.Zero);
         rootPanel.DrawColor = Color.White * 0.7f;
         uiSystem.Add("MainMenu", rootPanel);
 
@@ -126,10 +126,18 @@ public class MainMenuUI
         });
         leftPanel.AddChild(new VerticalSpace(20));
 
-        ShowResolutionSelector(leftPanel, fullscreenCheckbox);
+        fullscreenCheckbox = AddCheckboxButton(leftPanel, "Fullscreen", Globals.Fullscreen, isChecked =>
+        {
+            Globals.Fullscreen = isChecked;
+            Globals.Graphics.IsFullScreen = isChecked;
+            Globals.Graphics.ApplyChanges();
+        });
         leftPanel.AddChild(new VerticalSpace(20));
-        var saveButton = new Button(Anchor.AutoLeft, new Vector2(280, 80), ButtonName);
-        saveButton.PositionOffset = new Vector2(10, 10);
+
+        ShowResolutionSelector(leftPanel, fullscreenCheckbox);
+       
+        var saveButton = new Button(Anchor.BottomLeft, new Vector2(280, 80), ButtonName);
+        saveButton.PositionOffset = new Vector2(10, -100);
         saveButton.OnPressed += _ =>
         {
             onButtonPressed?.Invoke();
@@ -149,20 +157,22 @@ public class MainMenuUI
         };
         horizintalGroup.AddChild(rightPanel);
 
+        rightPanel.AddChild(new VerticalSpace(10));
+
         AddVolumeSlider(rightPanel, "SFX Volume", Globals.SoundVolume, newValue =>
          {
              Globals.SoundVolume = newValue;
          });
 
-        rightPanel.AddChild(new VerticalSpace(10));
+        rightPanel.AddChild(new VerticalSpace(20));
         AddVolumeSlider(rightPanel, "Music Volume", Globals.MusicVolume, newValue =>
          {
              Globals.MusicVolume = newValue;
 
          });
-        rightPanel.AddChild(new VerticalSpace(10));
-        var exitButton = new Button(Anchor.AutoCenter, new Vector2(200, 60), "Game Ende");
-        exitButton.PositionOffset = new Vector2(10, 10);
+       // rightPanel.AddChild(new VerticalSpace(80));
+        var exitButton = new Button(Anchor.BottomRight, new Vector2(280, 80), "Game Ende");
+        exitButton.PositionOffset = new Vector2(10, -100);
         exitButton.OnPressed += _ =>
         {
             ui.Game.Exit();
@@ -202,6 +212,8 @@ public class MainMenuUI
         {
             PositionOffset = new Vector2(10, 0),
             IsOpen = false,
+           
+
         };
 
         var resolutions = new[]
@@ -260,7 +272,7 @@ public class MainMenuUI
         {
             PositionOffset = new Vector2(10, 10),
         });
-       // parentPanel.AddChild(new VerticalSpace(10));
+        parentPanel.AddChild(new VerticalSpace(10));
 
         var slider = new Slider(Anchor.AutoLeft, new Vector2(280, 40), 40, 1)
         {
