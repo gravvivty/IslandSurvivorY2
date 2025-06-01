@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SWEN_Game._Managers;
+using MLEM.Ui;
 
 namespace SWEN_Game._Utils
 {
@@ -29,6 +30,9 @@ namespace SWEN_Game._Utils
         public static int Zoom { get; private set; } = 4;
         public static bool Fullscreen { get; set; } = false;
         public static bool Borderless { get; set; } = false;
+        public static UiSystem UiSystem { get; set; }
+        public static float SoundVolume { get; set; }
+        public static float MusicVolume { get; set; }
 
         /// <summary>
         /// Updates the time delta and total game time using the provided GameTime.
