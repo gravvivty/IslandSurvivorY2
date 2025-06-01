@@ -10,5 +10,4 @@ namespace SWEN_GAME
         public NinePatch Background;
         public TextureRegion Grabber;
     }
-
 }

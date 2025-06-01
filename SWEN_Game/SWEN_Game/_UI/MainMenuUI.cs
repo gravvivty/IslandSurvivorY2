@@ -102,12 +102,12 @@ namespace SWEN_Game._UI
             rootPanel.AddChild(exitButton);
         }
 
-        private void ShowOptionsMenu(String MenuName, String ButtonName, Action onButtonPressed)
+        private void ShowOptionsMenu(string menuName, string buttonName, Action onButtonPressed)
         {
             Checkbox fullscreenCheckbox = null;
             Checkbox borderlessCheckbox = null;
 
-            var titleMenu = new Paragraph(Anchor.TopCenter, 1, MenuName, true);
+            var titleMenu = new Paragraph(Anchor.TopCenter, 1, menuName, true);
             rootPanel.AddChild(titleMenu);
             rootPanel.AddChild(new VerticalSpace(60));
 
@@ -117,7 +117,7 @@ namespace SWEN_Game._UI
             var leftPanel = new Panel(Anchor.TopLeft, new Vector2(320, 330), Vector2.Zero)
             {
                 Padding = Padding.Empty,
-                PositionOffset = new Vector2(0, 40)
+                PositionOffset = new Vector2(0, 40),
             };
             horizintalGroup.AddChild(leftPanel);
 
@@ -128,8 +128,8 @@ namespace SWEN_Game._UI
                     Globals.Borderless = false;
                     borderlessCheckbox.Checked = false;
                     game.Window.IsBorderless = false;
-
                 }
+
                 Globals.Fullscreen = isChecked;
                 Globals.Graphics.IsFullScreen = isChecked;
                 Globals.Graphics.ApplyChanges();
@@ -154,8 +154,8 @@ namespace SWEN_Game._UI
             leftPanel.AddChild(new VerticalSpace(20));
 
             ShowResolutionSelector(leftPanel, fullscreenCheckbox);
-       
-            var saveButton = new Button(Anchor.BottomLeft, new Vector2(280, 80), ButtonName);
+
+            var saveButton = new Button(Anchor.BottomLeft, new Vector2(280, 80), buttonName);
             saveButton.PositionOffset = new Vector2(10, -100);
             saveButton.OnPressed += _ =>
             {
@@ -187,10 +187,9 @@ namespace SWEN_Game._UI
             AddVolumeSlider(rightPanel, "Music Volume", Globals.MusicVolume, newValue =>
              {
                  Globals.MusicVolume = newValue;
-
              });
-           // rightPanel.AddChild(new VerticalSpace(80));
-            var exitButton = new Button(Anchor.BottomRight, new Vector2(280, 80), "Game Ende");
+            // rightPanel.AddChild(new VerticalSpace(80));
+            var exitButton = new Button(Anchor.BottomRight, new Vector2(280, 80), "Exit Game");
             exitButton.PositionOffset = new Vector2(10, -100);
             exitButton.OnPressed += _ =>
             {
@@ -201,7 +200,7 @@ namespace SWEN_Game._UI
 
         private Checkbox AddCheckboxButton(Panel parentPanel, string labelText, bool isCheckedInitial, Action<bool> onToggle)
         {
-            var button = new Button(Anchor.AutoLeft, new Vector2(280, 80), "");
+            var button = new Button(Anchor.AutoLeft, new Vector2(280, 80), string.Empty);
             button.PositionOffset = new Vector2(10, 10);
             button.AddChild(new Paragraph(Anchor.Center, 1, labelText)
             {
@@ -231,8 +230,6 @@ namespace SWEN_Game._UI
             {
                 PositionOffset = new Vector2(10, 0),
                 IsOpen = false,
-           
-
             };
 
             var resolutions = new[]
@@ -258,7 +255,6 @@ namespace SWEN_Game._UI
                         if (res.Width == 1920 && res.Height == 1080)
                         {
                             fullscreenCheckbox.IsDisabled = false;
-
                         }
                         else
                         {
@@ -270,6 +266,7 @@ namespace SWEN_Game._UI
                         }
                     }, 0);
             }
+
             if (Globals.WindowSize.X == 1920 && Globals.WindowSize.Y == 1080)
             {
                fullscreenCheckbox.IsDisabled = false;
@@ -282,33 +279,33 @@ namespace SWEN_Game._UI
                 Globals.Graphics.IsFullScreen = false;
                 Globals.Graphics.ApplyChanges();
             }
-                parent.AddChild(dropdown);
+
+            parent.AddChild(dropdown);
         }
 
         private void AddVolumeSlider(Panel parentPanel, string labelText, float initialVolume, Action<float> onChanged)
         {
            parentPanel.AddChild(new Paragraph(Anchor.AutoLeft, 1, labelText)
-            {
-                PositionOffset = new Vector2(10, 10),
-            });
-            parentPanel.AddChild(new VerticalSpace(10));
+           {
+               PositionOffset = new Vector2(10, 10),
+           });
+           parentPanel.AddChild(new VerticalSpace(10));
 
-            var slider = new Slider(Anchor.AutoLeft, new Vector2(280, 40), 40, 1)
-            {
-                Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress_hover"), padding: 6),
-                ScrollerTexture = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), padding: 6),
-                StepPerScroll = 0.1f,
-                PositionOffset = new Vector2(10, 10),
-                CurrentValue = initialVolume,
-            };
-            slider.OnValueChanged += (elem, newValue) =>
-            {
-                onChanged?.Invoke(newValue);
-            };
+           var slider = new Slider(Anchor.AutoLeft, new Vector2(280, 40), 40, 1)
+           {
+               Background = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/slider_progress_hover"), padding: 6),
+               ScrollerTexture = new NinePatch(ui.Game.Content.Load<Texture2D>("Menu/v_slidder_grabber"), padding: 6),
+               StepPerScroll = 0.1f,
+               PositionOffset = new Vector2(10, 10),
+               CurrentValue = initialVolume,
+           };
+           slider.OnValueChanged += (elem, newValue) =>
+           {
+               onChanged?.Invoke(newValue);
+           };
 
-            parentPanel.AddChild(slider);
+           parentPanel.AddChild(slider);
            // parentPanel.AddChild(new VerticalSpace(20));
-
         }
     }
 }

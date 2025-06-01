@@ -1,5 +1,4 @@
-﻿
-using MLEM.Font;
+﻿using MLEM.Font;
 using MLEM.Input;
 using MLEM.Maths;
 using MLEM.Textures;
@@ -24,8 +23,6 @@ namespace SWEN_Game._UI
         private InputHandler _inputHandler;
 
         private RenderTarget2D _gameRenderTarget;
-
-
         private bool wasEscPressed = false;
 
         public UIManager(GameStateManager gameStateManager, Game game, ContentManager content, GraphicsDeviceManager graphics, SpriteBatch spriteBatch)
@@ -71,8 +68,8 @@ namespace SWEN_Game._UI
                     Globals.Graphics.GraphicsDevice.Clear(Color.White);
                     if (_gameRenderTarget != null)
                     {
-                        //Globals.SpriteBatch.Begin();
-                        _gameStateManager.Draw(gameTime, Globals.SpriteBatch); 
+                        // Globals.SpriteBatch.Begin();
+                        _gameStateManager.Draw(gameTime, Globals.SpriteBatch);
                     }
                     else
                     {
@@ -106,7 +103,7 @@ namespace SWEN_Game._UI
                 if(_gameRenderTarget != null)
                 {
                     spriteBatch.Begin();
-                    spriteBatch.Draw(_gameRenderTarget, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White*0.3f);
+                    spriteBatch.Draw(_gameRenderTarget, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White * 0.3f);
                     spriteBatch.End();
                 }
             }
@@ -116,9 +113,9 @@ namespace SWEN_Game._UI
                 spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), Color.White);
                 spriteBatch.End();
             }
+
             _uiSystem.Draw(gameTime, spriteBatch);
         }
-
 
         // Add the following definition for SliderStyle if it is missing in your project
         public class SliderStyle
