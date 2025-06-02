@@ -1,75 +1,185 @@
 ﻿using System;
-using Assimp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game._Utils;
+using SWEN_Game._Anims;
+using SWEN_Game._Items;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting
 {
-    public class PlayerWeapon
+    /// <summary>
+    /// Represents a weapon used by the player, managing shooting, bullets, and weapon modifiers.
+    /// </summary>
+    public class PlayerWeapon : IPlayerWeapon
     {
-        /*
-        Weapon Class Attributes:
-        private float attackSpeed;
-        private float shotSpeed;
-        private float bulletSize;
-        private float bulletSpread;
-        private int   bulletsPerShot;
-        private float bulletDamage;
-        private float timeSinceLastShot;
-
-        */
-
-        /*
-        Weapon Names:
-        - Pistol
-        - SMG
-        - Sniper
-        */
-
         private List<Bullet> _bullets = new List<Bullet>();
+        private List<IWeaponModifier> _modifiers = new List<IWeaponModifier>();
+        public List<Bullet> GetBullets() => _bullets;
 
         private float _timeSinceLastShot;
 
         public PlayerWeapon(WeaponManager weaponManager)
         {
-            PlayerGameData.bulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/FlameBullet");
-            PlayerGameData.bulletTint = Color.White;
+            PlayerGameData.Instance.BulletTexture = Globals.Content.Load<Texture2D>("Sprites/Bullets/VanillaBullet");
+            PlayerGameData.Instance.BulletTint = Color.White;
         }
 
+        /// <summary>
+        /// Gets or sets the time since the last shot was fired.
+        /// </summary>
         protected float TimeSinceLastShot
         {
             get => _timeSinceLastShot;
             set => _timeSinceLastShot = value;
         }
-        public List<Bullet> GetBullets() => _bullets;
 
+        /// <summary>
+        /// Updates the state of the weapon, including bullets and reloading.
+        /// </summary>
         public void Update()
         {
             float gametime = Globals.Time;
             TimeSinceLastShot += (float)gametime;
 
-            foreach (var bullet in _bullets)
+            Reload(gametime);
+
+            for (int i = 0; i < _bullets.Count; i++)
             {
-                bullet.Update();
+                _bullets[i].HasProcessedThisFrame = false;
+                _bullets[i].Update();
             }
 
-            _bullets.RemoveAll(b => !b.IsVisible);
+            _bullets.RemoveAll(bullet => !bullet.IsVisible);
         }
 
+        /// <summary>
+        /// Adds a modifier that can affect the weapon's shooting behavior.
+        /// </summary>
+        /// <param name="modifier">The modifier to add.</param>
+        public void AddModifier(IWeaponModifier modifier)
+        {
+            _modifiers.Add(modifier);
+        }
+
+        /// <summary>
+        /// Gets the list of weapon modifiers applied to this weapon.
+        /// </summary>
+        /// <returns>
+        /// List of all Weapon Modifiers.
+        /// </returns>
+        public List<IWeaponModifier> GetModifiers()
+        {
+            return _modifiers;
+        }
+
+        /// <summary>
+        /// Draws all currently active bullets.
+        /// </summary>
+        public void DrawBullets()
+        {
+            foreach (var bullet in GetBullets())
+            {
+                bullet.Draw(Globals.SpriteBatch);
+            }
+        }
+
+        /// <summary>
+        /// Attempts to shoot the weapon in a given direction from the player's position.
+        /// </summary>
+        /// <param name="direction">The direction to shoot in.</param>
+        /// <param name="player_position">The position of the player.</param>
         public void Shoot(Vector2 direction, Vector2 player_position)
         {
-            System.Diagnostics.Debug.WriteLine("PlayerWeapon is now Trying to shoot" + DateTime.Now);
-            if (TimeSinceLastShot >= PlayerGameData.currentWeapon.attackSpeed)
+            if (PlayerGameData.Instance.CurrentWeapon.IsReloading)
             {
-                // Clone bullet anim to make each bullet independent
-                Animation bulletAnim = new Animation(
-                    PlayerGameData.bulletTexture, 1, 4, 0.1f, Globals.SpriteManager, 1, PlayerGameData.bulletTint, PlayerGameData.currentWeapon.bulletSize);
-                // TODO: Direction calculated with bulletSpread factor
-                _bullets.Add(new Bullet(bulletAnim, player_position, direction, PlayerGameData.currentWeapon.shotSpeed, PlayerGameData.currentWeapon.bulletSize));
-                System.Diagnostics.Debug.WriteLine("PlayerWeapon is now shooting" + DateTime.Now);
-                TimeSinceLastShot = 0f;
+                return;
+            }
+
+            if (TimeSinceLastShot >= PlayerGameData.Instance.CurrentWeapon.AttackSpeed)
+            {
+                if (PlayerGameData.Instance.CurrentWeapon.CurrentAmmo > 0)
+                {
+                    ShootInDirection(direction, player_position);
+                    PlayerGameData.Instance.CurrentWeapon.CurrentAmmo--;
+
+                    foreach (var mod in _modifiers)
+                    {
+                        mod.OnShoot(direction, player_position, this);
+                    }
+
+                    TimeSinceLastShot = 0f;
+                }
+                else
+                {
+                    // Start reloading
+                    PlayerGameData.Instance.CurrentWeapon.IsReloading = true;
+                    PlayerGameData.Instance.CurrentWeapon.ReloadTimer = 0f;
+
+                    if (PlayerGameData.Instance.CurrentWeapon.CurrentAmmo == 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Reloading...");
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Instantiates and fires a bullet in a specified direction.
+        /// </summary>
+        /// <param name="direction">Direction to shoot the bullet.</param>
+        /// <param name="player_position">Starting position of the bullet.</param>
+        /// <param name="isDemonBullet">Optional flag to mark the bullet as a "demon" bullet.</param>
+        public void ShootInDirection(Vector2 direction, Vector2 player_position, bool? isDemonBullet = null)
+        {
+            Color tint = PlayerGameData.Instance.BulletTint;
+            bool isChild = isDemonBullet ?? false;
+
+            if (isChild)
+            {
+                tint = Color.Black;
+            }
+
+            Animation anim = new Animation(
+                PlayerGameData.Instance.BulletTexture,
+                1,
+                4,
+                0.1f,
+                16,
+                16,
+                1,
+                tint,
+                PlayerGameData.Instance.CurrentWeapon.BulletSize);
+            _bullets.Add(
+                new Bullet(
+                    anim,
+                    player_position,
+                    direction,
+                    PlayerGameData.Instance.CurrentWeapon.ShotSpeed,
+                    PlayerGameData.Instance.CurrentWeapon.BulletSize,
+                    PlayerGameData.Instance.CurrentWeapon.Pierce,
+                    PlayerGameData.Instance.CritChance,
+                    this,
+                    PlayerGameData.Instance.CurrentWeapon.BulletDamage,
+                    isChild));
+        }
+
+        /// <summary>
+        /// Handles the reloading process based on elapsed game time.
+        /// </summary>
+        /// <param name="gametime">The amount of game time that has passed since the last frame.</param>
+        private void Reload(float gametime)
+        {
+            if (PlayerGameData.Instance.CurrentWeapon.IsReloading)
+            {
+                PlayerGameData.Instance.CurrentWeapon.ReloadTimer += gametime;
+                if (PlayerGameData.Instance.CurrentWeapon.ReloadTimer >= PlayerGameData.Instance.CurrentWeapon.ReloadTime)
+                {
+                    PlayerGameData.Instance.CurrentWeapon.CurrentAmmo = PlayerGameData.Instance.CurrentWeapon.MagazineSize;
+                    PlayerGameData.Instance.CurrentWeapon.IsReloading = false;
+                    PlayerGameData.Instance.CurrentWeapon.ReloadTimer = 0f;
+                }
             }
         }
     }

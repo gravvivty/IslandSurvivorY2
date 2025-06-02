@@ -5,8 +5,9 @@ using LDtk;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Managers
 {
     public class SpriteManager
     {
@@ -31,22 +32,12 @@ namespace SWEN_Game
            // dummy
         }
 
-        public Dictionary<string, Dictionary<int, List<Vector2>>> GetTileGroups()
-        {
-            return tileGroups;
-        }
-
-        public Dictionary<string, List<int>> GetTileMappings()
-        {
-            return tileMappings;
-        }
-
         /// <summary>
-        /// Helper method to retrieve the tileset texture using ExampleRenderer logic.
+        /// Loads a tileset texture associated with a level and a relative path.
         /// </summary>
-        /// <param name="level">Level to load Textures from.</param>
-        /// <param name="tilesetPath">Path of desired texture (Usually a layer).</param>
-        /// <returns>Texture Sheet.</returns>
+        /// <param name="level">The LDtk level containing the tileset.</param>
+        /// <param name="tilesetPath">The relative path to the tileset texture file.</param>
+        /// <returns>A loaded <see cref="Texture2D"/> representing the tileset.</returns>
         public Texture2D GetTilesetTextureFromRenderer(LDtkLevel level, string tilesetPath)
         {
             if (Globals.Content == null)
@@ -64,9 +55,35 @@ namespace SWEN_Game
             }
         }
 
-        // Computes a layer depth value based on the object's Y position.
-        // Lower Y (closer to the top) yields a lower depth value.
-        // Spritelayers without anchor or out of Player Range
+        /// <summary>
+        /// Retrieves the dictionary of grouped tile positions by enum tag and tile ID.
+        /// </summary>
+        /// <returns>
+        /// A dictionary where each key is an enum tag (e.g., "House"), and the value is another dictionary mapping tile IDs to their world positions.
+        /// </returns>
+        public Dictionary<string, Dictionary<int, List<Vector2>>> GetTileGroups()
+        {
+            return tileGroups;
+        }
+
+        /// <summary>
+        /// Retrieves the dictionary mapping enum tags to associated tile IDs.
+        /// </summary>
+        /// <returns>
+        /// A dictionary where each key is an enum tag (e.g., "Tree") and the value is a list of tile IDs corresponding to that tag.
+        /// </returns>
+        public Dictionary<string, List<int>> GetTileMappings()
+        {
+            return tileMappings;
+        }
+
+        /// <summary>
+        /// Computes a depth value for rendering based on the tile's position and layer configuration.
+        /// </summary>
+        /// <param name="position">The world position of the tile.</param>
+        /// <param name="spriteHeight">The height of the sprite in pixels.</param>
+        /// <param name="layer">The layer instance to which the tile belongs.</param>
+        /// <returns>A normalized float value representing the depth, where lower values are rendered first (further back).</returns>
         public float GetDepth(Vector2 position, float spriteHeight, LayerInstance layer)
         {
             float depth = (position.Y + spriteHeight) / maxY;
@@ -110,7 +127,12 @@ namespace SWEN_Game
             return depth - (layerOffset / maxY);
         }
 
-        // Player or Anchor Depths
+        /// <summary>
+        /// Computes a general depth value for a sprite without considering specific layer offsets.
+        /// </summary>
+        /// <param name="position">The world position of the sprite.</param>
+        /// <param name="spriteHeight">The height of the sprite in pixels.</param>
+        /// <returns>A normalized float value representing the depth.</returns>
         public float GetDepth(Vector2 position, float spriteHeight)
         {
             // Using the bottom of the sprite as the reference
@@ -118,7 +140,12 @@ namespace SWEN_Game
             return depth;
         }
 
-        // Only Spritelayers that CAN have an anchor
+        /// <summary>
+        /// Adjusts a base depth value using a layer-specific offset. Used for grouped sprite layers with anchor depths.
+        /// </summary>
+        /// <param name="depth">The base depth (often from an anchor sprite).</param>
+        /// <param name="layer">The layer to which the sprite belongs, determining the layer offset.</param>
+        /// <returns>A normalized float value adjusted for the layer's depth offset.</returns>
         public float GetDepth(float depth, LayerInstance layer)
         {
             float layerOffset = 0;
@@ -138,6 +165,12 @@ namespace SWEN_Game
             return depth - (layerOffset / maxY);
         }
 
+        /// <summary>
+        /// Maps tile IDs to their corresponding enum tags and stores their world positions in organized structures.
+        /// </summary>
+        /// <remarks>
+        /// Populates <c>tileMappings</c> and <c>tileGroups</c> dictionaries based on the LDtk enum-tagged tiles across all levels.
+        /// </remarks>
         public void MapTileToTexture()
         {
             Vector2 invalid = new Vector2(-1, -1);
@@ -192,6 +225,12 @@ namespace SWEN_Game
             }
         }
 
+        /// <summary>
+        /// Retrieves all world positions for a given tile ID and enum tag across all levels and layers.
+        /// </summary>
+        /// <param name="tileID">The tile ID to locate.</param>
+        /// <param name="enumTag">The enum tag category the tile belongs to (e.g., "House").</param>
+        /// <returns>A list of <see cref="Vector2"/> positions where the tile appears in the world.</returns>
         private List<Vector2> GetTileWorldPosition(int tileID, string enumTag)
         {
             List<Vector2> positions = new List<Vector2>();

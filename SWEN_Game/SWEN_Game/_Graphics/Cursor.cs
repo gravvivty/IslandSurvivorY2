@@ -4,13 +4,17 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpFont;
+using SWEN_Game._Utils;
 
-namespace SWEN_Game
+namespace SWEN_Game._Graphics
 {
     public static class Cursor
     {
         private static Texture2D cursorTexture = Globals.Content.Load<Texture2D>("crosshair");
 
+        /// <summary>
+        /// Draws the Cursor with a Texture.
+        /// </summary>
         public static void DrawCursor()
         {
             MouseState mouse = Mouse.GetState();

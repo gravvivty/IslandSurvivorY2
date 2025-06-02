@@ -4,59 +4,71 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SWEN_Game._Items;
 
-namespace SWEN_Game
+namespace SWEN_Game._Shooting
 {
-    public class Weapon
+    public class Weapon : IWeapon
     {
-        public float attackSpeed;
-        public float shotSpeed;
-        public float bulletSize;
-        public float bulletSpread;
-        public int   bulletsPerShot;
-        public float bulletDamage;
-        public float timeSinceLastShot;
+        public float AttackSpeed { get; set; }
+        public float ShotSpeed { get; set; }
+        public float BulletSize { get; set; }
+        public float BulletSpread { get; set; }
+        public int BulletsPerShot { get; set; }
+        public float BulletDamage { get; set; }
+        public float TimeSinceLastShot { get; set; }
+        public int MagazineSize { get; set; }
+        public int CurrentAmmo { get; set; }
+        public bool IsReloading { get; set; } = false;
+        public float ReloadTime { get; set; } = 1.0f;
+        public float ReloadTimer { get; set; } = 0f;
+        public int Pierce { get; set; } = 0;
 
         public Texture2D bulletTexture;
+        public Texture2D ingameSprite;
+        public Texture2D iconSprite;
 
-        public Weapon(float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, Texture2D bulletTexture)
+        public Weapon(float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, int magSize, float reloadTime, int pierce, Texture2D bulletTexture, Texture2D icon, Texture2D ingame)
         {
-            this.attackSpeed = attackspeed;
-            this.shotSpeed = shotspeed;
-            this.bulletSize = bulletSize;
-            this.bulletSpread = bulletSpread;
-            this.bulletsPerShot = bulletsPerShot;
-            this.bulletDamage = bulletDamage;
+            this.AttackSpeed = attackspeed;
+            this.ShotSpeed = shotspeed;
+            this.BulletSize = bulletSize;
+            this.BulletSpread = bulletSpread;
+            this.BulletsPerShot = bulletsPerShot;
+            this.BulletDamage = bulletDamage;
+            this.MagazineSize = magSize;
+            this.CurrentAmmo = this.MagazineSize;
+            this.ReloadTime = reloadTime;
+            this.Pierce = pierce;
 
             this.bulletTexture = bulletTexture;
+            this.ingameSprite = ingame;
+            this.iconSprite = icon;
         }
 
-        /* protected float FireCooldown
+        /// <summary>
+        /// Copies the weapon so they are completely independent.
+        /// </summary>
+        /// /// <remarks>
+        /// Had to implement this since there was some pointer reference stuff that did not work.
+        /// </remarks>
+        /// <returns>A copied weapon.</returns>
+        public Weapon Clone()
         {
-            get => _fireCooldown;
-            set => _fireCooldown = value;
+            Weapon clone = new Weapon(
+                this.AttackSpeed,
+                this.ShotSpeed,
+                this.BulletSize,
+                this.BulletSpread,
+                this.BulletsPerShot,
+                this.BulletDamage,
+                this.MagazineSize,
+                this.ReloadTime,
+                this.Pierce,
+                this.bulletTexture,
+                this.iconSprite,
+                this.ingameSprite);
+            return clone;
         }
-
-        protected float TimeSinceLastShot
-        {
-            get => _timeSinceLastShot;
-            set => _timeSinceLastShot = value;
-        }
-
-        protected Texture2D BulletTexture => _bulletTexture;
-        protected Vector2 Position => _position;
-        protected List<Bullet> Bullets => _bullets;
-
-        public Weapon(Texture2D bulletTexture, Vector2 position)
-        {
-            _bulletTexture = bulletTexture;
-            _position = position;
-        }
-
-        public abstract void Update();
-        public abstract void Shoot(Vector2 direction, Vector2 player_position);
-
-        public List<Bullet> GetBullets() => _bullets;
-        */
     }
 }

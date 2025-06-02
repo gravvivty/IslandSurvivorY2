@@ -2,6 +2,7 @@
 using LDtk;
 using SWEN_Game;
 using Xunit;
+using SWEN_Game._Managers;
 
 namespace SWEN_GameTests
 {
