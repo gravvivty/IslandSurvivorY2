@@ -105,9 +105,9 @@ This namespace provides essential debugging tools for development, including key
 It also visually renders debug overlays such as player hitboxes, collision boundaries, and precise position rectangles, aiding in collision detection and gameplay testing.
 This utility enhances real-time feedback and troubleshooting during game development.<br>
 
-F1 - Get items -> set them in Debug.cs, you'll see the commented code block
-Space - Simulate getting hit by triggering iFrames
-R - Reload Weapon
+F1 - Get items -> set them in Debug.cs, you'll see the commented code block <br>
+Space - Simulate getting hit by triggering iFrames <br>
+R - Reload Weapon <br>
 If you want to spawn enemies/bosses at the Start: <br>
 _Entities.EnemySpawning -> EnemyStageManager Line 51 -> Replace "Witch" string with any of the strings from the switch case in EnemySpawner Line 48
 
