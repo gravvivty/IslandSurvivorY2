@@ -11,6 +11,8 @@ The goal is to develop a 2D pixel art game with a top-down view, where the playe
 
 The game loop follows an arcade format, where the player fights endless waves of enemies to achieve a high score (possibly also unlocking items after a run, similar to a roguelite).
 
+![Gameplay](showcase.gif)
+
 # Architecture/Namespaces
 
 ## Anims
