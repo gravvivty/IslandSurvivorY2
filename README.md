@@ -106,7 +106,8 @@ This utility enhances real-time feedback and troubleshooting during game develop
 F1 - Get items -> set them in Debug.cs, you'll see the commented code block
 Space - Simulate getting hit by triggering iFrames
 R - Reload Weapon
-If you want to spawn enemies/bosses at the Start -> _Entities.EnemySpawning -> EnemyStageManager Line 51 -> Replace "Witch" string with any of the strings from the switch case in EnemySpawner Line 48
+If you want to spawn enemies/bosses at the Start: <br>
+_Entities.EnemySpawning -> EnemyStageManager Line 51 -> Replace "Witch" string with any of the strings from the switch case in EnemySpawner Line 48
 
 
 # Resources
