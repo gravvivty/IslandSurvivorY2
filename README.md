@@ -2,7 +2,7 @@
 For our Software Engineering Course we had to develop a game within the MonoGame Framework in C#.<br>
 I lead the entirety of the project while doing every code review (usually 1h online per feature).<br>
 The entire code base has been engineered, supervised and mostly written by me (gravvivty / Steven Gayer).<br>
-With the exception of the UI namespace, the GameStateManager class, very early iterations of the Shooting Feature and early iterations of the Renderer.
+With the exception of the UI namespace and the GameStateManager class.
 
 # Concept
 
