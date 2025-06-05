@@ -95,13 +95,13 @@ WeaponManager initializes and stores various weapons with unique stats and textu
 
 # UI
 
-This namespace implements a modular UI system for a MonoGame project using the MLEM library, featuring a main menu, options menu, and pause menu.
+The SWEN_Game._UI namespace implements a modular UI system for a MonoGame project using the MLEM library, featuring a main menu, options menu, and pause menu.
 It manages game state transitions through GameStateManager, supports fullscreen and borderless window modes, dynamic resolution changes, and adjustable audio volume via sliders.
 The UIManager handles input, rendering, and updates, including a render target to display the paused game state faded in the background. Custom styled UI elements such as buttons, checkboxes, and sliders ensure a polished, responsive interface for the game.
 
 # Debug
 
-This namespace provides essential debugging tools for development, including keyboard-driven toggles for player invincibility and power-up activation.
+The SWEN_Game._Debug namespace provides essential debugging tools for development, including keyboard-driven toggles for player invincibility and power-up activation.
 It also visually renders debug overlays such as player hitboxes, collision boundaries, and precise position rectangles, aiding in collision detection and gameplay testing.
 This utility enhances real-time feedback and troubleshooting during game development.<br>
 
