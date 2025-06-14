@@ -111,6 +111,9 @@ R - Reload Weapon <br>
 If you want to spawn enemies/bosses at the Start: <br>
 _Entities.EnemySpawning -> EnemyStageManager Line 51 -> Replace "Witch" string with any of the strings from the switch case in EnemySpawner Line 48
 
+# Installation
+
+To build and run the project, make sure you have the nuget packages installed from the MonoGame compatibility section and the UI section in Resources.
 
 # Resources
 
