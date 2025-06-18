@@ -109,7 +109,7 @@ F1 - Get items -> set them in Debug.cs, you'll see the commented code block <br>
 Space - Simulate getting hit by triggering iFrames <br>
 R - Reload Weapon <br>
 If you want to spawn enemies/bosses at the Start: <br>
-_Entities.EnemySpawning -> EnemyStageManager Line 51 -> Replace "Witch" string with any of the strings from the switch case in EnemySpawner Line 48
+_Entities.EnemySpawning -> EnemyStageManager Stage 0 (around where Reaper/Slimeboss are spawned) -> Replace "Witch" string with any of the strings from the switch case in EnemySpawner Line 48
 
 # Installation
 
