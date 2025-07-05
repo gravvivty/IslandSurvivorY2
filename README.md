@@ -1,4 +1,4 @@
-**This project is currently still ongoing. - the UI and Powerup Selection UI are missing**<br>
+**This project is currently still ongoing. - the Source Code on here is outdated and has yet to be updated.**<br>
 For our Software Engineering Course we had to develop a game within the MonoGame Framework in C#.<br>
 I lead the entirety of the project whilst also doing code reviews when a feature was close to done (usually an 1h online session per feature).<br>
 The entire code base has been engineered, supervised and mostly written by me (gravvivty / Steven Gayer).<br>
@@ -151,3 +151,10 @@ Weapons:<br>
 https://zanipixels.itch.io/survival-horror <br>
 UI:<br>
 https://redreeh.itch.io/pixelhearts-16x16 <br>
+
+Music:<br>
+https://youtu.be/BZ6Cge1bRJ8?si=fJEk6YORfH0qlcq0
+
+SFX:<br>
+me :)
+Some SFX from Toby Fox's "Undertale"
