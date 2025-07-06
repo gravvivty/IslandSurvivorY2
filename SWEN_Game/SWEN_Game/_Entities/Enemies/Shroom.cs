@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Assimp.Unmanaged;
-using SharpFont.Cache;
 using SWEN_Game._Anims;
 using SWEN_Game._Utils;
-using SWEN_Game._Shooting;
-using SWEN_Game._Shooting._Modifiers;
 
 namespace SWEN_Game._Entities.Enemies
 {
@@ -19,7 +10,8 @@ namespace SWEN_Game._Entities.Enemies
         public Shroom(Vector2 startPosition)
         {
             Position = startPosition;
-            CurrentHealth = 25f;
+            XPReward = 15;
+            CurrentHealth = 35f;
             EnemyDamage = 1;
             EnemySpeed = 100f;
             FrameWidth = 24;

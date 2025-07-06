@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SWEN_Game._PlayerData;
+﻿using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Items._ItemData
 {
@@ -31,7 +25,7 @@ namespace SWEN_Game._Items._ItemData
                     this.attackSpeedFlat -= 0.1f;
                     break;
                 case 3:
-                    this.attackSpeedFlat -= 0.2f;
+                    this.attackSpeedFlat -= 0.15f;
                     break;
                 default:
                     break;

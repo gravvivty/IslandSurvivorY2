@@ -1,9 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SharpFont;
 using SWEN_Game._Entities;
 using SWEN_Game._Shooting;
 using SWEN_Game._Utils;

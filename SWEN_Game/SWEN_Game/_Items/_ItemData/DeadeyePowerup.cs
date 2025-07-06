@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SWEN_Game._PlayerData;
+﻿using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Items._ItemData
 {
@@ -28,10 +22,10 @@ namespace SWEN_Game._Items._ItemData
                     this.critChance += 0.1f;
                     break;
                 case 2:
-                    this.critChance += 0.15f;
+                    this.critChance += 0.25f;
                     break;
                 case 3:
-                    this.critChance += 0.25f;
+                    this.critChance += 0.50f;
                     break;
                 default:
                     break;

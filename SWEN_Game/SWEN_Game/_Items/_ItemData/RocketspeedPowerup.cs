@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SWEN_Game._PlayerData;
+﻿using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Items._ItemData
 {
@@ -26,12 +20,15 @@ namespace SWEN_Game._Items._ItemData
             {
                 case 1:
                     this.shotSpeedFlat += 100;
+                    this.speedBonus += 10;
                     break;
                 case 2:
                     this.shotSpeedFlat += 200;
+                    this.speedBonus += 20;
                     break;
                 case 3:
-                    this.shotSpeedFlat += 350;
+                    this.shotSpeedFlat += 500;
+                    this.speedBonus += 30;
                     break;
                 default:
                     break;

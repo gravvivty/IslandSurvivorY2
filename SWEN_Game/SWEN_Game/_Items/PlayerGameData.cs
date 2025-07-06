@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Interfaces;
 using SWEN_Game._Managers;
-using SWEN_Game._PlayerData;
+using SWEN_Game._Sound;
 
 namespace SWEN_Game._Items
 {
@@ -16,15 +12,28 @@ namespace SWEN_Game._Items
     public class PlayerGameData : IPlayerStats
     {
         private static PlayerGameData _instance;
-        public static PlayerGameData Instance => _instance;
+        public static PlayerGameData Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("PlayerGameData could not be created.");
+                }
+
+                return _instance;
+            }
+        }
+
+        public static void ResetInstanceForTests()
+        {
+            _instance = null;
+        }
 
         public IWeapon CurrentWeapon;
         public IWeapon BaseWeapon;
         public Texture2D BulletTexture;
         public Color BulletTint;
-
-        public int CurrentHealth = 8;
-        public int MaxHealth = 6;
         public float Speed = 130f;
         public Dictionary<int, Powerup> Powerups = new Dictionary<int, Powerup>();
 
@@ -49,14 +58,28 @@ namespace SWEN_Game._Items
         public int BulletPierceBonus = 0;
         public int MagazineSizeBonus = 0;
         public float ReloadSpeedBonus = 0; // Lower = faster
+        public float ReloadSpeedMultBonus = 1; // Lower = faster
         public float SpeedBonus = 0;
-        public float CritChance = 0;
+        public float CritChance = 0.05f;
+        public float SlowChance = 0;
 
-        public PlayerGameData()
+        public float PlayerSpeed { get; private set; } = 130f;
+        private float xp = 0;
+        private int level = 1;
+        private int currentHealth = 12;
+        private int maxHealth = 12;
+
+        private IGameStateManager _gameStateManager;
+
+        public PlayerGameData(IGameStateManager manager)
         {
             _instance = this;
+            _gameStateManager = manager;
         }
 
+        public int GetLevel() => _instance.level;
+        public IWeapon GetWeapon() => _instance.CurrentWeapon;
+        public IWeapon GetBaseWeapon() => _instance.BaseWeapon;
         public void AddAttackSpeedMult(float value) => _instance.AttackSpeedMult += value;
         public void AddShotSpeedMult(float value) => _instance.ShotSpeedMult += value;
         public void AddBulletSizeMult(float value) => _instance.BulletSizeMult += value;
@@ -73,12 +96,27 @@ namespace SWEN_Game._Items
 
         public void AddBulletPierceBonus(int value) => _instance.BulletPierceBonus += value;
         public void AddMagazineSizeBonus(int value) => _instance.MagazineSizeBonus += value;
-        public void AddMaxHealth(int value) => _instance.MaxHealth += value;
+        public void AddMaxHealth(int value) => _instance.maxHealth += value;
         public void AddReloadSpeedBonus(float value) => _instance.ReloadSpeedBonus += value;
+        public void AddReloadSpeedMultBonus(float value) => _instance.ReloadSpeedBonus += value;
         public void AddSpeedBonus(float value) => _instance.SpeedBonus += value;
         public void AddCritChance(float value) => _instance.CritChance += value;
-        public int GetCurrentHealth() => _instance.CurrentHealth;
-        public void SetCurrentHealth(int value) => _instance.CurrentHealth = value;
+        public void AddSlowChance(float value) => _instance.SlowChance += value;
+        public int GetCurrentHealth() => _instance.currentHealth;
+        public void SetCurrentHealth(int value) => _instance.currentHealth = value;
+        public int GetMaxHealth() => _instance.maxHealth;
+        public Texture2D SetBulletTexture(Texture2D value) => _instance.BulletTexture = value;
+        public float GetXP() => _instance.xp;
+        public void AddXP(float amount)
+        {
+            xp += amount;
+            CheckLevelUp();
+        }
+
+        public float GetRequiredXPForLevel()
+        {
+            return 20f + (this.level * 75f) + (this.level * this.level * 5f);
+        }
 
         /// <summary>
         /// Updates the current weapon's attributes based on the multipliers and flat values.
@@ -88,18 +126,20 @@ namespace SWEN_Game._Items
             UpdatePlayerGameData();
 
             // Update the current weapon with the new multipliers and flat values
-            CurrentWeapon.AttackSpeed = BaseWeapon.AttackSpeed * AttackSpeedMult + AttackSpeedFlat;
+            float calculatedAttackSpeed = (BaseWeapon.AttackSpeed + AttackSpeedFlat) * AttackSpeedMult;
+            CurrentWeapon.AttackSpeed = Math.Max(0.02f, calculatedAttackSpeed);
             CurrentWeapon.ShotSpeed = BaseWeapon.ShotSpeed * ShotSpeedMult + ShotSpeedFlat;
             CurrentWeapon.BulletSize = BaseWeapon.BulletSize * BulletSizeMult + BulletSizeFlat;
             CurrentWeapon.BulletSpread = BaseWeapon.BulletSpread * BulletSpreadMult + BulletSpreadFlat;
             CurrentWeapon.BulletsPerShot = BaseWeapon.BulletsPerShot * BulletsPerShotMult + BulletsPerShotFlat;
             CurrentWeapon.BulletDamage = BaseWeapon.BulletDamage * BulletDamageMult + BulletDamageFlat;
 
-            CurrentWeapon.ReloadTime = BaseWeapon.ReloadTime + ReloadSpeedBonus;
+            float calculatedReloadTime = BaseWeapon.ReloadTime * ReloadSpeedMultBonus + ReloadSpeedBonus;
+            CurrentWeapon.ReloadTime = Math.Max(0.25f, calculatedReloadTime);
             CurrentWeapon.Pierce = BaseWeapon.Pierce + BulletPierceBonus;
+            CurrentWeapon.MagazineSize = BaseWeapon.MagazineSize + MagazineSizeBonus;
 
-            float newSpeed = Speed + SpeedBonus;
-            InputManager.SetSpeed(newSpeed);
+            PlayerSpeed = Speed + SpeedBonus;
         }
 
         /// <summary>
@@ -110,7 +150,7 @@ namespace SWEN_Game._Items
         /// </remarks>
         private void UpdatePlayerGameData()
         {
-            MaxHealth = 6;
+            maxHealth = 12;
 
             // Reset to base before applying powerups
             AttackSpeedMult = 1;
@@ -131,12 +171,33 @@ namespace SWEN_Game._Items
             BulletPierceBonus = 0;
             MagazineSizeBonus = 0;
             ReloadSpeedBonus = 0;
+            ReloadSpeedMultBonus = 1;
             SpeedBonus = 0;
-            CritChance = 0;
+            CritChance = 0.05f;
+            SlowChance = 0;
+            PlayerSpeed = 130;
 
             foreach (var powerup in Powerups.Values)
             {
                 powerup.UpdatePlayerGameDataValues();
+            }
+        }
+
+        private void CheckLevelUp()
+        {
+            float requiredXP = GetRequiredXPForLevel();
+            while (xp >= requiredXP)
+            {
+                xp -= requiredXP;
+                level++;
+                requiredXP = level * 200f;
+
+                System.Diagnostics.Debug.WriteLine($"Player leveled up! New level: {level}");
+                SFXManager.Instance.Play("levelUp");
+                _gameStateManager.CaptureLastFrame();
+                _gameStateManager.ChangeGameState(GameState.LevelUp);
+
+                requiredXP = GetRequiredXPForLevel();
             }
         }
     }

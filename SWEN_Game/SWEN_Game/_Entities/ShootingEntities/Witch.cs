@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SWEN_Game._Anims;
 using SWEN_Game._Shooting;
+using SWEN_Game._Sound;
 using SWEN_Game._Utils;
 
 namespace SWEN_Game._Entities.Enemies
 {
-    public class Witch : Enemy
+    public class Witch : Enemy, IBulletShooter
     {
         private float shootCooldown = 2f;  // seconds
         private float shootTimer = 0f;
@@ -16,8 +16,9 @@ namespace SWEN_Game._Entities.Enemies
         public Witch(Vector2 spawnPosition)
         {
             Position = spawnPosition;
+            XPReward = 230;
             EnemySpeed = 70f;
-            CurrentHealth = 100f;
+            CurrentHealth = 140f;
             EnemyDamage = 1;
             FrameWidth = 24;
             FrameHeight = 24;
@@ -32,13 +33,14 @@ namespace SWEN_Game._Entities.Enemies
             this.AnimationManager.AddAnimation("WalkRight", walkRight);
         }
 
-        public override void UpdateCustomBehavior(EnemyManager enemyManager)
+        public override void UpdateCustomBehavior(IEnemyContext enemyManager)
         {
             shootTimer += Globals.Time;
 
             if (shootTimer >= shootCooldown)
             {
                 ShootAtPlayer(enemyManager);
+                SFXManager.Instance.Play("enemyShoot");
                 shootTimer = 0f;
             }
 
@@ -69,22 +71,34 @@ namespace SWEN_Game._Entities.Enemies
             return enemyBullets;
         }
 
-        private void ShootAtPlayer(EnemyManager enemyManager)
+        protected override void UpdateHitbox()
         {
-            Vector2 direction = Vector2.Normalize(enemyManager._player.RealPos - Position);
+            float biggerWidth = FrameWidth / 2.5f;
+            float biggerHeight = FrameHeight / 2.5f;
+
+            Hitbox = new Rectangle(
+                (int)(Position.X + FrameWidth / 3f),
+                (int)(Position.Y + FrameHeight / 2f),
+                (int)biggerWidth,
+                (int)biggerHeight);
+        }
+
+        private void ShootAtPlayer(IEnemyContext enemyManager)
+        {
+            Vector2 direction = Vector2.Normalize(enemyManager.PlayerPos - Position);
 
             Animation anim = new Animation(
                 Globals.Content.Load<Texture2D>("Sprites/Bullets/CannonBullet"),
                 1,
                 4,
-                0.1f,
+                0.2f,
                 16,
                 16,
                 1,
-                Color.Red,
+                Color.Orange,
                 1f);
 
-            Bullet bullet = new Bullet(anim, Position, direction, 200f, 1f, 0, 0f, null, 1f);
+            Bullet bullet = new Bullet(anim, Position, direction, 200f, 1f, 0, 0f, 0f, null, 1f);
             enemyBullets.Add(bullet);
         }
     }

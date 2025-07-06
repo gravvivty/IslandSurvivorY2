@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SWEN_Game._PlayerData;
+﻿using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Items._ItemData
 {
@@ -25,13 +19,13 @@ namespace SWEN_Game._Items._ItemData
             switch (this.Level)
             {
                 case 1:
-                    this.attackSpeedMult += 0.9f;
+                    this.attackSpeedMult -= 0.1f;
                     break;
                 case 2:
-                    this.attackSpeedMult += 0.8f;
+                    this.attackSpeedMult -= 0.2f;
                     break;
                 case 3:
-                    this.attackSpeedMult += 0.7f;
+                    this.attackSpeedMult -= 0.5f;
                     break;
                 default:
                     break;

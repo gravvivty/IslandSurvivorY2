@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using SWEN_Game._Entities.Enemies;
 using SWEN_Game._Utils;
 
@@ -10,6 +7,7 @@ namespace SWEN_Game._Entities.EnemySpawning
     public class EnemySpawner
     {
         private readonly IEnemyConsumer _enemyManagerConsumer;
+        private IEnemyFactory _enemyFactory;
         private float _enemySpawnInterval = 1.5f;
         private float _timeSinceLastSpawn = 0f;
         private int _maxAllowedEnemies = 200;
@@ -17,11 +15,12 @@ namespace SWEN_Game._Entities.EnemySpawning
         private Random _random = new Random();
         private Player _player;
 
-        public EnemySpawner(Player player, IEnemyConsumer consumer)
+        public EnemySpawner(Player player, IEnemyConsumer consumer, IEnemyFactory enemyFactory)
         {
             _player = player;
             _currentSpawnWeights = new Dictionary<string, float> { { "Mummy", 0.5f }, { "Shroom", 0.5f } };
             _enemyManagerConsumer = consumer;
+            _enemyFactory = enemyFactory;
         }
 
         public void SetSpawnWeights(Dictionary<string, float> weights)
@@ -43,17 +42,7 @@ namespace SWEN_Game._Entities.EnemySpawning
 
         public void SpawnEnemy(string type, Vector2 pos)
         {
-            Enemy enemy = type switch
-            {
-                "Mummy" => new Mummy(pos),
-                "Shark" => new Shark(pos),
-                "Shroom" => new Shroom(pos),
-                "Baumbart" => new Baumbart(pos),
-                "Witch" => new Witch(pos),
-                "Slime" => new Slime(pos),
-                "SlimeBoss" => new SlimeBoss(pos),
-                _ => throw new ArgumentException($"Unknown type: {type}")
-            };
+            Enemy enemy = _enemyFactory.CreateEnemy(type, pos);
             _enemyManagerConsumer.QueueEnemy(enemy);
         }
 
@@ -63,6 +52,11 @@ namespace SWEN_Game._Entities.EnemySpawning
             double angle = _random.NextDouble() * MathHelper.TwoPi;
             float dist = min + (float)_random.NextDouble() * (max - min);
             return playerPos + new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * dist;
+        }
+
+        public void SetSpawnInterval(float interval)
+        {
+            _enemySpawnInterval = interval;
         }
 
         private string GetRandomEnemyType()

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SWEN_Game._PlayerData;
+﻿using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Items._ItemData
 {
@@ -28,10 +22,10 @@ namespace SWEN_Game._Items._ItemData
                     this.bulletPierce += 1;
                     break;
                 case 2:
-                    this.bulletPierce += 2;
+                    this.bulletPierce += 3;
                     break;
                 case 3:
-                    this.bulletPierce += 5;
+                    this.bulletPierce += 6;
                     break;
                 default:
                     break;

@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SWEN_Game._Entities;
 using SWEN_Game._Graphics;
+using SWEN_Game._Interfaces;
 using SWEN_Game._Items;
 using SWEN_Game._Shooting;
+using SWEN_Game._Sound;
 using SWEN_Game._Utils;
 
 namespace SWEN_Game._Managers
@@ -22,14 +23,16 @@ namespace SWEN_Game._Managers
         private readonly Debug _debug;
         private readonly EnemyManager _enemyManager;
         private readonly PlayerGameData _playerGameData;
+        private readonly IGameStateManager _gameStateManager;
 
-        public GameManager()
+        public GameManager(IGameStateManager manager)
         {
-            _playerGameData = new PlayerGameData();
+            _gameStateManager = manager;
+            _playerGameData = new PlayerGameData(_gameStateManager);
             _spriteManager = new SpriteManager();
             _spriteManager.MapTileToTexture();
-            _player = new Player(PlayerGameData.Instance);
-            _player.AddSpriteManager(_spriteManager);
+            _player = new Player(PlayerGameData.Instance, _gameStateManager);
+            _player.InitPlayer(_spriteManager);
             _spriteCalculator = new SpriteCalculator(_spriteManager, _player);
             _renderer = new Renderer(_player, _spriteManager, _spriteCalculator);
 
@@ -40,8 +43,10 @@ namespace SWEN_Game._Managers
             _enemyManager = new EnemyManager(_player);
 
             _powerupManager = new PowerupManager(_playerWeapon, PlayerGameData.Instance);
+            Globals.GameStateManager.GetUIManager().GetLevelUpUI().SetPowerupManager(_powerupManager);
+            Globals.GameStateManager.GetUIManager().SetWeaponManager(_weaponManager);
 
-            _debug = new Debug(_player, _renderer, _powerupManager);
+            _debug = new Debug(_player, _renderer, _powerupManager, _enemyManager, _playerWeapon);
 
             // Calculates all collisions in the level
             Globals.CalculateAllCollisions();
@@ -51,6 +56,10 @@ namespace SWEN_Game._Managers
 
             // Set Global Classes
             Globals.SpriteManager = _spriteManager;
+
+            SongManager.Instance.Stop();
+            SongManager.Instance.Play("World");
+            SongManager.Instance.SetVolume(Globals.SoundVolume);
         }
 
         /// <summary>
@@ -67,7 +76,7 @@ namespace SWEN_Game._Managers
             _playerWeapon.Update();
 
             // - 6 on the x axis so that the enemies try to hit the "middle"
-            _enemyManager.Update(_playerWeapon.GetBullets(), _player.Position - new Vector2(6, 0));
+            _enemyManager.Update(_playerWeapon.GetBullets(), _player.RealPos);
 
             // Debug
             _debug.DebugUpdate();
@@ -93,7 +102,7 @@ namespace SWEN_Game._Managers
 
             // Custom draw functions that differ from basic game draw logic
 
-            // _debug.DrawWorldDebug();
+            _debug.DrawWorldDebug();
             Cursor.DrawCursor();
         }
     }

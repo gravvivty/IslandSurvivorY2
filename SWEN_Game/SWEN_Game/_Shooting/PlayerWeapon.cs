@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SWEN_Game._Utils;
 using SWEN_Game._Anims;
 using SWEN_Game._Items;
+using SWEN_Game._Sound;
+using SWEN_Game._Utils;
 
 namespace SWEN_Game._Shooting
 {
@@ -42,6 +40,14 @@ namespace SWEN_Game._Shooting
         {
             float gametime = Globals.Time;
             TimeSinceLastShot += (float)gametime;
+
+            if (PlayerGameData.Instance.CurrentWeapon.CurrentAmmo <= 0 &&
+                !PlayerGameData.Instance.CurrentWeapon.IsReloading)
+            {
+                PlayerGameData.Instance.CurrentWeapon.IsReloading = true;
+                PlayerGameData.Instance.CurrentWeapon.ReloadTimer = 0f;
+                System.Diagnostics.Debug.WriteLine("Auto-reloading...");
+            }
 
             Reload(gametime);
 
@@ -102,6 +108,28 @@ namespace SWEN_Game._Shooting
                 if (PlayerGameData.Instance.CurrentWeapon.CurrentAmmo > 0)
                 {
                     ShootInDirection(direction, player_position);
+                    switch (PlayerGameData.Instance.BaseWeapon.Name)
+                    {
+                        case "Assault Rifle":
+                            SFXManager.Instance.Play("akShoot");
+                            break;
+                        case "Pistol":
+                            SFXManager.Instance.Play("pistolShoot");
+                            break;
+                        case "Revolver":
+                            SFXManager.Instance.Play("revolverShoot");
+                            break;
+                        case "Precision Rifle":
+                            SFXManager.Instance.Play("precisionShoot");
+                            break;
+                        case "Blunderbuss":
+                            SFXManager.Instance.Play("blunderbussShoot");
+                            break;
+                        default:
+                            SFXManager.Instance.Play("pistolShoot");
+                            break;
+                    }
+
                     PlayerGameData.Instance.CurrentWeapon.CurrentAmmo--;
 
                     foreach (var mod in _modifiers)
@@ -130,11 +158,12 @@ namespace SWEN_Game._Shooting
         /// </summary>
         /// <param name="direction">Direction to shoot the bullet.</param>
         /// <param name="player_position">Starting position of the bullet.</param>
-        /// <param name="isDemonBullet">Optional flag to mark the bullet as a "demon" bullet.</param>
-        public void ShootInDirection(Vector2 direction, Vector2 player_position, bool? isDemonBullet = null)
+        /// <param name="isShadowBullet">Optional flag to mark the bullet as a "demon" bullet.</param>
+        public void ShootInDirection(Vector2 direction, Vector2 player_position, bool? isShadowBullet = null)
         {
             Color tint = PlayerGameData.Instance.BulletTint;
-            bool isChild = isDemonBullet ?? false;
+            bool isChild = isShadowBullet ?? false;
+            float opacity = isChild ? 0.3f : 1f;
 
             if (isChild)
             {
@@ -150,7 +179,8 @@ namespace SWEN_Game._Shooting
                 16,
                 1,
                 tint,
-                PlayerGameData.Instance.CurrentWeapon.BulletSize);
+                PlayerGameData.Instance.CurrentWeapon.BulletSize,
+                opacity);
             _bullets.Add(
                 new Bullet(
                     anim,
@@ -160,6 +190,7 @@ namespace SWEN_Game._Shooting
                     PlayerGameData.Instance.CurrentWeapon.BulletSize,
                     PlayerGameData.Instance.CurrentWeapon.Pierce,
                     PlayerGameData.Instance.CritChance,
+                    PlayerGameData.Instance.SlowChance,
                     this,
                     PlayerGameData.Instance.CurrentWeapon.BulletDamage,
                     isChild));
@@ -173,6 +204,11 @@ namespace SWEN_Game._Shooting
         {
             if (PlayerGameData.Instance.CurrentWeapon.IsReloading)
             {
+                if (PlayerGameData.Instance.CurrentWeapon.ReloadTimer == 0f)
+                {
+                    SFXManager.Instance.Play("reload");
+                }
+
                 PlayerGameData.Instance.CurrentWeapon.ReloadTimer += gametime;
                 if (PlayerGameData.Instance.CurrentWeapon.ReloadTimer >= PlayerGameData.Instance.CurrentWeapon.ReloadTime)
                 {

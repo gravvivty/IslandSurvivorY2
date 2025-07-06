@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Assimp.Unmanaged;
-using SharpFont.Cache;
 using SWEN_Game._Anims;
+using SWEN_Game._Sound;
 using SWEN_Game._Utils;
-using SWEN_Game._Shooting;
-using SWEN_Game._Shooting._Modifiers;
 
 namespace SWEN_Game._Entities.Enemies
 {
@@ -23,7 +15,8 @@ namespace SWEN_Game._Entities.Enemies
         public SlimeBoss(Vector2 startPosition)
         {
             Position = startPosition;
-            CurrentHealth = 1000f;
+            XPReward = 2400;
+            CurrentHealth = 4000f;
             EnemyDamage = 2;
             EnemySpeed = 50f;
             FrameWidth = 48;
@@ -38,18 +31,19 @@ namespace SWEN_Game._Entities.Enemies
             this.AnimationManager.AddAnimation("WalkRight", walkRight);
         }
 
-        public override void UpdateCustomBehavior(EnemyManager enemyManager)
+        public override void UpdateCustomBehavior(IEnemyContext enemyManager)
         {
             _timeSinceLastSpawn += Globals.Time;
 
             if (_timeSinceLastSpawn >= _spawnCooldown)
             {
                 _timeSinceLastSpawn = 0f;
+                SFXManager.Instance.Play("splat");
 
                 for (int i = 0; i < 8; i++)
                 {
                     float angle = MathHelper.TwoPi / 8 * i;
-                    float radius = 50f;
+                    float radius = 20f;
 
                     Vector2 offset = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * radius;
                     Vector2 spawnPos = Position + offset;
@@ -57,6 +51,18 @@ namespace SWEN_Game._Entities.Enemies
                     enemyManager.QueueEnemy(new Slime(spawnPos));
                 }
             }
+        }
+
+        protected override void UpdateHitbox()
+        {
+            float biggerWidth = FrameWidth / 1.5f;
+            int biggerHeight = FrameHeight / 2;
+
+            Hitbox = new Rectangle(
+                (int)(Position.X + FrameWidth / 5),
+                (int)(Position.Y + FrameHeight / 3f),
+                (int)biggerWidth,
+                biggerHeight);
         }
     }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace SWEN_Game._Anims
 {
     public class AnimationManager
     {
         // Key for this Map can be anything - i think
-        private readonly Dictionary<object, Animation> _animations = new Dictionary<object, Animation>();
+        private readonly Dictionary<object, Animation> _animations = new();
         private object _currentKey;
         public AnimationManager()
         {
@@ -20,7 +17,7 @@ namespace SWEN_Game._Anims
         /// </summary>
         /// <param name="key">Object under which your Animation should be known.</param>
         /// <param name="animation">Animation itself.</param>
-        public void AddAnimation(object key, Animation animation)
+        public virtual void AddAnimation(object key, Animation animation)
         {
             _animations.Add(key, animation);
             if (_currentKey == null)
@@ -33,11 +30,19 @@ namespace SWEN_Game._Anims
         /// Starts and Updates the Animation if the Key exists - stops and resets if it doesn't.
         /// </summary>
         /// <param name="key">Object under which the Animation is known for lookup.</param>
-        public void Update(object key)
+        public virtual void Update(object key)
         {
             // If Key exists - start the animation and update it
             if (_animations.ContainsKey(key))
             {
+                // Wenn wir auf eine andere Animation wechseln, stoppe die alte
+                if (_currentKey != null && !_currentKey.Equals(key) && _animations.ContainsKey(_currentKey))
+                {
+                    _animations[_currentKey].Stop();
+                    _animations[_currentKey].Reset();
+                    _currentKey = key;
+                }
+
                 _animations[key].Start();
                 _animations[key].Update();
                 _currentKey = key;
@@ -54,7 +59,7 @@ namespace SWEN_Game._Anims
         /// </summary>
         /// <param name="position">Where the Sprite should be drawn.</param>
         /// <param name="tintColor">Optional: Color for the Sprite.</param>
-        public void Draw(Vector2 position, Color? tintColor = null)
+        public virtual void Draw(Vector2 position, Color? tintColor = null)
         {
             _animations[_currentKey].Draw(position, tintColor);
         }

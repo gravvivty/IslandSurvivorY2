@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using LDtk;
+﻿using LDtk;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SWEN_Game._Entities;
-using SWEN_Game._Managers;
 using SWEN_Game._Utils;
+using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Graphics
 {
     public class Renderer
     {
         private static readonly float DepthRadius = 500f;
-        private Player _player;
+        private IPlayer _player;
         private SpriteManager _spriteManager;
         private SpriteCalculator _spriteCalculator;
 
-        public Renderer(Player player, SpriteManager spriteManager, SpriteCalculator spriteCalculator)
+        public Renderer(IPlayer player, SpriteManager spriteManager, SpriteCalculator spriteCalculator)
         {
             _player = player;
             _spriteManager = spriteManager;

@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Assimp.Unmanaged;
-using SharpFont.Cache;
 using SWEN_Game._Anims;
 using SWEN_Game._Utils;
-using SWEN_Game._Shooting;
-using SWEN_Game._Shooting._Modifiers;
 
 namespace SWEN_Game._Entities.Enemies
 {
@@ -19,7 +10,8 @@ namespace SWEN_Game._Entities.Enemies
         public Shark(Vector2 startPosition)
         {
             Position = startPosition;
-            CurrentHealth = 75f;
+            XPReward = 65;
+            CurrentHealth = 125f;
             EnemyDamage = 1;
             EnemySpeed = 80f;
             FrameWidth = 24;
@@ -32,6 +24,18 @@ namespace SWEN_Game._Entities.Enemies
             this.AnimationManager = new AnimationManager();
             this.AnimationManager.AddAnimation("WalkLeft", walkLeft);
             this.AnimationManager.AddAnimation("WalkRight", walkRight);
+        }
+
+        protected override void UpdateHitbox()
+        {
+            float biggerWidth = FrameWidth / 1.5f;
+            float biggerHeight = FrameHeight / 2f;
+
+            Hitbox = new Rectangle(
+                (int)(Position.X + FrameWidth / 4f),
+                (int)(Position.Y + FrameHeight / 3f),
+                (int)biggerWidth,
+                (int)biggerHeight);
         }
     }
 }

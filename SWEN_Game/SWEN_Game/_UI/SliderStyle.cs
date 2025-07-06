@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework.Graphics;
-using MLEM.Textures;
-using MLEM.Ui.Style;
+﻿using MLEM.Textures;
 
 namespace SWEN_GAME
 {

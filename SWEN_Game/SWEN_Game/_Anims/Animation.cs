@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SWEN_Game._Utils;
 
@@ -24,8 +22,9 @@ namespace SWEN_Game._Anims
         private bool isActive = true;
 
         private Color _tintColor;
+        private float _opacity;
 
-        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int fWidth, int fHeight, int column = 1, Color? tintColor = null, float? scale = null)
+        public Animation(Texture2D texture, int framesX, int framesY, float frameTime, int fWidth, int fHeight, int column = 1, Color? tintColor = null, float? scale = null, float? opacity = null)
         {
             // Spritesheet
             _texture = texture;
@@ -49,12 +48,13 @@ namespace SWEN_Game._Anims
 
             _tintColor = tintColor ?? Color.White;
             _scale = scale ?? 1f;
+            _opacity = opacity ?? 1f;
         }
 
         /// <summary>
         /// Starts the Animation.
         /// </summary>
-        public void Start()
+        public virtual void Start()
         {
             isActive = true;
         }
@@ -62,7 +62,7 @@ namespace SWEN_Game._Anims
         /// <summary>
         /// Stops the Animation.
         /// </summary>
-        public void Stop()
+        public virtual void Stop()
         {
             isActive = false;
         }
@@ -70,7 +70,7 @@ namespace SWEN_Game._Anims
         /// <summary>
         /// Resets the current Animation to first Frame.
         /// </summary>
-        public void Reset()
+        public virtual void Reset()
         {
             _currentFrame = 0;
             _frameTimeLeft = _frameTime;
@@ -79,7 +79,7 @@ namespace SWEN_Game._Anims
         /// <summary>
         /// Handles the Frame Timer and cycles through all Frames of an Animation.
         /// </summary>
-        public void Update()
+        public virtual void Update()
         {
             if (!isActive)
             {
@@ -102,9 +102,10 @@ namespace SWEN_Game._Anims
         /// </summary>
         /// <param name="position">Where the Sprite should be drawn.</param>
         /// <param name="tintColor">Optional: Color for the Sprite.</param>
-        public void Draw(Vector2 position, Color? tintColor = null)
+        public virtual void Draw(Vector2 position, Color? tintColor = null)
         {
             Color color = tintColor ?? _tintColor;
+            color *= _opacity;
             float depth = Globals.SpriteManager.GetDepth(position, frameWidth);
             Globals.SpriteBatch.Draw(
                 _texture,

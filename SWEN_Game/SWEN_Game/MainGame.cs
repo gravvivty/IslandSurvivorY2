@@ -1,14 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using MLEM.Font;
-using MLEM.Input;
-using MLEM.Maths;
-using MLEM.Textures;
-using MLEM.Ui;
-using MLEM.Ui.Style;
 using SWEN_Game._Managers;
+using SWEN_Game._Sound;
 
 namespace SWEN_Game
 {
@@ -22,6 +15,7 @@ namespace SWEN_Game
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Window.Title = "Island Survivor";
             IsMouseVisible = false;
 
             _graphics.PreferredBackBufferWidth = 1920;
@@ -40,9 +34,39 @@ namespace SWEN_Game
 
         protected override void LoadContent()
         {
+            var songs = new Dictionary<string, string>
+            {
+                { "World", "Music/deltaruneWorldRevolving" },
+                { "Portal", "Music/portalRadio" },
+                { "Main", "Music/main" },
+            };
+
+            var sounds = new Dictionary<string, string>
+            {
+                { "enemyDeath", "SFX/enemyDeath" },
+                { "enemyHit", "SFX/enemyHit" },
+                { "levelUp", "SFX/levelUp" },
+                { "playerHit", "SFX/playerHit" },
+                { "enemyShoot", "SFX/enemyShoot" },
+                { "reload", "SFX/reload" },
+                { "slow", "SFX/slow" },
+                { "uiConfirm", "SFX/uiConfirm" },
+                { "uiSelect", "SFX/uiSelect" },
+                { "enemyHitCrit", "SFX/enemyHitCrit" },
+                { "playerDeath", "SFX/playerDeath" },
+                { "splat", "SFX/splat" },
+                { "akShoot", "SFX/akShoot" },
+                { "blunderbussShoot", "SFX/blunderbussShoot" },
+                { "pistolShoot", "SFX/pistolShoot" },
+                { "precisionShoot", "SFX/precisionShoot" },
+                { "revolverShoot", "SFX/revolverShoot" },
+            };
             // Create necessary classes and set Global Values
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            SFXManager.Instance.LoadSounds(Content, sounds);
+            SongManager.Instance.LoadSongs(Content, songs);
             _gameStateManager = new GameStateManager(this, _graphics, Content, _spriteBatch);
+            SongManager.Instance.Play("Main");
         }
 
         protected override void Update(GameTime gameTime)
@@ -56,7 +80,6 @@ namespace SWEN_Game
         {
             GraphicsDevice.Clear(Color.Black);
             _gameStateManager.Draw(gameTime, _spriteBatch);
-
             base.Draw(gameTime);
         }
     }

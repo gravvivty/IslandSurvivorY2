@@ -1,9 +1,10 @@
-﻿using System;
-using LDtk;
+﻿using LDtk;
 using LDtkTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Interfaces;
+using SWEN_Game._Sound;
 using SWEN_Game._UI;
 using SWEN_Game._Utils;
 
@@ -14,17 +15,22 @@ namespace SWEN_Game._Managers
         MainMenu,
         Playing,
         Paused,
+        GameOver,
+        GameWon,
+        LevelUp,
     }
 
-    public class GameStateManager
+    public class GameStateManager : IGameStateManager
     {
-        public GameState CurrentGameState { get; private set; } = GameState.MainMenu;
+        public GameState CurrentGameState { get; set; } = GameState.MainMenu;
         private UIManager _uiManager;
         private GameManager _gameManager;
+        public UIManager GetUIManager() => _uiManager;
 
         public GameStateManager(Game game, GraphicsDeviceManager graphicsDeviceManager, ContentManager content, SpriteBatch spriteBatch)
         {
             Globals.SpriteBatch = spriteBatch;
+            Globals.GameStateManager = this;
             Globals.Content = content;
             Globals.File = LDtkFile.FromFile("World", content);
             Globals.World = Globals.File.LoadWorld(Worlds.World.Iid);
@@ -36,49 +42,61 @@ namespace SWEN_Game._Managers
 
         public void ChangeGameState(GameState newGameState)
         {
-            if (newGameState == GameState.Playing && _gameManager == null)
-            {
-                _gameManager = new GameManager();
-            }
-
             CurrentGameState = newGameState;
+            _uiManager.OnGameStateChanged(newGameState);
         }
 
         public void Update(GameTime gameTime)
         {
-            Globals.UpdateTime(gameTime);
+            Globals.LastGameTime = gameTime;
 
-            switch (CurrentGameState)
+            if (CurrentGameState == GameState.Playing)
             {
-                case GameState.MainMenu:
-                    _uiManager.Update(gameTime);
-                    break;
+                Globals.UpdateTime(gameTime);
+                _gameManager?.Update();
 
-                case GameState.Playing:
-                    _uiManager.Update(gameTime);
-                    _gameManager?.Update();
-                    break;
-
-                case GameState.Paused:
-                    _uiManager.Update(gameTime);
-                    break;
+                if (Globals.TotalGameTime >= 601)
+                {
+                    CaptureLastFrame();
+                    ChangeGameState(GameState.GameWon);
+                }
             }
+
+            _uiManager.Update(gameTime);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            switch (CurrentGameState)
+            if (CurrentGameState == GameState.Playing)
             {
-                case GameState.MainMenu:
-                    _uiManager.Draw(gameTime, spriteBatch);
-                    break;
-                case GameState.Playing:
-                    _gameManager?.Draw();
-                    break;
-                case GameState.Paused:
-                    _uiManager.Draw(gameTime, spriteBatch);
-                    break;
+                _gameManager?.Draw();
             }
+
+            _uiManager.Draw(gameTime, spriteBatch);
+        }
+
+        public void ResetGame()
+        {
+            Globals.TotalGameTime = 0;
+            SFXManager.Instance.ResetCooldowns();
+            Globals.WinRenderTarget?.Dispose();
+            Globals.WinRenderTarget = null;
+            _gameManager = new GameManager(this); // Re-create everything
+            ChangeGameState(GameState.Playing);
+        }
+
+        public void CaptureLastFrame()
+        {
+            var device = Globals.Graphics.GraphicsDevice;
+
+            var renderTarget = new RenderTarget2D(device, Globals.WindowSize.X, Globals.WindowSize.Y);
+            device.SetRenderTarget(renderTarget);
+            device.Clear(Color.White);
+
+            Draw(Globals.LastGameTime, Globals.SpriteBatch); // Draw current game frame
+
+            device.SetRenderTarget(null);
+            Globals.WinRenderTarget = renderTarget; // Store it globally
         }
     }
 }

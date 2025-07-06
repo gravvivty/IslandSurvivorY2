@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SWEN_Game._Utils;
 using SWEN_Game._Anims;
 using SWEN_Game._Entities;
+using SWEN_Game._Utils;
 
 namespace SWEN_Game._Shooting
 {
@@ -22,10 +19,11 @@ namespace SWEN_Game._Shooting
         public IPlayerWeapon Weapon { get; set; }
         public bool IsVisible { get; set; } = true;
         public float Timer { get; set; }
-        public bool IsDemonBullet { get; set; }
+        public bool IsShadowBullet { get; set; }
         public int PiercingCount { get; set; } = 0;
         public Vector2 Position { get; private set; }
         public float CritChance { get; set; } = 0f;
+        public float SlowChance { get; set; } = 0f;
         private Vector2 _shotSpeed;
         private float _bulletSize;
         private float _visibilityTime = 2f;
@@ -41,10 +39,11 @@ namespace SWEN_Game._Shooting
         /// <param name="bulletSize">The size of the bullet for collision purposes.</param>
         /// <param name="piercingCount">How many enemies the bullet can pierce through.</param>
         /// <param name="critChance">The Crit Chance of the player.</param>
+        /// <param name="slowChance">The Slow Chance of the player.</param>
         /// <param name="weapon">The weapon instance that created the bullet.</param>
         /// <param name="dmg">The damage this bullet deals.</param>
         /// <param name="isChild">Indicates if this bullet is a child (demon) bullet with modified damage.</param>
-        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, float critChance, IPlayerWeapon weapon, float dmg, bool? isChild = null)
+        public Bullet(Animation animation, Vector2 startposition, Vector2 direction, float shotSpeed, float bulletSize, int piercingCount, float critChance, float slowChance, IPlayerWeapon weapon, float dmg, bool? isChild = null)
         {
             _animation = animation;
             _animation.Reset();
@@ -56,10 +55,11 @@ namespace SWEN_Game._Shooting
             PiercingCount = piercingCount;
             Weapon = weapon;
             CritChance = critChance;
-            IsDemonBullet = isChild ?? false;
-            if (IsDemonBullet)
+            SlowChance = slowChance;
+            IsShadowBullet = isChild ?? false;
+            if (IsShadowBullet)
             {
-                Damage = dmg / 3;
+                Damage = dmg / 5;
             }
             else
             {
@@ -73,7 +73,7 @@ namespace SWEN_Game._Shooting
         public void Update()
         {
             Position += _shotSpeed * (float)Globals.Time;
-            BulletHitbox = new Rectangle((int)Position.X, (int)Position.Y, (int)(_bulletSize + 4f), (int)(_bulletSize + 4f));
+            BulletHitbox = new Rectangle((int)Position.X + 4, (int)Position.Y + 4, (int)(_bulletSize * 10), (int)(_bulletSize * 10));
             Timer += (float)Globals.Time;
             _animation.Update();
 
@@ -85,8 +85,12 @@ namespace SWEN_Game._Shooting
 
             if (Globals.IsCollidingHitbox(BulletHitbox))
             {
-                IsVisible = false;
-                Timer = 0f;
+                PiercingCount--;
+                if (PiercingCount <= 0)
+                {
+                    IsVisible = false;
+                    Timer = 0f;
+                }
             }
         }
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SWEN_Game._Interfaces;
 using SWEN_Game._Items._ItemData;
-using SWEN_Game._PlayerData;
+using SWEN_Game._Items._Modifiers;
 using SWEN_Game._Shooting;
-using SWEN_Game._Shooting._Modifiers;
 
 namespace SWEN_Game._Items
 {
@@ -62,7 +60,7 @@ namespace SWEN_Game._Items
                 case 1:
                     return new GunpowderPowerup(level, stats);
                 case 2:
-                    return new ReverseShotPowerup(level, stats);
+                    return new MultiShotPowerup(level, stats);
                 case 3:
                     return new PiercerPowerup(level, stats);
                 case 4:
@@ -72,13 +70,21 @@ namespace SWEN_Game._Items
                 case 6:
                     return new RancidEnergyDrinkPowerup(level, stats);
                 case 7:
-                    return new DemonBulletsPowerup(level, stats);
+                    return new ShadowBulletsPowerup(level, stats);
                 case 8:
                     return new QuickHandsPowerup(level, stats);
                 case 9:
                     return new SpicyNoodlesPowerup(level, stats);
                 case 10:
                     return new DeadeyePowerup(level, stats);
+                case 11:
+                    return new HeavyMagsPowerup(level, stats);
+                case 12:
+                    return new ExtremeTeapowderPowerup(level, stats);
+                case 13:
+                    return new FrozenTearsPowerup(level, stats);
+                case 14:
+                    return new SpeedColaPowerup(level, stats);
 
                 // Add more item cases here
                 default:
@@ -116,9 +122,9 @@ namespace SWEN_Game._Items
 
                     foreach (var mod in modifiers)
                     {
-                        if (mod is ReverseShotModifier reverseMod)
+                        if (mod is MultiShotModifier multiMod)
                         {
-                            reverseMod.SetReverseShotModifier(level);
+                            multiMod.SetMultiShotModifier(level);
                             found = true;
                             break;
                         }
@@ -126,19 +132,19 @@ namespace SWEN_Game._Items
 
                     if (!found)
                     {
-                        ReverseShotModifier newReverseShotMod = new ReverseShotModifier();
-                        newReverseShotMod.SetReverseShotModifier(level);
+                        MultiShotModifier newReverseShotMod = new MultiShotModifier();
+                        newReverseShotMod.SetMultiShotModifier(level);
                         weapon.AddModifier(newReverseShotMod);
                     }
 
                     break;
-                case 7: // DemonBullets
+                case 7: // ShadowBullets
 
                     foreach (var mod in modifiers)
                     {
-                        if (mod is DemonBulletsModifier demonMod)
+                        if (mod is ShadowBulletsModifier demonMod)
                         {
-                            demonMod.SetDemonBulletsModifier(level);
+                            demonMod.SetShadowBulletsModifier(level);
                             found = true;
                             break;
                         }
@@ -146,8 +152,8 @@ namespace SWEN_Game._Items
 
                     if (!found)
                     {
-                        DemonBulletsModifier newDemonBulletsMod = new DemonBulletsModifier();
-                        newDemonBulletsMod.SetDemonBulletsModifier(level);
+                        ShadowBulletsModifier newDemonBulletsMod = new ShadowBulletsModifier();
+                        newDemonBulletsMod.SetShadowBulletsModifier(level);
                         weapon.AddModifier(newDemonBulletsMod);
                     }
 

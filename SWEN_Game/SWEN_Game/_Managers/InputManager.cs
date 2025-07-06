@@ -1,12 +1,8 @@
-﻿using System;
-using Assimp.Configs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SharpFont;
 using SWEN_Game._Entities;
 using SWEN_Game._Items;
+using SWEN_Game._Sound;
 using SWEN_Game._Utils;
 
 namespace SWEN_Game._Managers
@@ -22,6 +18,8 @@ namespace SWEN_Game._Managers
         /// <param name="keyboardState">KeyboardState reference.</param>
         public static void Update(Player player, KeyboardState keyboardState)
         {
+            Speed = PlayerGameData.Instance.PlayerSpeed;
+
             Vector2 moveDirection = Vector2.Zero;
 
             // How long was the button held
@@ -70,11 +68,6 @@ namespace SWEN_Game._Managers
             player.SetDirection(moveDirection);
         }
 
-        public static void SetSpeed(float speed)
-        {
-            Speed = speed;
-        }
-
         /// <summary>
         /// Checks movement in Y direction.
         /// </summary>
@@ -86,7 +79,7 @@ namespace SWEN_Game._Managers
             Vector2 tentativePosition = player.Position;
             tentativePosition.Y += moveDirection.Y * Speed * delta;
 
-            Rectangle yCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 8, 8, 8);
+            Rectangle yCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 6, 8, 8);
 
             if (!Globals.IsColliding(yCollision))
             {
@@ -105,7 +98,7 @@ namespace SWEN_Game._Managers
             Vector2 tentativePosition = player.Position;
             tentativePosition.X += moveDirection.X * Speed * delta;
 
-            Rectangle xCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 8, 8, 8);
+            Rectangle xCollision = new Rectangle((int)tentativePosition.X + 4, (int)tentativePosition.Y + 6, 8, 8);
 
             if (!Globals.IsColliding(xCollision))
             {

@@ -1,35 +1,32 @@
-﻿using System;
-using Assimp;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Graphics;
 using SWEN_Game._Items;
 
 namespace SWEN_Game._Shooting
 {
     public class Weapon : IWeapon
     {
-        public float AttackSpeed { get; set; }
-        public float ShotSpeed { get; set; }
-        public float BulletSize { get; set; }
-        public float BulletSpread { get; set; }
-        public int BulletsPerShot { get; set; }
-        public float BulletDamage { get; set; }
-        public float TimeSinceLastShot { get; set; }
-        public int MagazineSize { get; set; }
-        public int CurrentAmmo { get; set; }
-        public bool IsReloading { get; set; } = false;
-        public float ReloadTime { get; set; } = 1.0f;
-        public float ReloadTimer { get; set; } = 0f;
-        public int Pierce { get; set; } = 0;
+        public virtual float AttackSpeed { get; set; }
+        public virtual float ShotSpeed { get; set; }
+        public virtual float BulletSize { get; set; }
+        public virtual float BulletSpread { get; set; }
+        public virtual int BulletsPerShot { get; set; }
+        public virtual float BulletDamage { get; set; }
+        public virtual float TimeSinceLastShot { get; set; }
+        public virtual int MagazineSize { get; set; }
+        public virtual int CurrentAmmo { get; set; }
+        public virtual bool IsReloading { get; set; } = false;
+        public virtual float ReloadTime { get; set; } = 1.0f;
+        public virtual float ReloadTimer { get; set; } = 0f;
+        public virtual int Pierce { get; set; } = 0;
+        public virtual string Name { get; set; }
 
-        public Texture2D bulletTexture;
-        public Texture2D ingameSprite;
-        public Texture2D iconSprite;
+        public virtual Texture2D BulletTexture { get; set; }
+        public virtual Texture2D IngameSprite { get; set; }
+        public virtual Texture2D IconSprite { get; set; }
 
-        public Weapon(float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, int magSize, float reloadTime, int pierce, Texture2D bulletTexture, Texture2D icon, Texture2D ingame)
+        public Weapon(string name, float attackspeed, float shotspeed, float bulletSize, float bulletSpread, int bulletsPerShot, float bulletDamage, int magSize, float reloadTime, int pierce, Texture2D bulletTexture, Texture2D icon, Texture2D ingame)
         {
+            this.Name = name;
             this.AttackSpeed = attackspeed;
             this.ShotSpeed = shotspeed;
             this.BulletSize = bulletSize;
@@ -41,9 +38,9 @@ namespace SWEN_Game._Shooting
             this.ReloadTime = reloadTime;
             this.Pierce = pierce;
 
-            this.bulletTexture = bulletTexture;
-            this.ingameSprite = ingame;
-            this.iconSprite = icon;
+            this.BulletTexture = bulletTexture;
+            this.IngameSprite = ingame;
+            this.IconSprite = icon;
         }
 
         /// <summary>
@@ -56,6 +53,7 @@ namespace SWEN_Game._Shooting
         public Weapon Clone()
         {
             Weapon clone = new Weapon(
+                this.Name,
                 this.AttackSpeed,
                 this.ShotSpeed,
                 this.BulletSize,
@@ -65,9 +63,9 @@ namespace SWEN_Game._Shooting
                 this.MagazineSize,
                 this.ReloadTime,
                 this.Pierce,
-                this.bulletTexture,
-                this.iconSprite,
-                this.ingameSprite);
+                this.BulletTexture,
+                this.IconSprite,
+                this.IngameSprite);
             return clone;
         }
     }

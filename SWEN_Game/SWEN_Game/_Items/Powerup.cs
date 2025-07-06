@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SWEN_Game._Entities;
-using SWEN_Game._PlayerData;
+﻿using Microsoft.Xna.Framework.Graphics;
+using SWEN_Game._Interfaces;
 
 namespace SWEN_Game._Items
 {
@@ -32,8 +27,12 @@ namespace SWEN_Game._Items
         protected int magazineSizeBonus = 0;
         protected int maxHealthBonus = 0;
         protected float reloadSpeedBonus = 0;
+        protected float reloadSpeedMultBonus = 0;
         protected float speedBonus = 0;
         protected float critChance = 0;
+        protected float slowChance = 0;
+
+        protected Texture2D bulletTexture = null;
 
         public int Level { get; protected set; } = 1;
         protected int itemID = 0;
@@ -65,8 +64,15 @@ namespace SWEN_Game._Items
             _playerStats.AddBulletPierceBonus(bulletPierce);
             _playerStats.AddMagazineSizeBonus(magazineSizeBonus);
             _playerStats.AddReloadSpeedBonus(reloadSpeedBonus);
+            _playerStats.AddReloadSpeedMultBonus(reloadSpeedMultBonus);
             _playerStats.AddSpeedBonus(speedBonus);
             _playerStats.AddCritChance(critChance);
+            _playerStats.AddSlowChance(slowChance);
+
+            if (this.bulletTexture != null)
+            {
+                _playerStats.SetBulletTexture(bulletTexture);
+            }
         }
     }
 }

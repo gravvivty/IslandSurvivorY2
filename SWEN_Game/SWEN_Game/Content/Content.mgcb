@@ -213,6 +213,24 @@
 /processorParam:TextureFormat=Color
 /build:Menu/v_slidder_grabber.png
 
+#begin Music/deltaruneWorldRevolving.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/deltaruneWorldRevolving.mp3
+
+#begin Music/main.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/main.mp3
+
+#begin Music/portalRadio.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/portalRadio.mp3
+
 #begin player.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -224,6 +242,108 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:player.png
+
+#begin SFX/akShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/akShoot.wav
+
+#begin SFX/blunderbussShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/blunderbussShoot.wav
+
+#begin SFX/enemyDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/enemyDeath.wav
+
+#begin SFX/enemyHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/enemyHit.wav
+
+#begin SFX/enemyHitCrit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/enemyHitCrit.wav
+
+#begin SFX/enemyShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/enemyShoot.wav
+
+#begin SFX/levelUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/levelUp.wav
+
+#begin SFX/pistolShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/pistolShoot.wav
+
+#begin SFX/playerDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/playerDeath.wav
+
+#begin SFX/playerHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/playerHit.wav
+
+#begin SFX/precisionShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/precisionShoot.wav
+
+#begin SFX/reload.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/reload.wav
+
+#begin SFX/revolverShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/revolverShoot.wav
+
+#begin SFX/slow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/slow.wav
+
+#begin SFX/splat.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/splat.wav
+
+#begin SFX/uiConfirm.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/uiConfirm.wav
+
+#begin SFX/uiSelect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/uiSelect.wav
 
 #begin Sprites/Animated/Flag/FlagBlack16x16.png
 /importer:TextureImporter
@@ -537,6 +657,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Bullets/FlameBullet.png
 
+#begin Sprites/Bullets/ReaperBullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Bullets/ReaperBullet.png
+
 #begin Sprites/Bullets/VanillaBullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -548,6 +680,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Bullets/VanillaBullet.png
+
+#begin Sprites/Bullets/VanillaBulletBlue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Bullets/VanillaBulletBlue.png
 
 #begin Sprites/Bullets/VanillaBulletPurple.png
 /importer:TextureImporter
@@ -608,6 +752,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Entities/Bosses/mecha_stone_golem.png
+
+#begin Sprites/Entities/Bosses/reaper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Entities/Bosses/reaper.png
 
 #begin Sprites/Entities/Bosses/slime_king.png
 /importer:TextureImporter
@@ -777,7 +933,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Entities/Enemies/Dwende-Yellow.png
 
-#begin Sprites/Entities/Enemies/Ek-ek.png
+#begin Sprites/Entities/Enemies/Ekek.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -787,7 +943,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Entities/Enemies/Ek-ek.png
+/build:Sprites/Entities/Enemies/Ekek.png
 
 #begin Sprites/Entities/Enemies/Evil-Dwende.png
 /importer:TextureImporter

@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using SWEN_Game._Entities.Enemies;
-using SWEN_Game._Shooting;
-
-namespace SWEN_Game._Entities
+﻿namespace SWEN_Game._Entities
 {
     public class EnemyCollisionHandler
     {
@@ -23,9 +18,9 @@ namespace SWEN_Game._Entities
                     _player.TakeDamage(enemy.EnemyDamage);
                 }
 
-                if (enemy is Witch witch)
+                if (enemy is IBulletShooter shooter)
                 {
-                    foreach (var bullet in witch.GetBullets())
+                    foreach (var bullet in shooter.GetBullets())
                     {
                         if (bullet.IsVisible && bullet.BulletHitbox.Intersects(_player.Hitbox) && !_player.GetIsInvincible())
                         {

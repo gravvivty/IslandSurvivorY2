@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using LDtk;
-using LDtkTypes;
+﻿using LDtk;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SWEN_Game._Managers;
 using MLEM.Ui;
+using SWEN_Game._Managers;
+using SWEN_Game._Graphics;
 
 namespace SWEN_Game._Utils
 {
@@ -17,7 +15,8 @@ namespace SWEN_Game._Utils
     public static class Globals
     {
         public static float Time { get; set; }
-        public static float TotalGameTime { get; private set; }
+        public static GameTime LastGameTime { get; set; }
+        public static float TotalGameTime { get; set; }
         public static ContentManager Content { get; set; }
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
@@ -31,6 +30,8 @@ namespace SWEN_Game._Utils
         public static bool Fullscreen { get; set; } = false;
         public static bool Borderless { get; set; } = false;
         public static UiSystem UiSystem { get; set; }
+        public static GameStateManager GameStateManager { get; set; }
+        public static RenderTarget2D WinRenderTarget { get; set; }
         public static float SoundVolume { get; set; }
         public static float MusicVolume { get; set; }
 
