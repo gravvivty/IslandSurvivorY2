@@ -4,8 +4,6 @@
 
 ###### Project Type: Software Engineering Coursework
 
-###### Status: Work in Progress
-
 <p align="center">
 <img src="showcase.gif">
 </p>
