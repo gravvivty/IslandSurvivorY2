@@ -174,6 +174,6 @@ To build and run the project:
 
 - Some SFX created by me :)
 - Some SFX from Toby Fox’s *Undertale*
-- Some SFX from the `Dark Souls` Trilogy by FromSoftware
+- Some SFX from the *Dark Souls* Trilogy by FromSoftware
 
 ---
